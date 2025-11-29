@@ -79,7 +79,14 @@ export async function getAllUsers(): Promise<UserTypeWithoutPassForAdmin[]> {
         email: true,
         role: true,
         createdAt: true,
-        reservations: true,
+        reservations: {
+          select: {
+            id: true,
+            reservedAt: true,
+            courseName: true,
+            courseId: true,
+          },
+        },
         userActionLogs: true,
         instructorCourses: true,
       },

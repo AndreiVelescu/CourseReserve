@@ -127,7 +127,10 @@ export async function onCreateUser(
   }
 }
 
-export function generateConfirmationTokenUrl(email: string, password: string) {
+export async function generateConfirmationTokenUrl(
+  email: string,
+  password: string,
+) {
   const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
   const token = jwt.sign({ email, password }, JWT_SECRET, { expiresIn: "1h" });
   return `${process.env.NEXTAUTH_URL}?token=${token}`;

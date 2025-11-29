@@ -78,11 +78,17 @@ export async function createReservation(
       throw new Error("Ai deja o rezervare pentru acest curs!");
     }
 
+    const course = await prisma.course.findUnique({
+      where: { id: input.courseId },
+      select: { title: true },
+    });
+
     const reservation = await prisma.reservation.create({
       data: {
         courseId: input.courseId,
         userId: input.userId,
         reservedAt: input.reservedAt,
+        courseName: course?.title || null,
       },
       include: {
         course: true,

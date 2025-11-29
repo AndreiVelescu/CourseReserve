@@ -12,6 +12,7 @@ import {
   Chip,
   Stack,
 } from "@mui/material";
+import { Group as GroupIcon } from "@mui/icons-material";
 import { Button } from "@/components/Button";
 import { useGetCourseById } from "@/hooks/api/useGetCourseById";
 import { useRouter } from "@/i18n/routing";
@@ -22,25 +23,32 @@ import { useSnackbar } from "@/context/SnackbarContext";
 
 export default function CoursePage() {
   const { isLogged } = useIsLoggedIn();
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id as string; // ✅ Folosim id
   const router = useRouter();
   const { showSnackbar } = useSnackbar();
   const { data: currentUser } = useGetCurrentUser();
-  if (!currentUser) {
-    return null;
-  }
 
   const {
     data: course,
     isLoading,
     error,
   } = useGetCourseById({
-    variables: { id: id as string },
+    variables: { id },
     enabled: isLogged,
   });
+
   const createReservationMutation = useCreateReservationMutation();
 
   const handleReserveCourse = (courseId: string) => {
+    if (!currentUser) {
+      showSnackbar({
+        message: "Trebuie să fii autentificat pentru a rezerva un curs",
+        severity: "error",
+      });
+      return;
+    }
+
     createReservationMutation.mutate(
       {
         courseId: Number(courseId),
@@ -64,6 +72,16 @@ export default function CoursePage() {
       },
     );
   };
+
+  if (!isLogged) {
+    return (
+      <Box sx={{ maxWidth: 800, mx: "auto", mt: 8, px: 2 }}>
+        <Alert severity="warning">
+          Trebuie să fii autentificat pentru a vizualiza cursurile.
+        </Alert>
+      </Box>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -96,6 +114,10 @@ export default function CoursePage() {
     );
   }
 
+  const canManageGroups =
+    currentUser &&
+    (currentUser.role === "INSTRUCTOR" || currentUser.role === "ADMIN");
+
   return (
     <Box sx={{ maxWidth: 900, mx: "auto", mt: 6, px: 2 }}>
       {/* Buton Înapoi */}
@@ -120,7 +142,6 @@ export default function CoursePage() {
         }}
       >
         <CardContent sx={{ p: 4 }}>
-          {/* Titlu curs + categorie */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
@@ -134,7 +155,6 @@ export default function CoursePage() {
             <Chip label={course.category} color="primary" />
           </Stack>
 
-          {/* Descriere */}
           <Typography
             variant="body1"
             color="text.secondary"
@@ -151,7 +171,6 @@ export default function CoursePage() {
 
           <Divider sx={{ my: 3 }} />
 
-          {/* Info curs */}
           <Stack spacing={1} mb={3}>
             <Typography variant="body2">
               <strong>Durată:</strong> {course.durationMinutes} minute
@@ -172,11 +191,53 @@ export default function CoursePage() {
               px: 4,
             }}
             onClick={() => handleReserveCourse(course.id.toString())}
+            disabled={createReservationMutation.isPending}
           >
-            Rezervă cursul
+            {createReservationMutation.isPending
+              ? "Se rezervă..."
+              : "Rezervă cursul"}
           </Button>
         </CardContent>
       </Card>
+
+      {/* Card Grupuri - doar pentru instructori și admini */}
+      {canManageGroups && course.allowGroups && (
+        <Card sx={{ mt: 3 }}>
+          <CardContent>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Stack spacing={1}>
+                <Typography variant="h6">Grupuri de lucru</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Organizează studenții în grupuri pentru acest curs
+                </Typography>
+              </Stack>
+              <Button
+                variant="contained"
+                startIcon={<GroupIcon />}
+                onClick={() => router.push(`/courses/${id}/groups`)}
+              >
+                Gestionează Grupuri
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Mesaj dacă cursul nu permite grupuri */}
+      {canManageGroups && !course.allowGroups && (
+        <Card sx={{ mt: 3 }}>
+          <CardContent>
+            <Alert severity="info">
+              Acest curs nu permite formarea de grupuri. Pentru a activa
+              grupurile, editează setările cursului.
+            </Alert>
+          </CardContent>
+        </Card>
+      )}
     </Box>
   );
 }

@@ -19,7 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 
-type UserType = {
+export type UserType = {
   id: number;
   username: string;
   email: string;
@@ -56,6 +56,9 @@ type UserTableProps = {
     | "success"
     | "warning";
   formatDate: (date: string) => string;
+  onViewDetails: (userId: number) => void;
+  onEdit: (user: UserType) => void;
+  onDelete: (userId: number) => void;
 };
 
 export const UserTable: React.FC<UserTableProps> = ({
@@ -66,6 +69,9 @@ export const UserTable: React.FC<UserTableProps> = ({
   getRoleIcon,
   getRoleColor,
   formatDate,
+  onViewDetails,
+  onEdit,
+  onDelete,
 }) => {
   return (
     <TableContainer>
@@ -163,21 +169,15 @@ export const UserTable: React.FC<UserTableProps> = ({
                       spacing={1}
                       justifyContent="flex-end"
                     >
-                      <Tooltip title="Vizualizare">
-                        <IconButton size="small" color="info">
-                          <VisibilityIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Editare">
-                        <IconButton size="small" color="warning">
-                          <EditIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Ștergere">
-                        <IconButton size="small" color="error">
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
+                      <IconButton onClick={() => onViewDetails(user.id)}>
+                        <VisibilityIcon />
+                      </IconButton>
+                      <IconButton onClick={() => onEdit(user)}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton onClick={() => onDelete(user.id)}>
+                        <DeleteIcon />
+                      </IconButton>
                     </Stack>
                   </TableCell>
                 </TableRow>

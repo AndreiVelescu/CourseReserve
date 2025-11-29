@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -32,18 +32,37 @@ import { useIsAdmin } from "@/hooks/api/useIsAdmin";
 import { useRouter } from "@/i18n/routing";
 import { useGetAllUserLogs } from "@/hooks/api/useGetUserLogsById";
 import { UserLogs } from "./components/UserLogs";
-import { UserTable } from "./components/UserTable";
+import { UserTable, UserType } from "./components/UserTable";
+import {
+  EditUserDialog,
+  CreateUserDialog,
+  ViewUserDetailsDialog,
+} from "./components/AdminDialogs";
 
 function AdminPage() {
   const isAdmin = useIsAdmin();
   const router = useRouter();
+
+  // State pentru filtre și căutare
   const [searchTerm, setSearchTerm] = React.useState("");
   const [roleFilter, setRoleFilter] = React.useState("ALL");
+
+  // State pentru logs
   const [selectedUserId, setSelectedUserId] = React.useState<number | null>(
     null,
   );
   const [logsDialogOpen, setLogsDialogOpen] = React.useState(false);
 
+  // State pentru Editare
+  const [editUserDialogOpen, setEditUserDialogOpen] = useState(false);
+  const [userToEdit, setUserToEdit] = useState<any>(null);
+
+  // State pentru Creare (NOU)
+  const [createUserDialogOpen, setCreateUserDialogOpen] = useState(false);
+  const [viewUserDialogOpen, setViewUserDialogOpen] = useState(false);
+  const [userToView, setUserToView] = useState<any>(null);
+
+  // API Hooks
   const { data, isLoading, error } = useGetAllUsers();
   const {
     data: allUserLogs,
@@ -51,12 +70,14 @@ function AdminPage() {
     error: errorLogs,
   } = useGetAllUserLogs();
 
+  // Redirecționare dacă nu e admin
   useEffect(() => {
     if (!isAdmin) {
       router.push("/login");
     }
   }, [isAdmin, router]);
 
+  // Filtrare utilizatori
   const filteredUsers = React.useMemo(() => {
     if (!data) return [];
     return data.filter((user) => {
@@ -68,10 +89,13 @@ function AdminPage() {
     });
   }, [data, searchTerm, roleFilter]);
 
+  // Logs filtrare
   const selectedUserLogs = React.useMemo(() => {
     if (!selectedUserId || !allUserLogs) return [];
     return allUserLogs.filter((log) => log.userId === selectedUserId);
   }, [selectedUserId, allUserLogs]);
+
+  // --- HANDLERS ---
 
   const handleOpenLogs = (userId: number) => {
     setSelectedUserId(userId);
@@ -83,16 +107,80 @@ function AdminPage() {
     setSelectedUserId(null);
   };
 
+  const handleViewDetails = (userId: number) => {
+    const userFound = data?.find((u) => u.id === userId);
+
+    if (userFound) {
+      setUserToView(userFound);
+      setViewUserDialogOpen(true);
+    }
+  };
+
+  // Handler deschidere dialog editare
+  const handleEditUser = (user: UserType) => {
+    setUserToEdit(user);
+    setEditUserDialogOpen(true);
+  };
+
+  // (NOU) Handler submit editare - aceasta lipsea
+  const handleEditUserSubmit = async (formData: {
+    userId: number;
+    username?: string;
+    email?: string;
+    role?: "STUDENT" | "INSTRUCTOR" | "ADMIN";
+    isActive?: boolean;
+  }) => {
+    console.log("Submitting edit for user:", formData);
+    try {
+      // Aici apelezi hook-ul sau funcția de API pentru update
+      // await updateUserMutation(formData);
+
+      setEditUserDialogOpen(false);
+      setUserToEdit(null);
+      // Opțional: reîncarcă datele (data.refetch() dacă folosești React Query)
+    } catch (err) {
+      console.error("Failed to update user", err);
+    }
+  };
+
+  // (NOU) Handler submit creare user
+  const handleCreateUserSubmit = async (formData: {
+    username: string;
+    email: string;
+    password: string;
+    role: "STUDENT" | "INSTRUCTOR" | "ADMIN";
+  }) => {
+    console.log("Creating new user:", formData);
+    try {
+      // Aici apelezi API-ul de creare
+      // await createUserMutation(formData);
+
+      setCreateUserDialogOpen(false);
+    } catch (err) {
+      console.error("Failed to create user", err);
+    }
+  };
+
+  // Handler ștergere
+  const handleDeleteUser = async (userId: number) => {
+    if (window.confirm("Ești sigur că vrei să ștergi acest utilizator?")) {
+      console.log("Delete user confirmed", userId);
+      // Aici apelezi API-ul de delete
+      // await deleteUserMutation(userId);
+    }
+  };
+
+  // Utilitare UI
   const getRoleColor = (role: string) => {
     switch (role) {
       case "ADMIN":
-        return "error" as const;
+        return "error";
       case "INSTRUCTOR":
-        return "primary" as const;
+        return "primary";
       case "STUDENT":
-        return "default" as const;
+        return "default";
       default:
-        return "default" as const;
+        return "default";
     }
   };
 
@@ -110,18 +198,14 @@ function AdminPage() {
   };
 
   const getActionTypeColor = (actionType: string) => {
-    if (actionType.includes("CREATE") || actionType.includes("ADD")) {
+    if (actionType.includes("CREATE") || actionType.includes("ADD"))
       return "success";
-    }
-    if (actionType.includes("DELETE") || actionType.includes("REMOVE")) {
+    if (actionType.includes("DELETE") || actionType.includes("REMOVE"))
       return "error";
-    }
-    if (actionType.includes("UPDATE") || actionType.includes("EDIT")) {
+    if (actionType.includes("UPDATE") || actionType.includes("EDIT"))
       return "warning";
-    }
-    if (actionType.includes("VIEW") || actionType.includes("GET")) {
+    if (actionType.includes("VIEW") || actionType.includes("GET"))
       return "info";
-    }
     return "default";
   };
 
@@ -153,6 +237,7 @@ function AdminPage() {
       .toUpperCase();
   };
 
+  // Statistici
   const stats = React.useMemo(() => {
     if (!data) return [];
     return [
@@ -183,6 +268,7 @@ function AdminPage() {
     ];
   }, [data]);
 
+  // Loading / Error UI
   if (!isAdmin) {
     return (
       <Box
@@ -191,7 +277,6 @@ function AdminPage() {
           justifyContent: "center",
           alignItems: "center",
           minHeight: "100vh",
-          bgcolor: "background.default",
         }}
       >
         <Typography>Redirecționare...</Typography>
@@ -207,54 +292,18 @@ function AdminPage() {
           justifyContent: "center",
           alignItems: "center",
           minHeight: "100vh",
-          bgcolor: "background.default",
         }}
       >
-        <Stack alignItems="center" spacing={2}>
-          <CircularProgress size={60} />
-          <Typography variant="h6" color="text.secondary">
-            Se încarcă utilizatorii...
-          </Typography>
-        </Stack>
+        <CircularProgress size={60} />
       </Box>
     );
   }
 
   if (error) {
     return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-          bgcolor: "background.default",
-          p: 3,
-        }}
-      >
-        <Card sx={{ maxWidth: 500, width: "100%" }}>
-          <CardContent>
-            <Stack spacing={2} alignItems="center">
-              <Avatar sx={{ bgcolor: "error.main", width: 64, height: 64 }}>
-                <AdminIcon sx={{ fontSize: 32 }} />
-              </Avatar>
-              <Typography variant="h5" fontWeight="bold">
-                Eroare la încărcare
-              </Typography>
-              <Typography color="text.secondary" textAlign="center">
-                Nu am putut încărca datele utilizatorilor. Vă rugăm încercați
-                din nou.
-              </Typography>
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => window.location.reload()}
-              >
-                Reîncearcă
-              </Button>
-            </Stack>
-          </CardContent>
-        </Card>
+      <Box sx={{ p: 3, display: "flex", justifyContent: "center" }}>
+        <Typography color="error">Eroare la încărcare date.</Typography>
+        <Button onClick={() => window.location.reload()}>Reîncearcă</Button>
       </Box>
     );
   }
@@ -297,7 +346,11 @@ function AdminPage() {
               <Button variant="outlined" startIcon={<DownloadIcon />}>
                 Export
               </Button>
-              <Button variant="contained" startIcon={<PersonAddIcon />}>
+              <Button
+                variant="contained"
+                startIcon={<PersonAddIcon />}
+                onClick={() => setCreateUserDialogOpen(true)} // Am conectat butonul
+              >
                 Adaugă Utilizator
               </Button>
             </Stack>
@@ -383,10 +436,45 @@ function AdminPage() {
             getRoleIcon={getRoleIcon}
             getRoleColor={getRoleColor}
             formatDate={formatDate}
+            onViewDetails={handleViewDetails}
+            onEdit={handleEditUser}
+            onDelete={handleDeleteUser}
           />
         </Card>
+
+        {/* Dialog Editare */}
+        {userToEdit && (
+          <EditUserDialog
+            open={editUserDialogOpen}
+            onClose={() => setEditUserDialogOpen(false)}
+            user={userToEdit}
+            onSubmit={handleEditUserSubmit}
+            isLoading={false}
+          />
+        )}
+
+        {/* Dialog Creare (NOU) */}
+        <CreateUserDialog
+          open={createUserDialogOpen}
+          onClose={() => setCreateUserDialogOpen(false)}
+          onSubmit={handleCreateUserSubmit}
+          isLoading={false}
+        />
+        {userToView && (
+          <ViewUserDetailsDialog
+            open={viewUserDialogOpen}
+            onClose={() => {
+              setViewUserDialogOpen(false);
+              setUserToView(null);
+            }}
+            userId={userToView.id}
+            userDetails={userToView}
+            isLoading={false}
+          />
+        )}
       </Box>
 
+      {/* Dialog Logs */}
       <UserLogs
         logsDialogOpen={logsDialogOpen}
         handleCloseLogs={handleCloseLogs}

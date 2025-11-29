@@ -27,9 +27,10 @@ model User {
   isActive      Boolean   @default(true) @map("is_active")
   role          UserRole  @default(STUDENT)
   
-  reservations  Reservation[]
-  instructorCourses Course[] @relation("InstructorCourses")
-  userActionLogs UserActionLog[]
+  reservations       Reservation[]
+  instructorCourses  Course[] @relation("InstructorCourses")
+  userActionLogs     UserActionLog[]
+  groupMemberships   GroupMember[]
   
   // Token pentru resetare parolă
   resetToken       String?   @map("reset_token")
@@ -37,11 +38,6 @@ model User {
   
   @@map("users")
 }
-
-
-
-
-
 
 enum Category {
   PROGRAMMING
@@ -60,11 +56,14 @@ model Course {
   instructorId    Int       @map("instructor_id")
   startDate       DateTime  @map("start_date")
   durationMinutes Int       @map("duration_minutes")
+  maxStudents     Int?      @default(30) @map("max_students") // Limită studenți per curs
+  allowGroups     Boolean   @default(true) @map("allow_groups") // Permite formarea de grupuri
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime? @updatedAt @map("updated_at")
   
   instructor      User         @relation("InstructorCourses", fields: [instructorId], references: [id])
   reservations    Reservation[]
+  groups          Group[]
   
   @@map("courses")
 }
@@ -75,6 +74,7 @@ model Reservation {
   userId      Int      @map("user_id")
   courseId    Int      @map("course_id")
   reservedAt  DateTime @default(now()) @map("reserved_at")
+  courseName  String?  @map("course_name")
   
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -84,15 +84,57 @@ model Reservation {
 }
 
 // ============================================
+// GRUPURI PENTRU CURSURI
+// ============================================
+
+enum GroupStatus {
+  ACTIVE      // Grupul este activ
+  ARCHIVED    // Grupul a fost arhivat
+  CANCELLED   // Grupul a fost anulat
+}
+
+model Group {
+  id          Int         @id @default(autoincrement())
+  name        String      // Ex: "Grup A - Programare", "Echipa 1"
+  description String?     @db.Text
+  courseId    Int         @map("course_id")
+  maxMembers  Int?        @default(10) @map("max_members") // Limită membri per grup
+  minMembers  Int?        @default(2) @map("min_members")  // Număr minim membri pentru activare
+  status      GroupStatus @default(ACTIVE)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime?   @updatedAt @map("updated_at")
+  
+  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  members     GroupMember[]
+  
+  @@map("groups")
+}
+
+model GroupMember {
+  id         Int      @id @default(autoincrement())
+  groupId    Int      @map("group_id")
+  userId     Int      @map("user_id")
+  joinedAt   DateTime @default(now()) @map("joined_at")
+  isLeader   Boolean  @default(false) @map("is_leader") 
+  
+  group      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([groupId, userId]) // Un utilizator poate fi într-un singur grup per curs
+  @@map("group_members")
+}
+
+// ============================================
 // LOGURI - ACȚIUNI UTILIZATORI
 // ============================================
 model UserActionLog {
   id            Int       @id @default(autoincrement())
   userId        Int?      @map("user_id")
-  actionType    String    @map("action_type") // "LOGIN", "RESERVE_COURSE", "CANCEL_RESERVATION", "CREATE_COURSE"
+  actionType    String    @map("action_type") // "LOGIN", "RESERVE_COURSE", "CREATE_GROUP", "JOIN_GROUP"
   actionDetails String?   @db.Text @map("action_details")
   ipAddress     String?   @map("ip_address")
   userAgent     String?   @db.Text @map("user_agent")
+  timestamp     DateTime  @default(now())
   createdAt     DateTime  @default(now()) @map("created_at")
   
   user          User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
@@ -105,7 +147,7 @@ model UserActionLog {
 // ============================================
 model AppErrorLog {
   id         Int      @id @default(autoincrement())
-  errorType  String   @map("error_type") // "DatabaseException", "NullPointerException"
+  errorType  String   @map("error_type")
   message    String   @db.Text
   stackTrace String?  @db.LongText @map("stack_trace")
   url        String?
@@ -119,8 +161,8 @@ model AppErrorLog {
 // ============================================
 model HttpErrorLog {
   id         Int      @id @default(autoincrement())
-  statusCode Int      @map("status_code") // 400, 401, 403, 404, 500, 503
-  method     String   // "GET", "POST", "PUT", "DELETE"
+  statusCode Int      @map("status_code")
+  method     String
   url        String
   ipAddress  String?  @map("ip_address")
   message    String?  @db.Text
@@ -129,5 +171,3 @@ model HttpErrorLog {
   
   @@map("http_error_logs")
 }
-
-

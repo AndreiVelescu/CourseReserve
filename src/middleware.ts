@@ -25,8 +25,6 @@ const getClientIP = (req: NextRequest) => {
 
 const logHttp = async (data: any, origin: string) => {
   try {
-    // Trimite log către endpoint intern Node.js
-
     await fetch(`${origin}/api/log-http`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,7 +45,6 @@ export default withAuth(
     const ip = getClientIP(req);
     const userAgent = req.headers.get("user-agent") || "";
 
-    // Admin restriction
     if (pathname.includes("admin") && sessionToken?.role !== UserRole.ADMIN) {
       await logHttp(
         {
@@ -77,6 +74,49 @@ export default withAuth(
         req.nextUrl.origin,
       );
       return NextResponse.redirect(redirectUrl(`/${locale}/`));
+    }
+
+    const groupsPathRegex = /\/(en|ro|ru)\/courses\/\d+\/groups/;
+    if (groupsPathRegex.test(pathname)) {
+      if (!sessionToken) {
+        await logHttp(
+          {
+            statusCode: 401,
+            method: "GET",
+            url: pathname,
+            ipAddress: ip,
+            message: "Unauthorized access to groups - not logged in",
+            userAgent,
+          },
+          req.nextUrl.origin,
+        );
+        return NextResponse.redirect(redirectUrl(`/${locale}/login`));
+      }
+
+      if (
+        sessionToken.role !== UserRole.INSTRUCTOR &&
+        sessionToken.role !== UserRole.ADMIN
+      ) {
+        await logHttp(
+          {
+            statusCode: 403,
+            method: "GET",
+            url: pathname,
+            ipAddress: ip,
+            message: `Unauthorized access to groups - role: ${sessionToken.role}`,
+            userAgent,
+          },
+          req.nextUrl.origin,
+        );
+
+        // Extrage courseId din pathname pentru redirect
+        const courseIdMatch = pathname.match(/\/courses\/(\d+)\//);
+        const courseId = courseIdMatch ? courseIdMatch[1] : "";
+
+        return NextResponse.redirect(
+          redirectUrl(`/${locale}/courses${courseId ? `/${courseId}` : ""}`),
+        );
+      }
     }
 
     // Routes without locale prefix

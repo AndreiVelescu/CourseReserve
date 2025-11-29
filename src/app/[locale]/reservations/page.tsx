@@ -1,7 +1,10 @@
 "use client";
 
 import { useGetAllReservations } from "@/hooks/api/useGetAllReservations";
+import { useDeleteReservation } from "@/hooks/api/useDeleteReservation";
 import { useIsLoggedIn } from "@/hooks/useIsLoggedIn";
+import { useSnackbar } from "@/context/SnackbarContext";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Box,
   Typography,
@@ -13,19 +16,56 @@ import {
   Divider,
   Chip,
   Stack,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
+import { Delete as DeleteIcon } from "@mui/icons-material";
 import { Button } from "@/components/Button";
 import { useRouter } from "@/i18n/routing";
-import Link from "next/link";
 import { useEffect } from "react";
 
 export default function ReservationsPage() {
   const { isLogged } = useIsLoggedIn();
-  useEffect(() => {
-    router.refresh();
-  }, [isLogged]);
   const { data: reservations, isLoading, error } = useGetAllReservations();
   const router = useRouter();
+  const { showSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (isLogged) {
+      router.refresh();
+    }
+  }, [isLogged, router]);
+
+  const deleteReservationMutation = useDeleteReservation({
+    onSuccess: () => {
+      showSnackbar({
+        message: "Rezervare ștearsă cu succes!",
+        severity: "success",
+      });
+
+      queryClient.invalidateQueries({ queryKey: ["getReservations"] });
+    },
+    onError: (error) => {
+      showSnackbar({
+        message: error.message || "Eroare la ștergerea rezervării",
+        severity: "error",
+      });
+    },
+  });
+
+  const handleDeleteReservation = (
+    reservationId: number,
+    courseTitle: string,
+  ) => {
+    if (
+      confirm(
+        `Sigur vrei să ștergi rezervarea pentru cursul "${courseTitle}"? Această acțiune este ireversibilă.`,
+      )
+    ) {
+      deleteReservationMutation.mutate(reservationId);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -49,6 +89,7 @@ export default function ReservationsPage() {
       </Box>
     );
   }
+
   if (!isLogged) {
     return (
       <Box
@@ -83,12 +124,34 @@ export default function ReservationsPage() {
 
   return (
     <Box sx={{ maxWidth: 1100, mx: "auto", mt: 6, px: 2 }}>
-      <Typography variant="h4" sx={{ fontWeight: 700, mb: 3 }}>
-        Rezervările tale
-      </Typography>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
+        <Typography variant="h4" sx={{ fontWeight: 700 }}>
+          Rezervările tale
+        </Typography>
+        <Button variant="outlined" onClick={() => router.push("/courses")}>
+          Explorează cursuri
+        </Button>
+      </Stack>
 
       {!reservations || reservations.length === 0 ? (
-        <Alert severity="info">Nu ai rezervări momentan.</Alert>
+        <Card>
+          <CardContent sx={{ textAlign: "center", py: 6 }}>
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              Nu ai rezervări momentan
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              Explorează cursurile disponibile și rezervă locul tău!
+            </Typography>
+            <Button variant="contained" onClick={() => router.push("/courses")}>
+              Vezi cursurile
+            </Button>
+          </CardContent>
+        </Card>
       ) : (
         <Grid container spacing={3}>
           {reservations.map((res) => (
@@ -109,17 +172,33 @@ export default function ReservationsPage() {
                   <Stack
                     direction="row"
                     justifyContent="space-between"
-                    alignItems="center"
+                    alignItems="flex-start"
                     mb={1}
                   >
-                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                      {res.course.title}
-                    </Typography>
-                    <Chip
-                      label={res.course.category}
-                      color="primary"
-                      size="small"
-                    />
+                    <Box flex={1}>
+                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        {res.course.title}
+                      </Typography>
+                    </Box>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Chip
+                        label={res.course.category}
+                        color="primary"
+                        size="small"
+                      />
+                      <Tooltip title="Șterge rezervarea">
+                        <IconButton
+                          size="small"
+                          color="error"
+                          onClick={() =>
+                            handleDeleteReservation(res.id, res.course.title)
+                          }
+                          disabled={deleteReservationMutation.isPending}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </Stack>
                   </Stack>
 
                   <Typography
@@ -148,6 +227,10 @@ export default function ReservationsPage() {
                       {new Date(res.course.startDate).toLocaleDateString(
                         "ro-RO",
                       )}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      <strong>Rezervat:</strong>{" "}
+                      {new Date(res.reservedAt).toLocaleDateString("ro-RO")}
                     </Typography>
                   </Stack>
 
