@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
@@ -26,6 +27,8 @@ export async function getReservationById(id: string) {
   const userAgent = getUserAgent();
 
   try {
+    await applyRateLimit(ip, "api");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -69,7 +72,6 @@ export async function getReservationById(id: string) {
       throw new Error("Rezervarea nu a fost găsită");
     }
 
-    // Log acțiunea utilizatorului
     await logUserAction({
       userId: user?.id || null,
       actionType: "VIEW_RESERVATION",
@@ -93,6 +95,18 @@ export async function getReservationById(id: string) {
       },
     };
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "GET",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     if (!(error instanceof Error && error.message === "Not authenticated")) {

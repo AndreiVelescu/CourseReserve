@@ -9,12 +9,14 @@ import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
 
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
+
 import { headers } from "next/headers";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
   let ip = forwarded ? forwarded.split(",")[0].trim() : "::1";
-  if (ip === "::1") ip = "127.0.0.1"; // Convert IPv6 localhost to IPv4
+  if (ip === "::1") ip = "127.0.0.1";
   return ip;
 }
 
@@ -28,6 +30,8 @@ export async function updatePassword(newPassword: string, oldPassword: string) {
   const userAgent = getUserAgent();
 
   try {
+    await applyRateLimit(ip, "auth");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -69,7 +73,6 @@ export async function updatePassword(newPassword: string, oldPassword: string) {
       data: { passwordHash: hashedPassword },
     });
 
-    // Log acțiunea utilizatorului
     await logUserAction({
       userId: user?.id || null,
       actionType: "UPDATE_PASSWORD",
@@ -80,6 +83,18 @@ export async function updatePassword(newPassword: string, oldPassword: string) {
 
     return true;
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "POST",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     if (

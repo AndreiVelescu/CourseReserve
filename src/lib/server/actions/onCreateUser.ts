@@ -13,6 +13,8 @@ import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
 
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
+
 const saltRounds = 10;
 
 function getClientIP() {
@@ -34,6 +36,8 @@ export async function onCreateUser(
   const userAgent = getUserAgent();
 
   try {
+    await applyRateLimit(ip, "auth");
+
     const hashedPassword = await hash(input.password, saltRounds);
     const username = input.email.split("@")[0];
 
@@ -65,7 +69,6 @@ export async function onCreateUser(
       },
     });
 
-    // Log
     await logUserAction({
       userId: user.id,
       actionType: "CREATE_USER",
@@ -74,7 +77,6 @@ export async function onCreateUser(
       userAgent,
     });
 
-    // Optional: trimite email de confirmare
     try {
       await getEmailService().sendMail({
         to: input.email,
@@ -96,6 +98,18 @@ export async function onCreateUser(
       role: user.role,
     };
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "POST",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     if (!(error instanceof Error && error.message.includes("already exists"))) {
@@ -113,7 +127,6 @@ export async function onCreateUser(
   }
 }
 
-// Funcție helper pentru generarea tokenului de confirmare (poate fi folosită ulterior)
 export function generateConfirmationTokenUrl(email: string, password: string) {
   const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
   const token = jwt.sign({ email, password }, JWT_SECRET, { expiresIn: "1h" });

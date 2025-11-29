@@ -9,6 +9,7 @@ import { CreateCourseOutputType } from "./types";
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 export type ReservationWithCourse = {
   id: number;
@@ -37,6 +38,7 @@ export async function getAllReservations(): Promise<
   const userAgent = getUserAgent();
 
   try {
+    const rateLimitInfo = await applyRateLimit(ip, "api");
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -74,16 +76,18 @@ export async function getAllReservations(): Promise<
 
     return reservations as ReservationWithCourse[];
   } catch (error: any) {
-    await logAppError(error, url);
-
-    await logHttpError(
-      500,
-      "GET",
-      url,
-      ip,
-      error instanceof Error ? error.message : "Unknown server error",
-      userAgent,
-    );
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "GET",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+    } else {
+      await logAppError(error, url);
+    }
 
     throw error instanceof Error
       ? error

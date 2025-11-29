@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
@@ -26,6 +27,8 @@ export async function getAllCourses() {
   const userAgent = getUserAgent();
 
   try {
+    await applyRateLimit(ip, "api");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -38,20 +41,20 @@ export async function getAllCourses() {
         "User not authenticated",
         userAgent,
       );
-      return null;
+      throw new Error("Not authenticated");
     }
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       await logHttpError(404, "GET", url, ip, "User not found", userAgent);
-      return null;
+      throw new Error("User not found");
     }
 
     const courses = await prisma.course.findMany();
 
     // Log acțiunea utilizatorului
     await logUserAction({
-      userId: user?.id || null,
+      userId: user.id,
       actionType: "VIEW_COURSES",
       actionDetails: `Fetched all courses`,
       ipAddress: ip,
@@ -60,6 +63,18 @@ export async function getAllCourses() {
 
     return courses;
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "GET",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     await logHttpError(

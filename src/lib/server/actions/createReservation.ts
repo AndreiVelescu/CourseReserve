@@ -12,6 +12,7 @@ import {
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
@@ -32,6 +33,9 @@ export async function createReservation(
   const userAgent = getUserAgent();
 
   try {
+    // Rate limiter
+    await applyRateLimit(ip, "strict");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -46,6 +50,7 @@ export async function createReservation(
       );
       throw new Error("Not authenticated");
     }
+
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       await logHttpError(404, "POST", url, ip, "User not found", userAgent);
@@ -87,8 +92,7 @@ export async function createReservation(
 
     // Log acțiunea utilizatorului
     await logUserAction({
-      userId: user?.id || null,
-
+      userId: user.id,
       actionType: "CREATE_RESERVATION",
       actionDetails: `Created reservation for courseId: ${input.courseId}`,
       ipAddress: ip,
@@ -97,6 +101,18 @@ export async function createReservation(
 
     return reservation as unknown as CreateReservationOutputType;
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "POST",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     if (!(error instanceof Error && error.message === "Not authenticated")) {

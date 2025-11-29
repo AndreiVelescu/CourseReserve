@@ -9,6 +9,7 @@ import { UserTypeWithoutPass } from "./types";
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
@@ -27,6 +28,9 @@ export async function deleteUserById(id: number): Promise<UserTypeWithoutPass> {
   const userAgent = getUserAgent();
 
   try {
+    // Rate limiter
+    await applyRateLimit(ip, "strict");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -34,6 +38,7 @@ export async function deleteUserById(id: number): Promise<UserTypeWithoutPass> {
       await logHttpError(401, "DELETE", url, ip, "Not logged in", userAgent);
       throw new Error("Not logged in!");
     }
+
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       await logHttpError(404, "DELETE", url, ip, "User not found", userAgent);
@@ -48,7 +53,7 @@ export async function deleteUserById(id: number): Promise<UserTypeWithoutPass> {
 
     // Log acțiunea utilizatorului
     await logUserAction({
-      userId: user?.id || null,
+      userId: user.id,
       actionType: "DELETE_USER",
       actionDetails: `Deleted user with id: ${id}`,
       ipAddress: ip,
@@ -57,6 +62,18 @@ export async function deleteUserById(id: number): Promise<UserTypeWithoutPass> {
 
     return deletedUser as unknown as UserTypeWithoutPass;
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "DELETE",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     await logHttpError(

@@ -1,4 +1,11 @@
-import { Category, Prisma, UserRole } from "@prisma/client";
+import {
+  Category,
+  Course,
+  Prisma,
+  Reservation,
+  UserActionLog,
+  UserRole,
+} from "@prisma/client";
 
 export type ThrowErrorType = {
   error: string;
@@ -8,11 +15,24 @@ export type UserTypeWithoutPass = {
   id: number;
   email: string;
   phone: string;
-
+  username: string;
   role: UserRole;
   createdAt: Date;
   updatedAt: Date;
   active: boolean;
+};
+export type UserTypeWithoutPassForAdmin = {
+  id: number;
+  email: string;
+  phone: string;
+  username: string;
+  role: UserRole;
+  createdAt: Date;
+  updatedAt: Date;
+  active: boolean;
+  reservations: Reservation[];
+  instructorCourses: Course[];
+  userActionLogs: UserActionLog[];
 };
 
 export type UserTypeWithoutPassAndId = {

@@ -2,7 +2,7 @@
 import { withAuth } from "next-auth/middleware";
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { HttpErrorLog, UserRole } from "@prisma/client";
+import { UserRole } from "@prisma/client";
 import { routing } from "./i18n/routing";
 
 const getPreferredLocale = (req: NextRequest) => {

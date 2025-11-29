@@ -9,6 +9,8 @@ import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
 
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
+
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 const REFRESH_TOKEN_SECRET =
   process.env.REFRESH_TOKEN_SECRET || "your-refresh-secret-key";
@@ -34,6 +36,8 @@ export async function onUserLogin(
   const userAgent = getUserAgent();
 
   try {
+    await applyRateLimit(ip, "auth");
+
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
@@ -71,7 +75,6 @@ export async function onUserLogin(
       throw new Error("Parolă incorectă");
     }
 
-    // Generare tokenuri
     const accessToken = sign(
       {
         userId: user.id,
@@ -90,7 +93,6 @@ export async function onUserLogin(
       { expiresIn: "7d" },
     );
 
-    // Log login reușit
     await logUserAction({
       userId: user.id,
       actionType: "LOGIN_SUCCESS",
@@ -109,6 +111,18 @@ export async function onUserLogin(
       },
     };
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "POST",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     if (!(error instanceof Error && error.message === "Parolă incorectă")) {

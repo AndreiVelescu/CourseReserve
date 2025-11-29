@@ -4,12 +4,12 @@ import { prisma } from "db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
-// Funcții de logging
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
 
-// Helpers pentru IP și User-Agent
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
+
 import { headers } from "next/headers";
 
 function getClientIP() {
@@ -29,6 +29,8 @@ export async function updateUsername(newUsername: string) {
   const userAgent = getUserAgent();
 
   try {
+    await applyRateLimit(ip, "auth");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -49,7 +51,6 @@ export async function updateUsername(newUsername: string) {
       data: { username: newUsername },
     });
 
-    // Log acțiunea utilizatorului
     await logUserAction({
       userId: user?.id || null,
       actionType: "UPDATE_USERNAME",
@@ -60,10 +61,20 @@ export async function updateUsername(newUsername: string) {
 
     return user;
   } catch (error: any) {
-    // Log eroare internă
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "POST",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw new Error("Prea multe cereri, încearcă din nou mai târziu.");
+    }
+
     await logAppError(error, url);
 
-    // Dacă eroarea nu e de autentificare, logăm HTTP 500
     if (!(error instanceof Error && error.message === "Nu ești autentificat")) {
       await logHttpError(
         500,

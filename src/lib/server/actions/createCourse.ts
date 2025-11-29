@@ -9,6 +9,7 @@ import { CreateCourseInputType, CreateCourseOutputType } from "./types";
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
@@ -29,6 +30,9 @@ export async function createCourse(
   const userAgent = getUserAgent();
 
   try {
+    // Rate limiter
+    await applyRateLimit(ip, "strict");
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -43,6 +47,7 @@ export async function createCourse(
       );
       throw new Error("Not authenticated");
     }
+
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       await logHttpError(404, "POST", url, ip, "User not found", userAgent);
@@ -81,7 +86,7 @@ export async function createCourse(
 
     // Log acțiunea utilizatorului
     await logUserAction({
-      userId: user?.id || null,
+      userId: user.id,
       actionType: "CREATE_COURSE",
       actionDetails: `Created course: ${input.title}`,
       ipAddress: ip,
@@ -90,6 +95,18 @@ export async function createCourse(
 
     return createdCourse as unknown as CreateCourseOutputType;
   } catch (error: any) {
+    if (error instanceof RateLimitError) {
+      await logHttpError(
+        429,
+        "POST",
+        url,
+        ip,
+        `Rate limit exceeded: ${error.message}`,
+        userAgent,
+      );
+      throw error;
+    }
+
     await logAppError(error, url);
 
     if (!(error instanceof Error && error.message === "Not authenticated")) {

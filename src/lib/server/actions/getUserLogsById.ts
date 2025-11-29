@@ -1,13 +1,13 @@
 "use server";
 
 import { prisma } from "db";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { headers } from "next/headers";
-
 import { logUserAction } from "../logs/logUserAction";
 import { logAppError } from "../logs/logAppError";
 import { logHttpError } from "../logs/logHttpError";
+import { UserActionLog, UserRole } from "@prisma/client";
 import { applyRateLimit, RateLimitError } from "@/lib/ratelimiter";
 
 function getClientIP() {
@@ -21,8 +21,8 @@ function getUserAgent() {
   return headers().get("user-agent") || "unknown";
 }
 
-export async function getCourseById(id: string) {
-  const url = "/api/course/getCourseById";
+export async function getAllUserLogs(): Promise<UserActionLog[]> {
+  const url = "/api/admin/getAllUserLogs";
   const ip = getClientIP();
   const userAgent = getUserAgent();
 
@@ -33,48 +33,53 @@ export async function getCourseById(id: string) {
     const email = session?.user?.email;
 
     if (!email) {
-      await logHttpError(
-        401,
-        "GET",
-        url,
-        ip,
-        "User not authenticated",
-        userAgent,
-      );
-      throw new Error("Not authenticated");
+      await logHttpError(401, "GET", url, ip, "User not logged in", userAgent);
+      throw new Error("Not logged in!");
     }
 
-    const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) {
-      await logHttpError(404, "GET", url, ip, "User not found", userAgent);
-      throw new Error("User not found");
-    }
-
-    const course = await prisma.course.findUnique({
-      where: { id: Number(id) },
+    const currentUser = await prisma.user.findUnique({
+      where: { email },
+      select: { id: true, role: true },
     });
 
-    if (!course) {
+    if (!currentUser) {
       await logHttpError(
         404,
         "GET",
         url,
         ip,
-        `Course with id ${id} not found`,
+        `User with email ${email} not found`,
         userAgent,
       );
-      throw new Error("Course not found");
+      throw new Error("User not found");
     }
 
+    if (currentUser.role !== UserRole.ADMIN) {
+      await logHttpError(
+        403,
+        "GET",
+        url,
+        ip,
+        `Access forbidden for user ${email}`,
+        userAgent,
+      );
+      throw new Error("Access forbidden");
+    }
+
+    const allLogs = await prisma.userActionLog.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 1000,
+    });
+
     await logUserAction({
-      userId: user?.id || null,
-      actionType: "VIEW_COURSE",
-      actionDetails: `Accessed course id: ${id}`,
+      userId: currentUser.id,
+      actionType: "VIEW_ALL_USER_LOGS",
+      actionDetails: `Admin ${email} accessed all user logs`,
       ipAddress: ip,
       userAgent,
     });
 
-    return course;
+    return allLogs;
   } catch (error: any) {
     if (error instanceof RateLimitError) {
       await logHttpError(
@@ -90,7 +95,13 @@ export async function getCourseById(id: string) {
 
     await logAppError(error, url);
 
-    if (!(error instanceof Error && error.message === "Not authenticated")) {
+    if (
+      !(
+        error instanceof Error &&
+        (error.message === "Not logged in!" ||
+          error.message === "Access forbidden")
+      )
+    ) {
       await logHttpError(
         500,
         "GET",
@@ -101,6 +112,6 @@ export async function getCourseById(id: string) {
       );
     }
 
-    throw error instanceof Error ? error : new Error("Failed to get course");
+    throw error instanceof Error ? error : new Error("Failed to get logs");
   }
 }
