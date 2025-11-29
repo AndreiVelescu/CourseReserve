@@ -1,0 +1,172 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": null
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "import"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+    "import/ignore": ["node_modules", "\\.(coffee|scss|css|less|hbs|svg)$"]
+  },
+  "ignorePatterns": ["generated/*", ".next/*", "out/*", "node_modules/*"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "for-direction": "error",
+    "no-cond-assign": ["error", "always"],
+    "import/no-duplicates": "error",
+    "no-self-compare": "error",
+    "no-template-curly-in-string": "warn",
+    "no-unmodified-loop-condition": "warn",
+    "no-unreachable-loop": "error",
+    "no-use-before-define": [
+      "warn",
+      {
+        "functions": false,
+        "classes": true,
+        "variables": true,
+        "allowNamedExports": false
+      }
+    ],
+    "block-scoped-var": "error",
+    "camelcase": "off",
+    "curly": ["warn", "all"],
+    "default-case": "warn",
+    "default-case-last": "error",
+    "default-param-last": "error",
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
+    "id-denylist": [
+      "warn",
+      "e",
+      "err",
+      "ex",
+      "v",
+      "val",
+      "cb",
+      "fn",
+      "func",
+      "i",
+      "j",
+      "k",
+      "n",
+      "arr",
+      "obj",
+      "tmp",
+      "temp",
+      "var",
+      "x",
+      "y",
+      "z",
+      "w"
+    ],
+    "no-alert": "warn",
+    "no-array-constructor": "error",
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+    "no-else-return": "error",
+    "no-eval": "error",
+    "no-implicit-coercion": "error",
+    "no-implied-eval": "error",
+    "no-lonely-if": "error",
+    "no-nested-ternary": "warn",
+    "no-param-reassign": ["error", { "props": false }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-return-assign": ["warn", "always"],
+    "no-unneeded-ternary": "error",
+    "no-useless-concat": "error",
+    "no-useless-return": "error",
+    "no-var": "warn",
+    "prefer-const": "error",
+    "no-empty-pattern": "warn",
+    "react/display-name": "off",
+    "@typescript-eslint/ban-types": "warn",
+    "import/no-unresolved": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "object",
+          "sibling",
+          "type"
+        ]
+      }
+    ],
+    "import/export": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "import/namespace": "warn",
+    "no-restricted-imports": ["warn"],
+    "import/no-named-as-default-member": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"]
+    },
+    {
+      "files": ["**/test/**", "**/*.test.ts", "**/*.test.tsx", "**/mocks/**"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["**/server/**", "**/api/**", "**/*.server.ts"],
+      "rules": {
+        "no-console": ["warn", { "allow": ["warn", "error", "info"] }]
+      }
+    },
+    {
+      "files": ["next.config.mjs"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
+}

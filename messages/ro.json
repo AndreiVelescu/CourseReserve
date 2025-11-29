@@ -1,0 +1,926 @@
+{
+  "HomePage": {
+    "title": "Salut Lume!",
+    "about": "Mergi la pagina Despre",
+    "memory pages": "Pagini de amintiri",
+    "read pages": "Citiți pagini de povești interesante și creați pagini de amintiri pentru cei dragi. Este cel mai bun mod modern de a păstra vii amintirile despre ei",
+    "create page": "Creați pagina",
+    "stepsTitle": "Păstrați o amintire în doar 3 pași simpli",
+    "register": "Înregistrează-te",
+    "register text": "Creați un cont personal pe site pentru a începe să lucrați cu pagini memoriale. Înregistrarea va dura doar câteva minute și vă va oferi acces la toate caracteristicile serviciului.",
+    "page type": "Selectați tipul de pagină dorit",
+    "page type text": "Determinați dacă doriți să creați o pagină memorială scurtă (gratuită) sau una extinsă cu fotografii, biografie și alte materiale.",
+    "upload memories": "Descărcați amintiri",
+    "upload memories text": "Adăugați materiale importante: fotografii, texte, videoclipuri, povești. Aceste amintiri vor ajuta la păstrarea imaginii persoanei dragi și vor face pagina cu adevărat vie și semnificativă. Fiecare poveste merită să fie spusă.",
+    "slogan": "Legătura dintre generații prin memorie",
+    "subSlogan": "Credem că amintirea celor dragi este o punte între trecut, prezent și viitor. Serviciul nostru a fost creat pentru a păstra momentele importante, poveștile și emoțiile care ne formează moștenirea. Fiecare amintire este o parte prețioasă a vieții dvs. și ne străduim să vă ajutăm să o transmiteți generațiilor viitoare, pentru ca acestea să poată simți căldura și profunzimea poveștilor de familie.",
+    "exampleTitle": "Exemplu de pagină de memorie",
+    "anotherExample": "Afișați un alt exemplu",
+    "View": "Vezi"
+  },
+  "Navigation": {
+    "Home": "Acasa",
+    "Courses": "Cursuri",
+    "Reservations": "Rezervări"
+  },
+  "Buttons": {
+    "Close": "Închide",
+    "Close and Login": "Închide și autentifică-te",
+    "Save": "Salvează",
+    "Cancel": "Anulează",
+    "Delete": "Șterge",
+    "Remove": "Elimină",
+    "Edit": "Editează",
+    "Create": "Creează",
+    "View": "Vezi",
+    "Publish": "Publică",
+    "Expand": "Extinde",
+    "Show": "Arată",
+    "Hide": "Ascunde",
+    "Add": "Adaugă",
+    "Copy": "Copiază",
+    "Send": "Trimite",
+    "Back": "Înapoi",
+    "Next": "Următorul",
+    "Finish": "Finalizează",
+    "Confirm": "Confirmă",
+    "Yes": "Da",
+    "No": "Nu",
+    "Ok": "Ok",
+    "Search": "Caută",
+    "Filter": "Filtrează",
+    "Reset": "Resetează",
+    "Select": "Selectează",
+    "Upload": "Încarcă",
+    "Download": "Descarcă",
+    "Go to payment": "Mergi la plată",
+    "Back to page": "Înapoi la pagină",
+    "Upload Gallery Images": "Încarcă imagini în galerie",
+    "Clear All Images": "Șterge toate imaginile",
+    "Upload Gallery Videos": "Încarcă videoclipuri în galerie",
+    "Clear All Videos": "Șterge toate videoclipurile",
+    "Save Location": "Salvează locația",
+    "Add Another Page": "Adaugă o altă pagină",
+    "Save Changes": "Salvează modificările",
+    "Add to Cart": "Adaugă în coș",
+    "Proceed to Payment": "Continuă cu plata",
+    "Create Pages": "Creează pagini",
+    "Get Started": "Începe acum",
+    "Create Page": "Creează pagina"
+  },
+  "AccountPage": {
+    "My pages": "Paginile mele",
+    "Separate pages with their own QR code": "Pagini separate cu propriul cod QR",
+    "Short description": "Descriere scurtă",
+    "Expand": "Extinde",
+    "Publish": "Publică",
+    "Visible to all": "Vizibil pentru toți",
+    "Edit": "Editează",
+    "View": "Vezi",
+    "Create new page": "Adaugă pagină nouă",
+    "Memory pages": "Pagini de memorie",
+    "deactivate": "Deactiveaza pagina",
+    "No pages found": "Nu s-au găsit pagini",
+    "delete": "Sterge",
+    "Read pages with interesting stories and create memorial pages for your loved ones This is the best modern way to preserve memories of them": "Citiți pagini cu povești interesante și creați pagini de memorie pentru cei dragi. Acesta este cel mai bun mod modern de a păstra amintirile despre ei",
+    "creatdAt": "Creat la",
+    "activate": "Activează pagina",
+    "pageTypes": {
+      "FREE": "Pagina scurtă",
+      "PAID1": "Pagina extinsă",
+      "PAID2": "Pagina extinsă cu descriere"
+    }
+  },
+  "ProfileData": {
+    "My Profile": "Profilul meu",
+    "Email": "Email",
+    "Phone": "Telefon",
+    "Password": "Parola",
+    "New email": "Email nou",
+    "Your password": "Parola ta",
+    "Save": "Salvează",
+    "Cancel": "Anulează",
+    "Change email": "Schimbă email",
+    "Edit phone": "Editează telefon",
+    "Change password": "Schimbă parola",
+    "Current password": "Parola curentă",
+    "New password": "Parola nouă",
+    "Confirm password": "Confirmarea parolei",
+    "Created at": "Creat la",
+    "Email not changed yet Check your email for confirmation": "Email-ul nu a fost schimbat încă. Verifică email-ul pentru confirmare.",
+    "Passwords do not match": "Parolele nu se potrivesc"
+  },
+  "PlanSelectionDialog": {
+    "Choose your plan": "Alege planul tău",
+    "Upgrade your memory page to unlock additional features": "Actualizează pagina de memorie pentru a debloca funcții suplimentare",
+    "Most Popular": "Cel mai popular",
+    "Add to Cart": "Adaugă în coș",
+    "Epitaph": "Epitaf",
+    "Burial place": "Locul înmormântării",
+    "Relatives": "Rude",
+    "QR code for printing": "Cod QR pentru tipărire",
+    "Privacy": "Intimitate",
+    "Biography": "Biografie",
+    "Photo gallery": "Galerie foto",
+    "Video gallery": "Galerie video",
+    "Timeline": "Cronologie"
+  },
+  "MemoryPage": {
+    "Show another example from": "Arată alt exemplu din",
+    "pages": "pagini",
+    "View Page": "Vezi pagina",
+    "Edit Page": "Editează pagina",
+    "years of life": "ani de viață",
+    "year of life": "an de viață",
+    "How to find the burial": "Cum să găsești înmormântarea",
+    "Address": "Adresă",
+    "How to get there": "Cum să ajungi",
+    "QR code for this page": "Codul QR pentru această pagină",
+    "External Links": "Linkuri externe",
+    "You can create a memory page in a few clicks": "Puteți crea o pagină de memorie în câteva clicuri",
+    "Create": "Creează",
+    "Biography": "Biografie",
+    "Photo Gallery": "Galerie foto",
+    "Video Gallery": "Galerie video",
+    "Words of Relatives": "Cuvinte ale rudelor",
+    "Words from loved ones and friends": "Cuvinte de la apropiați și prieteni",
+    "Relatives": "Rude",
+    "Cemetery Location": "Locația cimitirului",
+    "If you know the cemetery place coordinates, please write them here Or click on the map to automatically fill in the values": "Dacă cunoașteți coordonatele locului cimitirului, vă rugăm să le scrieți aici. Sau faceți clic pe hartă pentru a completa automat valorile",
+    "Please indicate detailed bury place (row / region number)": "Vă rugăm să indicați locul de înmormântare detaliat (rândul / numărul regiunii)",
+    "Buried Place": "Locul înmormântarii",
+    "Describe how to get to the burial site from the main entrance of the cemetery You can also upload a photo of the burial site for reference": "Descrieți cum să ajungeți la locul de înmormântare de la intrarea principală a cimitirului. De asemenea, puteți încărca o fotografie a locului de înmormântare pentru referință",
+    "Coordinates": "Coordonate",
+    "Bury Image": "Imaginea înmormântării"
+  },
+  "AddWordsDialog": {
+    "Add Feedback": "Adaugă feedback",
+    "Name / Surname": "Nume / Prenume",
+    "Enter full name": "Introduceți numele complet",
+    "Your Email": "Email-ul tău",
+    "Enter your email": "Introduceți email-ul dvs.",
+    "Relation": "Relație",
+    "Who are you to this person?": "Cine sunteți pentru această persoană?",
+    "Add Photo": "Adăugați fotografie",
+    "Words": "Cuvinte",
+    "Enter your words": "Introduceți cuvintele dvs.",
+    "Add Feedback Button": "Adăugați feedback",
+    "Change Photo": "Schimbă fotografia",
+    "No words": "Nu sunt cuvinte",
+    "Published feedbacks": "Feedback-uri publicate",
+    "New external feedbacks": "Feedback-uri externe noi",
+    "Add another feedback": "Adăugați un alt feedback"
+  },
+  "Dates": {
+    "January": "Ianuarie",
+    "February": "Februarie",
+    "March": "Martie",
+    "April": "Aprilie",
+    "May": "Mai",
+    "June": "Iunie",
+    "July": "Iulie",
+    "August": "August",
+    "September": "Septembrie",
+    "October": "Octombrie",
+    "November": "Noiembrie",
+    "December": "Decembrie"
+  },
+  "LocaleSwitcher": {
+    "label": "Schimbă limba",
+    "locale": "{locale, select, en {🇺🇸 Engleză} ro {🇷🇴 Română} ru {🇷🇺 Rusă} other {Necunoscut}}"
+  },
+  "SignUpPage": {
+    "Register": "Înregistrare",
+    "Sign Up": "Înregistrare",
+    "Sign In": "Autentificare",
+    "Log in": "Autentificare",
+    "Email": "Email",
+    "Password": "Parolă",
+    "Forgot password?": "Ați uitat parola?",
+    "Don't have an account?": "Nu aveți un cont?",
+    "Sign Up Now": "Înregistrați-vă acum",
+    "Already have an account?": "Aveți deja un cont?",
+    "Create account": "Creați un cont gratuit pentru a începe să creați amintiri",
+    "Reset Password": "Resetare parolă",
+    "Sign In Now": "Autentificați-vă acum",
+    "Sign Up with Google": "Înregistrați-vă cu Google",
+    "Sign Up with Facebook": "Înregistrați-vă cu Facebook",
+    "Sign Up with Twitter": "Înregistrați-vă cu Twitter",
+    "Sign Up with LinkedIn": "Înregistrați-vă cu LinkedIn",
+    "Sign Up with GitHub": "Înregistrați-vă cu GitHub",
+    "Sign Up with Email": "Înregistrați-vă cu email",
+    "Sign Up with Phone": "Înregistrați-vă cu telefon",
+    "Sign Up with Apple": "Înregistrați-vă cu Apple",
+    "Sign Up with Microsoft": "Înregistrați-vă cu Microsoft",
+    "Sign Up with Yahoo": "Înregistrați-vă cu Yahoo",
+    "Sign Up with Twitch": "Înregistrați-vă cu Twitch",
+    "Sign Up with Spotify": "Înregistrați-vă cu Spotify",
+    "Sign Up with Instagram": "Înregistrați-vă cu Instagram",
+    "Sign Up with Amazon": "Înregistrați-vă cu Amazon",
+    "Sign Up with Dropbox": "Înregistrați-vă cu Dropbox",
+    "Sign Up with Skype": "Înregistrați-vă cu Skype",
+    "Sign Up with Slack": "Înregistrați-vă cu Slack",
+    "Sign Up with Discord": "Înregistrați-vă cu Discord",
+    "Sign Up with Reddit": "Înregistrați-vă cu Reddit",
+    "Sign Up with Tumblr": "Înregistrați-vă cu Tumblr",
+    "Sign Up with Pinterest": "Înregistrați-vă cu Pinterest"
+  },
+  "EmailConfirmation": {
+    "Your email has been confirmed successfully!": "Adresa dvs. de email a fost confirmată cu succes!",
+    "Email already confirmed": "Email deja confirmat",
+    "Invalid token": "Token invalid",
+    "Email confirmed, close this modal to login": "Email confirmat. Închideți acest modal pentru a vă autentifica.",
+    "Registered successfully! Please check your email to verify your account": "Înregistrat cu succes! "
+  },
+  "MemoryPageForm": {
+    "Date of death is required": "Data decesului este necesară",
+    "Date of birth is required": "Data nașterii este necesară",
+    "Step 1/2": "pasul 1/2",
+    "Creating a memory page": "Crearea unei pagini de memorie",
+    "Fill in the basic information": "Completați informațiile de bază",
+    "Memorial photo": "Fotografie memorială",
+    "Add Photo": "Adăugați",
+    "This will be displayed at the beginning of the memory page, choose the best one, will be in 1:1 format (circle)": "Aceasta va fi afișată la începutul paginii de memorie, alegeți cea mai bună, va fi în format 1:1 (cerc)",
+    "Full Name": "Nume complet",
+    "Date of birth": "Data nașterii",
+    "Date of death": "Data decesului",
+    "Day": "Ziua",
+    "Month": "Luna",
+    "Year": "Anul",
+    "January": "Ianuarie",
+    "February": "Februarie",
+    "March": "Martie",
+    "April": "Aprilie",
+    "May": "Mai",
+    "June": "Iunie",
+    "July": "Iulie",
+    "August": "August",
+    "September": "Septembrie",
+    "October": "Octombrie",
+    "November": "Noiembrie",
+    "December": "Decembrie",
+    "Short epitaph": "Epitaf scurt",
+    "Author of the epitaph": "Autorul epitafului",
+    "Next": "Înainte",
+    "Epitaph": "Alexandru Alexandrovici va rămâne pentru totdeauna în inimile noastre. A fost o persoană bună și plină de compasiune. Un soț fidel, un tată iubitor, un fiu bun - toate acestea îl descriu pe Alexandru. Întreaga sa viață a încercat să acționeze cu conștiință și i-a învățat pe toți să nu-și piardă speranța chiar și în situații dificile. Ne privește în continuare și crede că totul va fi bine!",
+    "EpitathLabel": "Epitaf",
+    "Location": "Locație",
+    "HowToFind": "Cum să găsești",
+    "Author is required": "Autorul este necesar",
+    "Epitaph is required": "Epitaful este necesar",
+    "Year is required": "Anul este necesar",
+    "Month is required": "Luna este necesară",
+    "Day is required": "Ziua este necesară",
+    "Full Name is required": "Numele complet este necesar",
+    "Biography": "Biografie",
+    "Creating a Memory Page": "Crearea unei pagini de memorie",
+    "Step 2/3": "Pasul 2/3",
+    "Data saved!": "Datele au fost salvate!",
+    "The final step is to add video, text, photos — choose a method for the payment": "Ultimul pas este să adăugați videoclipuri, texte, fotografii — alegeți o metodă de plată.",
+    "How would you prefer to receive the plaque?": "Cum preferați să primiți placa?",
+    "Free Pickup": "Ridicare gratuită",
+    "You choose a suitable cemetery from where it is most convenient for you to pick up the plaque This is free": "Alegeți un cimitir potrivit de unde vă este cel mai convenabil să ridicați placa. Acest lucru este gratuit",
+    "Delivery via Boxberry": "Livrare prin Boxberry",
+    "The delivery cost depends on the location of the pickup point Here, you can track your order directly with Boxberry": "Costul livrării depinde de locația punctului de ridicare. Aici, puteți urmări comanda direct la Boxberry.",
+    "No Plaque Needed": "Placă ne-necesară",
+    "When paying for the extended page, the plaque is free If you don’t need it, go straight to the page payment": "La plata paginii extinse, placa este gratuită. Dacă nu aveți nevoie de ea, treceți direct la plata paginii.",
+    "Your City": "Orașul dvs.",
+    "Choose": "Alegeți",
+    "Close": "Închideți",
+    "Create Memory Pages": "Creează pagini de memorie",
+    "Edit Memory Page": "Editează pagina de memorie",
+    "Create Memory Page": "Creează pagina de memorie",
+    "Please log in to create memory pages": "Vă rugăm să vă autentificați pentru a crea pagini de memorie"
+  },
+  "Pagination": {
+    "Total Items": "Total pagini",
+    "Items per page": "Elemente pe pagină"
+  },
+  "FAQPage": {
+    "title": "Întrebări și răspunsuri",
+    "subTitle": "Aici veți găsi răspunsuri la cele mai populare întrebări ale clienților dvs.",
+    "data": [
+      {
+        "question": "Ce este Moment?",
+        "answer": {
+          "1": "Moment este un serviciu online pentru crearea paginilor digitale dedicate memoriei persoanelor dragi. Aici puteți adăuga fotografii, povești, videoclipuri și amintiri importante pentru a le păstra pentru generațiile viitoare."
+        }
+      },
+      {
+        "question": "De ce este important să creezi pagini ale memoriei despre strămoși?",
+        "answer": {
+          "1": "Crearea paginilor memoriei ajută la păstrarea istoriei familiei, la unirea rudelor și la transmiterea amintirilor către urmași. Este o modalitate de a imortaliza momente importante și de a preveni uitarea lor în timp."
+        }
+      },
+      {
+        "question": "Cum pot crea o pagină a memoriei unei persoane?",
+        "answer": {
+          "1": "Înregistrați-vă pe site-ul Moment, alegeți tipul de pagină (gratuită sau extinsă), completați informațiile, adăugați fotografii și povești. După creare, veți primi un cod QR unic, care poate fi atașat pe monument."
+        }
+      },
+      {
+        "question": "Ce este inclus în pagina gratuită a memoriei?",
+        "answer": {
+          "1": "Versiunea scurtă (gratuită) include:",
+          "2": [
+            "Numele complet al persoanei;",
+            "Datele de viață;",
+            "Epitaf sau un mesaj scurt;",
+            "Cod QR pentru acces la pagina memoriei."
+          ]
+        }
+      },
+      {
+        "question": "Care este diferența dintre pagina extinsă a memoriei?",
+        "answer": {
+          "1": "Versiunea extinsă permite adăugarea de:",
+          "2": [
+            "Fotografii;",
+            "Biografie și povestea vieții;",
+            "Mesaje de la rude și prieteni;",
+            "Locul înmormântării;",
+            "(pentru versiunea video) – posibilitatea de a adăuga videoclipuri sau linkuri."
+          ]
+        }
+      },
+      {
+        "question": "Cum pot atașa plăcuța cu codul QR pe monument?",
+        "answer": {
+          "1": [
+            "Curățați suprafața cu șervețelul inclus în set.",
+            "Îndepărtați pelicula de protecție de pe spatele plăcuței.",
+            "Apăsați ferm plăcuța pe suprafață. (Temperatura recomandată pentru montaj: de la −10 °C până la +25 °C.)"
+          ]
+        }
+      },
+      {
+        "question": "Cât timp va fi păstrată pagina memoriei?",
+        "answer": {
+          "1": "Paginile memoriei sunt păstrate pe termen nelimitat, atât timp cât funcționează serviciul Moment."
+        }
+      },
+      {
+        "question": "Cum pot edita sau șterge o pagină?",
+        "answer": {
+          "1": "Autorul paginii poate oricând să acceseze contul personal pentru a modifica informațiile sau pentru a șterge complet pagina."
+        }
+      }
+    ],
+    "remainingIssues": "Aveți întrebări rămase despre achiziția dvs.? Contactați-ne!",
+    "button": "Puneți o întrebare"
+  },
+  "RemovePageDialog": {
+    "Remove Memory Page": "Elimină pagina de memorie",
+    "Are you sure you want to remove this memory page?": "Sunteți sigur că doriți să eliminați această pagină?",
+    "This action cannot be undone All data associated with this page will be permanently deleted": "Această acțiune nu poate fi anulată. Toate datele asociate cu această pagină vor fi șterse permanent"
+  },
+
+  "ShortInfo": {
+    "Short Information": "Informații scurte",
+    "Add brief statistical information about the person It will be displayed at the beginning of the memory page, under the epitaph and before the biography Not required to fill out": "Adăugați informații statistice scurte despre persoană. Acestea vor fi afișate la începutul paginii de memorie, sub epitaf și înainte de biografie. Nu este obligatoriu de completat.",
+    "Place of Birth": "Locul nașterii",
+    "Place of Death": "Locul decesului",
+    "Children": "Copii",
+    "To go to a new line, use Enter": "Pentru a trece la o linie nouă, folosiți Enter",
+    "Spouse": "Soț/Soție",
+    "Wife": "Soție",
+    "Husband": "Soț",
+    "Citizenship": "Cetățenie",
+    "Education": "Educație",
+    "Occupation": "Ocupație",
+    "Awards, Prizes, and Achievements": "Premii, distincții și realizări",
+    "Please fix the errors above": "Vă rugăm să corectați erorile de mai sus",
+    "Save Information": "Salvați informațiile",
+    "Update Information": "Actualizați informațiile"
+  },
+
+  "Error404": {
+    "404": "404",
+    "Oops The page youre looking for doesnt exist": "Oops! Pagina pe care o căutați nu există.",
+    "404 Illustration": "Ilustrație 404",
+    "Go Home": "Mergeți acasă"
+  },
+
+  "OrDivider": {
+    "OR": "SAU"
+  },
+
+  "DeleteMemoryDialog": {
+    "Cancel": "Anulează",
+    "Removing": "Se elimină...",
+    "Remove Page": "Elimină pagina"
+  },
+
+  "PasswordChecklist": {
+    "": "",
+    "Required": "Necesar",
+    "Email": "E-mail",
+    "Please enter a valid email address": "Vă rugăm să introduceți o adresă de e-mail validă.",
+    "Phone": "Telefon",
+    "Enter correct phone number!": "Introduceți numărul de telefon corect!",
+    "Create a Password": "Creați o parolă",
+    "Be at least 12 characters": "Să aibă cel puțin 12 caractere.",
+    "Not the same as your email address": "Să nu fie aceeași ca adresa de email.",
+    "At least have two of the following An uppercase letter a lowercase letter a number or a punctuation mark": "Să aibă cel puțin două dintre următoarele: o literă mare, o literă mică, un număr sau un semn de punctuație.",
+    "Password": "Parolă",
+    "Enter password": "Introduceți parola",
+    "Not the same as email": "Nu trebuie să fie același ca emailul.",
+    "Please enter a password that meets the requirements": "PlIntroduceți o parolă care îndeplinește cerințele.",
+    "The passwords do not match Try Again": "Parolele nu se potrivesc. Încercați din nou.",
+    "You need to accept terms of service": "Trebuie să acceptați termenii și condițiile de utilizare",
+    "You need to accept privacy policy": "Trebuie să acceptați politica de confidențialitate",
+    "Confirm password": "Confirmă parola",
+    "I agree to the": "Sunt de acord cu",
+    "Terms of Service": "Termeni și condiții",
+    "Privacy Policy": "Politica de confidențialitate"
+  },
+
+  "UserDropdownMenuContent": { "Account": "Cont", "Log Out": "Deconectare" },
+
+  "FileUploader": {
+    "Title": "Titlu",
+    "Description": "Descriere",
+    "Add Photos": "Adaugă fotografii",
+    "Add Videos": "Adaugă videoclipuri"
+  },
+
+  "RichTextEditor": {
+    "biography image": "imagine de biografie",
+    "Black": "Negru",
+    "White": "Alb",
+    "Grey": "Gri",
+    "Red": "Roșu",
+    "Orange": "Portocaliu",
+    "Yellow": "Galben",
+    "Green": "Verde",
+    "Blue": "Albastru",
+    "Dark grey": "Gri închis",
+    "Light grey": "Gri deschis",
+    "Light red": "Roșu deschis",
+    "Light orange": "Portocaliu deschis",
+    "Light green": "Verde deschis",
+    "Light blue": "Albastru deschis",
+    "Light purple": "Violet deschis",
+    "Example Biography": "Exemplu de biografie"
+  },
+
+  "AddRelationship": {
+    "Successfully disconnected relative": "Ruda a fost deconectată cu succes.",
+    "Failed to disconnect relative": "Deconectarea rudei a eșuat.",
+    "Successfully connected relative": "Ruda a fost conectată cu succes.",
+    "Failed to connect relative": "Conectarea rudei a eșuat.",
+    "Relatives": "Rude",
+    "Add New Relative": "Adaugă o rudă nouă",
+    "Full Name": "Nume complet",
+    "John Doe": "Ion Popescu",
+    "ID if known": "ID (dacă este cunoscut)",
+    "11155577": "11155577",
+    "Birth Date": "Data nașterii",
+    "Death Date": "Data decesului",
+    "Search": "Caută",
+    "Add Relative": "Adaugă rudă",
+    "Relationship Type": "Tipul relației",
+    "Connect": "Conectează",
+    "ID": "ID",
+    "Birth Death Dates": "Datele nașterii și decesului",
+    "View": "Vezi",
+    "Actions": "Acțiuni",
+    "Disconnect": "Deconectează",
+    "Parent": "Părinte",
+    "Child": "Copil",
+    "Sibling": "Frate/Soră",
+    "Spouse": "Soț/Soție",
+    "Grandparent": "Bunic/Bunică",
+    "Grandchild": "Nepot/Nepoată",
+    "AuntUncle": "Mătușă/Unchi",
+    "NieceNephew": "Nepoată/Nepot",
+    "Cousin": "Văr/Verișoară"
+  },
+  "PricingLayout": {
+    "Short page": "Pagină scurtă",
+    "Epitaph": "Epitaf",
+    "Burial place": "Loc de înmormântare",
+    "Relatives": "Rude",
+    "QR code for printing": "Cod QR pentru imprimare",
+    "Privacy": "Confidențialitate",
+    "Extended page": "Pagină extinsă",
+    "Relatives page": "Pagină pentru rude",
+    "Extended page with description": "Pagină extinsă cu descriere",
+    "Family page": "Pagină de familie",
+    "CREATE": "CREEAZĂ",
+    "Choose your plan": "Alegeți planul dvs.",
+    "Cards with available functionality": "Descoperiți planul perfect pentru a crea un memorial semnificativ care să onoreze memoria persoanei dragi",
+    "Biography": "Biografie",
+    "Photo gallery": "Galerie foto",
+    "Video gallery": "Galerie video",
+    "Timeline": "Cronologie",
+    "Family tree": "Arbore genealogic",
+    "Multiple contributors": "Contribuitori multipli",
+    "View Example": "Vezi exemplu",
+    "Why Choose Our Memory Pages?": "De ce să alegeți paginile noastre de memorie?",
+    "Create beautiful lasting tributes to preserve precious memories Our platform offers secure customizable memorial pages that can be shared with family and friends ensuring that stories and memories are preserved for generations to come": "Creați triburi frumoase și durabile pentru a păstra amintiri prețioase. Platforma noastră oferă pagini comemorative sigure și personalizabile care pot fi împărtășite cu familia și prietenii, asigurând că poveștile și amintirile sunt păstrate pentru generațiile viitoare.",
+    "Select Plan": "Selectează planul",
+    "Choose the perfect plan for your memory page": "Alegeți planul perfect pentru pagina dvs. de memorie",
+    "Free Forever": "Gratuit pentru totdeauna",
+    "Most Popular": "Cel mai popular",
+    "Memory Page Plan": "Planul paginii de memorie",
+    "Selected Plan": "Planul selectat",
+    "Includes": "Include",
+    "View All Plan Details": "Vezi toate detaliile planului",
+    "View full plan details": "Vezi detaliile complete ale planului"
+  },
+  "Cart": {
+    "viewCart": "Vezi coșul",
+    "Memory Pages": "Pagini de memorie",
+    "No pages added yet Fill out the form to add your first memory page": "Nu au fost adăugate încă pagini. Completați formularul pentru a adăuga prima pagină de memorie.",
+    "Unnamed": "Fără nume",
+    "Total": "Total"
+  },
+  "Payment": {
+    "Complete Your Order": "Finalizează comanda",
+    "Order Summary": "Rezumatul comenzii",
+    "Total": "Total"
+  },
+  "ContactUs": {
+    "title": "Contactați-ne",
+    "subTitle": "Contactați-ne dacă aveți nevoie de ajutor sau informații",
+    "email": "Email",
+    "phone": "Telefon",
+    "location": "Locație",
+    "address": "or. Chisinau, str. A.Iancu",
+    "underEmail": "Un răspuns va fi trimis la acest e-mail și, de asemenea, ne va ajuta să rezolvăm problema mai repede dacă v-ați înregistrat deja.",
+    "categories": [
+      { "item": "Category 1" },
+      { "item": "Category 2" },
+      { "item": "Category 3" },
+      { "item": "Category 4" },
+      { "item": "Category 5" }
+    ],
+    "describeQuestion": "Descrieți mai detaliat întrebarea dvs",
+    "WriteYourMessageHere": "Scrieți mesajul dvs. aici...",
+    "send": "Trimiteți",
+    "sendMessage": "Făcând clic pe butonul „Trimite mesaj”, sunteți de acord cu prelucrarea datelor cu caracter personal",
+
+    "nameRequired": "Numele este obligatoriu",
+    "phoneRequired": "Numărul de telefon este obligatoriu",
+    "emailRequired": "Adresa de email este obligatorie",
+    "categoryRequired": "Categoria este obligatorie",
+    "messageRequired": "Mesajul este obligatoriu",
+
+    "phoneCorrect": "Numărul de telefon este obligatoriu",
+    "emailCorrect": "Formatul adresei de email este invalid",
+
+    "ValidationPhone": "Numele este obligatoriu",
+    "Cards with available functionality": "Carduri cu funcționalitate disponibilă"
+  },
+  "TermsOfService": {
+    "title": "Termeni și Condiții",
+    "data": [
+      {
+        "itemTitle": "Dispoziții generale",
+        "itemsContent": {
+          "1": "Denumirea legală a companiei: \"Live Moment Group\" S.R.L.",
+          "2": "Domeniul de activitate: Păstrarea digitală a amintirilor.",
+          "3": "Descrierea serviciului: Serviciul Moment oferă posibilitatea de a crea pagini memoriale pentru comemorarea celor dragi prin încărcarea de fotografii, videoclipuri și texte. Pentru fiecare pagină este generat automat un cod QR unic, care poate fi plasat pe monumente pentru acces rapid de pe dispozitive mobile."
+        }
+      },
+      {
+        "itemTitle": "Drepturile și obligațiile utilizatorilor",
+        "itemsContent": {
+          "1": "Drepturile utilizatorilor:",
+          "2": [
+            "Crearea și administrarea memorialelor digitale dedicate persoanelor decedate.",
+            "Încărcarea de materiale precum fotografii, videoclipuri și texte pentru a păstra amintirile."
+          ],
+          "3": "Obligațiile utilizatorilor:",
+          "4": [
+            "Să nu posteze conținut care încalcă legea, este discriminatoriu, violent, pornografic, defăimător, extremist sau ofensator.",
+            "Să dețină drepturile de autor pentru materialele încărcate și să nu posteze conținut terț fără permisiune."
+          ]
+        }
+      },
+      {
+        "itemTitle": "Utilizarea datelor personale",
+        "itemsContent": {
+          "1": "Ne angajăm să protejăm datele personale ale utilizatorilor, respectând legislația Republicii Moldova și standardele internaționale.",
+          "2": "Toate datele colectate vor fi folosite exclusiv pentru furnizarea serviciilor și nu vor fi partajate cu terți fără acordul utilizatorului, cu excepția cazurilor prevăzute de lege.",
+          "3": "Putem utiliza datele pentru a trimite actualizări privind serviciul și pentru a îmbunătăți experiența utilizatorului."
+        }
+      },
+      {
+        "itemTitle": "Responsabilitățile părților",
+        "itemsContent": {
+          "1": "Responsabilitatea utilizatorului:",
+          "2": [
+            "Răspunde integral pentru conținutul postat pe platformă, asigurând respectarea drepturilor de autor și evitarea conținutului ilegal sau ofensator.",
+            "Să nu posteze conținut care poate dăuna altor utilizatori, dispozitivelor lor sau funcționării serviciului."
+          ],
+          "3": "Responsabilitatea companiei:",
+          "4": [
+            "Furnizează o platformă pentru memoriale digitale, dar nu este responsabilă pentru acuratețea sau legalitatea conținutului generat de utilizatori.",
+            "Nu este responsabilă pentru eventuale daune asupra datelor sau dispozitivelor cauzate de utilizarea serviciului."
+          ]
+        }
+      },
+      {
+        "itemTitle": "Plăți",
+        "itemsContent": {
+          "1": "Platforma oferă următoarele tipuri de pagini memoriale:",
+          "2": [
+            "Pagină gratuită: funcționalitate limitată cu opțiuni de bază pentru încărcarea conținutului.",
+            "Pagină plătită: include un abonament de un an și o plăcuță cu cod QR unic. După această perioadă, utilizatorul trebuie să plătească un abonament anual pentru a continua accesul la funcționalitățile extinse."
+          ],
+          "3": "Toate plățile se fac prin sisteme de plată securizate, doar după confirmarea comenzii de către utilizator."
+        }
+      },
+      {
+        "itemTitle": "Încetarea utilizării serviciului",
+        "itemsContent": {
+          "1": "Dacă nu sunteți de acord cu acești termeni, trebuie să încetați utilizarea serviciului Moment și a funcțiilor aferente."
+        }
+      },
+      {
+        "itemTitle": "Blocarea contului",
+        "itemsContent": {
+          "1": "Administrația își rezervă dreptul de a bloca conturile utilizatorilor fără notificare prealabilă în cazul încălcării termenilor sau a legii.",
+          "2": "În caz de încălcare a legii, administrația poate furniza informațiile autorităților competente."
+        }
+      },
+      {
+        "itemTitle": "Modificarea termenilor",
+        "itemsContent": {
+          "1": "Prin crearea unui cont, confirmați acceptarea acestor Termeni și Condiții.",
+          "2": "Ne rezervăm dreptul de a modifica termenii fără notificare prealabilă.",
+          "3": "Vă recomandăm să verificați periodic actualizările pentru a rămâne informat."
+        }
+      },
+      {
+        "itemTitle": "Notificări prin e-mail",
+        "itemsContent": {
+          "1": "Acceptând termenii de utilizare, permiteți administrației să vă trimită e-mailuri și mesaje cu informații despre serviciu, actualizări și oferte speciale."
+        }
+      }
+    ]
+  },
+  "PrivacyPolicy": {
+    "title": "Politica de Confidențialitate",
+    "data": [
+      {
+        "itemTitle": "Dispoziții generale",
+        "itemsContent": {
+          "1": "Prezenta Politică de Confidențialitate se aplică tuturor informațiilor colectate de către 'Live Moment Group' S.R.L. (denumită în continuare 'Compania' sau 'Noi') prin serviciul Moment.",
+          "2": "Compania se angajează să protejeze confidențialitatea utilizatorilor și să asigure securitatea datelor lor personale.",
+          "3": "Prin utilizarea serviciului Moment, utilizatorii acceptă termenii prezentei Politici de Confidențialitate."
+        }
+      },
+      {
+        "itemTitle": "Informații colectate",
+        "itemsContent": {
+          "1": "Date personale: Compania colectează date personale furnizate voluntar de utilizatori, cum ar fi numele, adresa de email, numărul de telefon și informații de plată.",
+          "2": "Date non-personale: Compania poate colecta date non-personale legate de activitatea utilizatorului pe site, cum ar fi adresa IP, tipul browserului și interacțiunea cu site-ul.",
+          "3": "Cookies: Serviciul utilizează cookies pentru a îmbunătăți experiența utilizatorului, a urmări activitatea și a colecta date anonime privind utilizarea."
+        }
+      },
+      {
+        "itemTitle": "Utilizarea informațiilor",
+        "itemsContent": {
+          "1": "Informațiile colectate vor fi utilizate în următoarele scopuri:",
+          "2": [
+            "Pentru a furniza serviciile oferite de platforma Moment.",
+            "Pentru a procesa plăți și a gestiona abonamentele.",
+            "Pentru a comunica cu utilizatorii despre actualizări, oferte speciale și alte notificări legate de serviciu.",
+            "Pentru a îmbunătăți funcționalitatea și securitatea platformei."
+          ],
+          "3": "Compania poate trimite comunicări de marketing, dar utilizatorii se pot dezabona în orice moment urmând instrucțiunile din mesajele respective."
+        }
+      },
+      {
+        "itemTitle": "Securitatea datelor",
+        "itemsContent": {
+          "1": "Compania ia măsuri adecvate pentru a proteja datele personale ale utilizatorilor împotriva accesului, utilizării sau divulgării neautorizate. Totuși, nicio metodă de transmitere a datelor prin internet sau stocare electronică nu este complet sigură."
+        }
+      },
+      {
+        "itemTitle": "Partajarea cu terți",
+        "itemsContent": {
+          "1": "Compania nu partajează datele personale cu terțe părți decât în următoarele cazuri:",
+          "2": [
+            "Când acest lucru este cerut prin lege sau pentru a respecta obligațiile legale.",
+            "Cu furnizori terți care sprijină funcționarea platformei (precum procesatori de plăți sau furnizori de email), obligați să păstreze confidențialitatea datelor."
+          ]
+        }
+      },
+      {
+        "itemTitle": "Drepturile utilizatorilor",
+        "itemsContent": {
+          "1": "Utilizatorii au dreptul de a:",
+          "2": [
+            "Accesa datele lor personale stocate de Companie.",
+            "Solicita corectarea datelor inexacte.",
+            "Solicita ștergerea datelor (sub rezerva cerințelor legale).",
+            "Retrage consimțământul pentru prelucrarea datelor în orice moment."
+          ],
+          "3": "Pentru a exercita aceste drepturi, utilizatorii pot contacta Compania prin informațiile de contact disponibile pe site-ul Moment."
+        }
+      },
+      {
+        "itemTitle": "Modificări ale politicii de confidențialitate",
+        "itemsContent": {
+          "1": "Compania își rezervă dreptul de a modifica această Politică de Confidențialitate în orice moment. Politica actualizată va fi publicată pe site. Se recomandă consultarea periodică a politicii."
+        }
+      },
+      {
+        "itemTitle": "Informații de contact",
+        "itemsContent": {
+          "1": "Dacă aveți întrebări sau nelămuriri legate de această Politică de Confidențialitate sau de procesarea datelor, ne puteți contacta la:",
+          "2": [
+            "Email: [your-email@example.com]",
+            "Telefon: [your-phone-number]"
+          ]
+        }
+      },
+      {
+        "itemTitle": "Păstrarea datelor",
+        "itemsContent": {
+          "1": "Compania va păstra datele personale atât timp cât este necesar pentru furnizarea serviciilor și atingerea scopurilor prevăzute în această politică, sau conform cerințelor legale.",
+          "2": "După ce datele nu mai sunt necesare, Compania le va șterge sau anonimiza în mod securizat."
+        }
+      }
+    ]
+  },
+  "Notifications": {
+    "Short info saved successfully": "Informații scurte salvate cu succes",
+    "Failed to save short info": "Eroare la salvarea informațiilor scurte",
+    "Short info deleted successfully": "Informații scurte șterse cu succes",
+    "Failed to delete short info": "Eroare la ștergerea informațiilor scurte",
+    "Photo uploaded successfully": "Fotografie încărcată cu succes",
+    "Failed to upload photo": "Eroare la încărcarea fotografiei",
+    "Video uploaded successfully": "Video încărcat cu succes",
+    "Failed to upload video": "Eroare la încărcarea videoclipului",
+    "Page created successfully": "Pagină creată cu succes",
+    "Failed to create page": "Eroare la crearea paginii",
+    "Page updated successfully": "Pagină actualizată cu succes",
+    "Failed to update page": "Eroare la actualizarea paginii",
+    "Place updated successfully": "Locație actualizată cu succes",
+    "Failed to update place": "Eroare la actualizarea locației"
+  },
+  "HowItWorks": {
+    "title": "Cum funcționează"
+  },
+  "ReportModal": {
+    "Report a page": "Raportează pagina",
+    "steps": {
+      "details": "Motivul",
+      "confirmation": "Confirmare"
+    },
+    "reasons": {
+      "disrespectful": "Conținut lipsit de respect",
+      "falseInformation": "Informații false sau înșelătoare",
+      "inappropriate": "Conținut nepotrivit pentru o pagină memorială",
+      "spam": "Spam sau publicitate",
+      "copyright": "Încălcare a drepturilor de autor",
+      "other": "Alt motiv"
+    },
+    "Select a reason of the report": "Selectează motivul raportării",
+    "Please provide a reason": "Te rog oferă un motiv",
+    "back": "Înapoi",
+    "next": "Următorul",
+    "finish": "Finalizare",
+    "confirmationTitle": "Confirmare raport",
+    "confirmationText": "Apasă „Finalizare” pentru a trimite raportul. După confirmare, nu vei mai putea modifica datele.",
+    "selectReasonOfReport": "Alege motivul pentru care dorești să raportezi această pagină."
+  },
+  "ReportedInfo": {
+    "loading": "Se încarcă...",
+    "unknownReporter": "Reporter necunoscut",
+    "reporter": "Reporter",
+    "reportedOn": "Raportat pe"
+  },
+  "Reports": {
+    "error": "Eroare la încărcarea rapoartelor!",
+    "noReports": "Nu există rapoarte disponibile.",
+    "report": "Raport",
+    "memoryPageId": "ID pagină memorială",
+    "reason": "Motiv",
+    "createdAt": "Creat la",
+    "deactivate": "Dezactivează pagina",
+    "reject": "Respinge",
+    "statuses": {
+      "all": "TOATE",
+      "pending": "ÎN AȘTEPTARE",
+      "resolved": "REZOLVAT",
+      "rejected": "RESPINS"
+    },
+    "from": "De la",
+    "to": "Până la",
+    "clear": "Curăță"
+  },
+  "MemoryInfo": {
+    "loading": "Se încarcă...",
+    "error": "Eroare la încărcarea paginilor memoriale.",
+    "none": "Nu au fost găsite pagini memoriale.",
+    "noPages": "Nicio pagină găsită"
+  },
+  "AdminPanel": {
+    "manageUsers": "Gestionare utilizatori",
+    "email": "Email",
+    "phone": "Telefon",
+    "confirmed": "Confirmat",
+    "active": "Activ",
+    "role": "Rol",
+    "yes": "Da",
+    "no": "Nu",
+    "cancel": "Anulează",
+    "save": "Salvează",
+    "suspend": "Suspendă",
+    "delete": "Șterge",
+    "memoryPages": "Pagini memoriale",
+    "manageReports": "Gestionare rapoarte",
+    "reports": "Rapoarte",
+    "roles": {
+      "user": "Utilizator",
+      "admin": "Administrator"
+    },
+    "createdAt": "Creat la",
+    "search": "Caută dupa email sau telefon",
+    "email or phone": "Email ori telefon",
+    "noUsersFound": "Niciun utilizator găsit",
+    "activate": "Activează",
+    "prices": "Prețuri",
+    "managePrices": "Gestionarea prețurilor"
+  },
+  "DeactivatedModal": {
+    "title": "Pagina este dezactivată",
+    "message": "Această pagină nu mai este activă. Dacă ai nevoie de acces, contactează administratorul.",
+    "closeButton": "Închide"
+  },
+  "About": {
+    "title": "Povestea Moment",
+    "paragraph1": "Moment s-a născut dintr-o nevoie umană profundă și simplă — de a păstra vie amintirea celor care vor rămâne pentru totdeauna în inimile noastre. Credem că nicio poveste importantă nu trebuie uitată. Fiecare viață este un drum unic, plin de evenimente, emoții, victorii și sens. Aceste momente merită să trăiască mai departe — în amintirea celor dragi, în poveștile prietenilor și în inimile generațiilor următoare.",
+    "paragraph2": "Am creat Moment ca un proiect social și uman, unde oricine poate spune o poveste despre o persoană apropiată. Este un loc în care amintirea devine accesibilă, vie și caldă. Scopul nostru este să îi ajutăm pe oameni nu doar să își amintească, ci și să împărtășească acele amintiri — pentru că adevărata memorie este ceea ce lăsăm mai departe altora.",
+    "paragraph3": "De-a lungul anilor, fotografiile vechi se estompează, se pierd sau pur și simplu dispar. Ne confruntăm adesea cu realitatea dureroasă că imaginile de familie pe care le-am văzut în copilărie dispar în timp, lăsând în urmă doar frânturi de amintiri imposibil de reconstruit.",
+    "paragraph4": "Astăzi, problema pierderii amintirilor nu a dispărut — s-a mutat doar în format digital. Fotografii, clipuri video, înregistrări audio, scrisori importante și amintiri sunt împrăștiate pe zeci de dispozitive și platforme: telefoane, stick-uri USB, discuri, stocări în cloud, conversații. Nu reușim întotdeauna să le salvăm, iar într-o zi riscăm să pierdem ceva cu adevărat prețios. Moment ajută la reunirea tuturor acestora într-un singur loc, pentru ca amintirile să nu se piardă, să nu se șteargă și să nu dispară.",
+    "paragraph5": "Cu toții avem povești de care suntem mândri. Noi credem că aceste povești nu trebuie să rămână doar în arhivele personale — ele merită să fie împărtășite.",
+    "paragraph6": "Cu Moment, poți păstra și transmite mai departe ceea ce contează cu adevărat. Poate fi un singur cuvânt, o singură fotografie, o singură poveste — dar chiar și aceasta poate deveni legătura dintre generații."
+  },
+  "ConfirmActivateDeactivateMemoryPage": {
+    "title": {
+      "activate": "Confirmă activarea",
+      "deactivate": "Confirmă dezactivarea"
+    },
+    "message": {
+      "activate": "Ești sigur că vrei să reactivezi această pagină?",
+      "deactivate": "Ești sigur că vrei să dezactivezi această pagină?"
+    },
+    "cancel": "Anulează",
+    "confirm": "Confirmă"
+  },
+  "ConfirmChangePlan": {
+    "title": "Confirmă schimbarea",
+    "message": "Ești sigur că vrei să schimbi tipul acestei pagini?",
+    "cancel": "Anulează",
+    "confirm": "Confirmă"
+  },
+  "ConfirmDeleteMemoryPage": {
+    "title": "Confirmă ștergerea",
+    "message": "Ești sigur că vrei să ștergi această pagină de amintiri? Această acțiune este ireversibilă.",
+    "cancel": "Anulează",
+    "delete": "Șterge"
+  },
+
+  "ConfirmDeleteUser": {
+    "title": "Confirmă ștergerea",
+    "message": "Ești sigur că vrei să ștergi acest utilizator? Această acțiune este ireversibilă.",
+    "cancel": "Anulează",
+    "delete": "Șterge"
+  },
+
+  "ConfirmSuspendActivateUser": {
+    "confirmActivate": "Confirmă activarea",
+    "confirmSuspend": "Confirmă suspendarea",
+    "confirmActivateMessage": "Ești sigur că vrei să reactivezi acest utilizator?",
+    "confirmSuspendMessage": "Ești sigur că vrei să suspendi acest utilizator?",
+    "cancel": "Anulează",
+    "confirm": "Confirmă"
+  },
+  "SignStatus": {
+    "IN_PROGRESS": "ÎN CURS",
+    "COMPLETED": "FINALIZAT",
+    "NOT_STARTED": "NEÎNCEPUT"
+  },
+  "PriceComponent": {
+    "price": "Preț",
+    "currency": "Valută",
+    "save": "Salvează"
+  },
+  "UpdatePrices": {
+    "title": "Actualizare prețuri",
+    "loading": "Se încarcă...",
+    "error": "Eroare la încărcare"
+  },
+  "SectionView": {
+    "lockedSectionDescription": "Această secțiune este disponibilă doar pe ",
+    "buyButton": "Cumpără",
+    "extended page": "pagina extinsă"
+  }
+}

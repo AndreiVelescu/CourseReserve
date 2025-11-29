@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique
+  email         String    @unique
+  passwordHash  String    @map("password_hash")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  isActive      Boolean   @default(true) @map("is_active")
+  role          UserRole  @default(STUDENT)
+  
+  reservations  Reservation[]
+  instructorCourses Course[] @relation("InstructorCourses")
+  userActionLogs UserActionLog[]
+  
+  // Token pentru resetare parolă
+  resetToken       String?   @map("reset_token")
+  resetTokenExpiry DateTime? @map("reset_token_expiry")
+  
+  @@map("users")
+}
+
+
+
+
+
+
+enum Category {
+  PROGRAMMING
+  DESIGN
+  MARKETING
+  BUSINESS
+  LANGUAGES
+  OTHER
+}
+
+model Course {
+  id              Int       @id @default(autoincrement())
+  title           String
+  description     String    @db.Text
+  category        Category
+  instructorId    Int       @map("instructor_id")
+  startDate       DateTime  @map("start_date")
+  durationMinutes Int       @map("duration_minutes")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime? @updatedAt @map("updated_at")
+  
+  instructor      User         @relation("InstructorCourses", fields: [instructorId], references: [id])
+  reservations    Reservation[]
+  
+  @@map("courses")
+}
+
+// Rezervări ale utilizatorilor
+model Reservation {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  courseId    Int      @map("course_id")
+  reservedAt  DateTime @default(now()) @map("reserved_at")
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, courseId])
+  @@map("reservations")
+}
+
+// ============================================
+// LOGURI - ACȚIUNI UTILIZATORI
+// ============================================
+model UserActionLog {
+  id            Int       @id @default(autoincrement())
+  userId        Int?      @map("user_id")
+  actionType    String    @map("action_type") // "LOGIN", "RESERVE_COURSE", "CANCEL_RESERVATION", "CREATE_COURSE"
+  actionDetails String?   @db.Text @map("action_details")
+  ipAddress     String?   @map("ip_address")
+  userAgent     String?   @db.Text @map("user_agent")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  
+  user          User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  @@map("user_action_logs")
+}
+
+// ============================================
+// LOGURI - ERORI APLICAȚIE
+// ============================================
+model AppErrorLog {
+  id         Int      @id @default(autoincrement())
+  errorType  String   @map("error_type") // "DatabaseException", "NullPointerException"
+  message    String   @db.Text
+  stackTrace String?  @db.LongText @map("stack_trace")
+  url        String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  
+  @@map("app_error_logs")
+}
+
+// ============================================
+// LOGURI - ERORI HTTP
+// ============================================
+model HttpErrorLog {
+  id         Int      @id @default(autoincrement())
+  statusCode Int      @map("status_code") // 400, 401, 403, 404, 500, 503
+  method     String   // "GET", "POST", "PUT", "DELETE"
+  url        String
+  ipAddress  String?  @map("ip_address")
+  message    String?  @db.Text
+  userAgent  String?  @db.Text @map("user_agent")
+  createdAt  DateTime @default(now()) @map("created_at")
+  
+  @@map("http_error_logs")
+}
+
+

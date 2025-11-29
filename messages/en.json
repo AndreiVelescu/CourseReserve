@@ -1,0 +1,930 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page",
+    "memory pages": "Memory pages",
+    "read pages": "Read pages of interesting stories and create memory pages for your loved ones. This is the best modern way to keep memories of them alive",
+    "create page": "Create page",
+    "stepsTitle": "Preserve a memory in just 3 easy steps",
+    "register": "Sign up",
+    "register text": "Create a personal account on the site to start working with memorial pages. Registration takes only a couple of minutes and opens access to all the features of the service.",
+    "page type": "Select the page type you want",
+    "page type text": "Determine whether you want to create a brief (free) memorial page or an expanded one with photos, a biography, and more.",
+    "upload memories": "Upload your memories",
+    "upload memories text": "Add important materials: photos, texts, videos, stories. These memories will help preserve the image of your loved one and make the page truly alive and meaningful. Every story deserves to be told.",
+    "slogan": "Connecting generations through memory",
+    "subSlogan": "We believe that memories of loved ones are a bridge between the past, present, and future. Our service was created to preserve the important moments, stories, and emotions that shape our legacy. Every memory is a valuable part of your life, and we strive to help you pass it on to future generations so that they can feel the warmth and depth of your family stories.",
+    "exampleTitle": "Example of a memory page",
+    "anotherExample": "Show another example",
+    "View": "View"
+  },
+  "Navigation": {
+    "Home": "Home",
+    "Courses": "Courses",
+    "Reservations": "Reservations"
+  },
+  "Buttons": {
+    "Close": "Close",
+    "Close and Login": "Close and Login",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Delete": "Delete",
+    "Remove": "Remove",
+    "Edit": "Edit",
+    "Create": "Create",
+    "View": "View",
+    "Publish": "Publish",
+    "Expand": "Expand",
+    "Show": "Show",
+    "Hide": "Hide",
+    "Add": "Add",
+    "Copy": "Copy",
+    "Send": "Send",
+    "Back": "Back",
+    "Next": "Next",
+    "Finish": "Finish",
+    "Confirm": "Confirm",
+    "Yes": "Yes",
+    "No": "No",
+    "Ok": "Ok",
+    "Search": "Search",
+    "Filter": "Filter",
+    "Reset": "Reset",
+    "Select": "Select",
+    "Upload": "Upload",
+    "Download": "Download",
+    "Go to payment": "Go to Payment",
+    "Back to page": "Back to Page",
+    "Upload Gallery Images": "Upload Gallery Images",
+    "Clear All Images": "Clear All Images",
+    "Upload Gallery Videos": "Upload Gallery Videos",
+    "Clear All Videos": "Clear All Videos",
+    "Save Location": "Save Location",
+    "Add Another Page": "Add Another Page",
+    "Save Changes": "Save Changes",
+    "Add to Cart": "Add to Cart",
+    "Proceed to Payment": "Proceed to Payment",
+    "Create Pages": "Create Pages",
+    "Get Started": "Get Started",
+    "Create Page": "Create Page"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, en {🇺🇸 English} ro {🇷🇴 Romanian} ru {🇷🇺 Russian} other {Unknown}}"
+  },
+  "AccountPage": {
+    "My pages": "My pages",
+    "Separate pages with their own QR code": "Separate pages with their own QR code",
+    "Short description": "Short description",
+    "Expand": "Expand",
+    "Publish": "Publish",
+    "Visible to all": "Visible to all",
+    "Edit": "Edit",
+    "View": "View",
+    "Create new page": "Add new page",
+    "Memory pages": "Memory pages",
+    "No pages found": "No pages found",
+    "deactivate": "Deactivate page",
+    "delete": "Delete",
+    "Read pages with interesting stories and create memorial pages for your loved ones This is the best modern way to preserve memories of them": "Read pages with interesting stories and create memorial pages for your loved ones. This is the best modern way to preserve memories of them.",
+    "creatdAt": "Created At",
+    "activate": "Activate page",
+    "pageTypes": {
+      "FREE": "Short page",
+      "PAID1": "Extended page",
+      "PAID2": "Extended page with description"
+    }
+  },
+  "ProfileData": {
+    "My Profile": "My Profile",
+    "Email": "Email",
+    "Phone": "Phone",
+    "Password": "Password",
+    "New email": "New email",
+    "Your password": "Your password",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Change email": "Change email",
+    "Edit phone": "Edit phone",
+    "Change password": "Change password",
+    "Current password": "Current password",
+    "New password": "New password",
+    "Confirm password": "Confirm password",
+    "Created at": "Created at",
+    "Email not changed yet Check your email for confirmation": "Email not changed yet. Check your email for confirmation.",
+    "Passwords do not match": "Passwords do not match"
+  },
+  "PlanSelectionDialog": {
+    "Choose your plan": "Choose your plan",
+    "Upgrade your memory page to unlock additional features": "Upgrade your memory page to unlock additional features",
+    "Most Popular": "Most Popular",
+    "Add to Cart": "Add to Cart",
+    "Epitaph": "Epitaph",
+    "Burial place": "Burial place",
+    "Relatives": "Relatives",
+    "QR code for printing": "QR code for printing",
+    "Privacy": "Privacy",
+    "Biography": "Biography",
+    "Photo gallery": "Photo gallery",
+    "Video gallery": "Video gallery",
+    "Timeline": "Timeline"
+  },
+  "MemoryPage": {
+    "Show another example from": "Show another example from",
+    "pages": "pages",
+    "Edit Page": "Edit Page",
+    "View Page": "View Page",
+    "years of life": "years of life",
+    "year of life": "year of life",
+    "How to find the burial": "How to find the burial",
+    "Address": "Address",
+    "How to get there": "How to get there",
+    "QR code for this page": "QR code for this page",
+    "External Links": "External Links",
+    "You can create a memory page in a few clicks": "You can create a memory page in a few clicks",
+    "Create": "Create",
+    "Biography": "Biography",
+    "Photo Gallery": "Photo Gallery",
+    "Video Gallery": "Video Gallery",
+    "Words of Relatives": "Words of Relatives",
+    "Words from loved ones and friends": "Words from Loved Ones and Friends",
+    "Relatives": "Relatives",
+    "Cemetery Location": "Cemetery Location",
+    "If you know the cemetery place coordinates, please write them here Or click on the map to automatically fill in the values": "If you know the cemetery place coordinates, please write them here. Or click on the map to automatically fill in the values.",
+    "Please indicate detailed bury place (row / region number)": "Please indicate detailed bury place (row / region number)",
+    "Buried Place": "Buried Place",
+    "Describe how to get to the burial site from the main entrance of the cemetery You can also upload a photo of the burial site for reference": "Describe how to get to the burial site from the main entrance of the cemetery. You can also upload a photo of the burial site for reference.",
+    "Coordinates": "Coordinates",
+    "Bury Image": "Bury Image"
+  },
+  "AddWordsDialog": {
+    "Add Feedback": "Add Feedback",
+    "Name / Surname": "Name / Surname",
+    "Enter full name": "Enter full name",
+    "Your Email": "Your Email",
+    "Enter your email": "Enter your email",
+    "Relation": "Relation",
+    "Who are you to this person?": "Who are you to this person?",
+    "Add Photo": "Add Photo",
+    "Words": "Words",
+    "Enter your words": "Enter your words",
+    "Add Feedback Button": "Add Feedback Button",
+    "Change Photo": "Change Photo",
+    "No words": "No words",
+    "Published feedbacks": "Published feedbacks",
+    "New external feedbacks": "New external feedbacks",
+    "Add another feedback": "Add another feedback"
+  },
+  "Dates": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
+  },
+  "SignUpPage": {
+    "Register": "Register",
+    "Sign Up": "Sign Up",
+    "Email": "Email",
+    "Password": "Password",
+    "Confirm Password": "Confirm Password",
+    "Sign Up with Google": "Sign Up with Google",
+    "Sign Up with Facebook": "Sign Up with Facebook",
+    "Already have an account?": "Already have an account?",
+    "Log in": "Log in",
+    "Create account": "Create a free account to start making memories",
+    "Reset Password": "Reset Password",
+    "Sign Up with Email": "Sign Up with Email",
+    "Sign Up with": "Sign Up with",
+    "Sign Up with Apple": "Sign Up with Apple",
+    "Sign Up with Twitter": "Sign Up with Twitter",
+    "Sign Up with LinkedIn": "Sign Up with LinkedIn",
+    "Sign Up with GitHub": "Sign Up with GitHub",
+    "Sign Up with Microsoft": "Sign Up with Microsoft",
+    "Sign Up with Yahoo": "Sign Up with Yahoo",
+    "Sign Up with Twitch": "Sign Up with Twitch",
+    "Sign Up with Discord": "Sign Up with Discord",
+    "Sign Up with Slack": "Sign Up with Slack",
+    "Sign Up with Amazon": "Sign Up with Amazon",
+    "Sign Up with Spotify": "Sign Up with Spotify",
+    "Sign Up with Instagram": "Sign Up with Instagram",
+    "Sign Up with VK": "Sign Up with VK",
+    "Sign Up with Yandex": "Sign Up with Yandex",
+    "Sign Up with Pinterest": "Sign Up with Pinterest",
+    "Sign Up with Snapchat": "Sign Up with Snapchat",
+    "Sign Up with Reddit": "Sign Up with Reddit",
+    "Sign Up with Tumblr": "Sign Up with Tumblr",
+    "Sign Up with Medium": "Sign Up with Medium",
+    "Sign Up with Quora": "Sign Up with Quora",
+    "Sign Up with WeChat": "Sign Up with WeChat",
+    "Sign Up with Weibo": "Sign Up with Weibo",
+    "Sign Up with Line": "Sign Up with Line",
+    "Sign Up with Viber": "Sign Up with Viber",
+    "Sign Up with Telegram": "Sign Up with Telegram",
+    "Sign Up with WhatsApp": "Sign Up with WhatsApp"
+  },
+  "EmailConfirmation": {
+    "Your email has been confirmed successfully!": "Your email has been confirmed successfully!",
+    "Email already confirmed": "Email already confirmed",
+    "Invalid token": "Invalid token",
+    "Email confirmed, close this modal to login": "Email confirmed. Close this modal to login.",
+    "Registered successfully! Please check your email to verify your account": "Registered successfully!"
+  },
+  "MemoryPageForm": {
+    "Date of death is required": "Date of death is required",
+    "Date of birth is required": "Date of birth is required",
+    "Step 1/2": "Step 1/2",
+    "Creating a memory page": "Creating a memory page",
+    "Fill in the basic information": "Fill in the basic information",
+    "Memorial photo": "Memorial photo",
+    "Add Photo": "Add Photo",
+    "This will be displayed at the beginning of the memory page, choose the best one, will be in 1:1 format (circle)": "This will be displayed at the beginning of the memory page, choose the best one, will be in 1:1 format (circle)",
+    "Full Name": "Full Name",
+    "Date of birth": "Date of birth",
+    "Date of death": "Date of death",
+    "Day": "Day",
+    "Month": "Month",
+    "Year": "Year",
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
+    "Short epitaph": "Short epitaph",
+    "Author of the epitaph": "Author of the epitaph",
+    "Next": "Next",
+    "Epitaph": "Alexander Alexandrovich will forever remain in our hearts. He was a kind and compassionate person. A faithful husband, loving father, good son - all of this describes Alexander. His whole life, he tried to act conscientiously and taught everyone not to lose heart even in difficult situations. He is still watching over us, and he believes everything will be alright!",
+    "EpitathLabel": "Epitaph",
+    "Location": "Location",
+    "HowToFind": "How to find the burial",
+    "Author is required": "Author is required",
+    "Epitaph is required": "Epitaph is required",
+    "Year is required": "Year is required",
+    "Month is required": "Month is required",
+    "Day is required": "Day is required",
+    "Full Name is required": "Full Name is required",
+    "Biography": "Biography",
+    "Creating a Memory Page": "Creating a Memory Page",
+    "Step 2/3": "Step 2/3",
+    "Data saved!": "Data saved!",
+    "The final step is to add video, text, photos — choose a method for the payment": "The final step is to add video, text, photos — choose a method for the payment.",
+    "How would you prefer to receive the plaque?": "How would you prefer to receive the plaque?",
+    "Free Pickup": "Free Pickup",
+    "You choose a suitable cemetery from where it is most convenient for you to pick up the plaque This is free": "You choose a suitable cemetery from where it is most convenient for you to pick up the plaque. This is free.",
+    "Delivery via Boxberry": "Delivery via Boxberry",
+    "The delivery cost depends on the location of the pickup point Here, you can track your order directly with Boxberry": "The delivery cost depends on the location of the pickup point. Here, you can track your order directly with Boxberry.",
+    "No Plaque Needed": "No Plaque Needed",
+    "When paying for the extended page, the plaque is free If you don’t need it, go straight to the page payment": "When paying for the extended page, the plaque is free. If you don’t need it, go straight to the page payment.",
+    "Your City": "Your City",
+    "Choose": "Choose",
+    "Close": "Close",
+    "Create Memory Pages": "Create Memory Pages",
+    "Edit Memory Page": "Edit Memory Page",
+    "Create Memory Page": "Create Memory Page",
+    "Please log in to create memory pages": "Please log in to create memory pages"
+  },
+  "Pagination": {
+    "Total Items": "Total Items",
+    "Items per page": "Items per page"
+  },
+  "FAQPage": {
+    "title": "Questions and Answers",
+    "subTitle": "Here you will find answers to your customers' most popular questions",
+    "data": [
+      {
+        "question": "What is Moment?",
+        "answer": {
+          "1": "Moment is an online service for creating digital memorial pages dedicated to loved ones. You can upload photos, stories, videos, and memories to preserve them for future generations."
+        }
+      },
+      {
+        "question": "Why is it important to create memorial pages about our ancestors?",
+        "answer": {
+          "1": "Creating memorial pages helps preserve family history, connect relatives, and pass on memories to future generations. It’s a way to honor meaningful moments and ensure they are never forgotten."
+        }
+      },
+      {
+        "question": "How can I create a memorial page for someone?",
+        "answer": {
+          "1": "Register on the Moment website, choose the type of page (free or extended), fill in the details, and upload photos and stories. Once created, you’ll receive a unique QR code that can be placed on a monument."
+        }
+      },
+      {
+        "question": "What does the free memorial page include?",
+        "answer": {
+          "1": "The basic (free) version includes:",
+          "2": [
+            "Full name of the person;",
+            "Dates of life;",
+            "Epitaph or short message;",
+            "A QR code linking to the memorial page."
+          ]
+        }
+      },
+      {
+        "question": "What is included in the extended memorial page?",
+        "answer": {
+          "1": "The extended version allows you to add:",
+          "2": [
+            "Photos;",
+            "Biography and life story;",
+            "Messages from relatives and friends;",
+            "Burial location;",
+            "(for the video version) – videos or video links."
+          ]
+        }
+      },
+      {
+        "question": "How do I attach the QR plaque to a monument?",
+        "answer": {
+          "1": [
+            "Clean the surface with the included wipe.",
+            "Remove the protective film from the back of the plaque.",
+            "Firmly press the plaque onto the surface. (Recommended installation temperature: −10 °C to +25 °C.)"
+          ]
+        }
+      },
+      {
+        "question": "How long will the memorial page be stored?",
+        "answer": {
+          "1": "Memorial pages are stored indefinitely, for as long as the Moment service is operational."
+        }
+      },
+      {
+        "question": "How can I edit or delete a page?",
+        "answer": {
+          "1": "The author of the page can log into their account at any time to edit or permanently delete the page."
+        }
+      }
+    ],
+    "remainingIssues": "Do you have any remaining questions about your purchase? Contact us!",
+    "button": "Ask a Question"
+  },
+  "PricingLayout": {
+    "Short page": "Short page",
+    "Epitaph": "Epitaph",
+    "Burial place": "Burial place",
+    "Relatives": "Relatives",
+    "QR code for printing": "QR code for printing",
+    "Privacy": "Privacy",
+    "Extended page": "Extended page",
+    "Relatives page": "Relatives page",
+    "Extended page with description": "Extended page with description",
+    "Family page": "Family page",
+    "CREATE": "CREATE",
+    "Choose your plan": "Choose your plan",
+    "Cards with available functionality": "Discover the perfect plan to create a meaningful memorial that honors your loved one's memory",
+    "Biography": "Biography",
+    "Photo gallery": "Photo gallery",
+    "Video gallery": "Video gallery",
+    "Timeline": "Timeline",
+    "Family tree": "Family tree",
+    "Multiple contributors": "Multiple contributors",
+    "View Example": "View Example",
+    "Why Choose Our Memory Pages?": "Why Choose Our Memory Pages?",
+    "Create beautiful lasting tributes to preserve precious memories Our platform offers secure customizable memorial pages that can be shared with family and friends ensuring that stories and memories are preserved for generations to come": "Create beautiful, lasting tributes to preserve precious memories. Our platform offers secure, customizable memorial pages that can be shared with family and friends, ensuring that stories and memories are preserved for generations to come.",
+    "Select Plan": "Select Plan",
+    "Choose the perfect plan for your memory page": "Choose the perfect plan for your memory page",
+    "Free Forever": "Free Forever",
+    "Most Popular": "Most Popular",
+    "Memory Page Plan": "Memory Page Plan",
+    "Selected Plan": "Selected Plan",
+    "Includes": "Includes",
+    "View All Plan Details": "View All Plan Details",
+    "View full plan details": "View full plan details"
+  },
+  "Cart": {
+    "viewCart": "View Cart",
+    "Memory Pages": "Memory Pages",
+    "No pages added yet Fill out the form to add your first memory page": "No pages added yet. Fill out the form to add your first memory page.",
+    "Unnamed": "Unnamed",
+    "Total": "Total"
+  },
+  "Payment": {
+    "Complete Your Order": "Complete Your Order",
+    "Order Summary": "Order Summary",
+    "Total": "Total"
+  },
+  "RemovePageDialog": {
+    "Remove Memory Page": "Remove Memory Page",
+    "Are you sure you want to remove this memory page?": "Are you sure you want to remove this memory page?",
+    "This action cannot be undone All data associated with this page will be permanently deleted": "This action cannot be undone. All data associated with this page will be permanently deleted."
+  },
+
+  "ShortInfo": {
+    "Short Information": "Short Information",
+    "Add brief statistical information about the person It will be displayed at the beginning of the memory page, under the epitaph and before the biography Not required to fill out": "Add brief statistical information about the person. It will be displayed at the beginning of the memory page, under the epitaph and before the biography. Not required to fill out.",
+    "Place of Birth": "Place of Birth",
+    "Place of Death": "Place of Death",
+    "Children": "Children",
+    "To go to a new line, use Enter": "To go to a new line, use Enter",
+    "Spouse": "Spouse",
+    "Wife": "Wife",
+    "Husband": "Husband",
+    "Citizenship": "Citizenship",
+    "Education": "Education",
+    "Occupation": "Occupation",
+    "Awards, Prizes, and Achievements": "Awards, Prizes, and Achievements",
+    "Please fix the errors above": "Please fix the errors above",
+    "Save Information": "Save Information",
+    "Update Information": "Update Information"
+  },
+
+  "Error404": {
+    "404": "404",
+    "Oops The page youre looking for doesnt exist": "Oops! The page you're looking for doesn't exist.",
+    "404 Illustration": "404 Illustration",
+    "Go Home": "Go Home"
+  },
+
+  "OrDivider": {
+    "OR": "OR"
+  },
+
+  "DeleteMemoryDialog": {
+    "Cancel": "Cancel",
+    "Removing": "Removing...",
+    "Remove Page": "Remove Page"
+  },
+
+  "PasswordChecklist": {
+    "": "",
+    "Required": "Required",
+    "Email": "Email",
+    "Please enter a valid email address": "Please enter a valid email address.",
+    "Phone": "Phone",
+    "Enter correct phone number!": "Enter correct phone number!",
+    "Create a Password": "Create a Password",
+    "Be at least 12 characters": "Be at least 12 characters.",
+    "Not the same as your email address": "Not the same as your email address.",
+    "At least have two of the following An uppercase letter a lowercase letter a number or a punctuation mark": "At least have two of the following: An uppercase letter, a lowercase letter, a number or a punctuation mark.",
+    "Password": "Password",
+    "Enter password": "Enter password",
+    "Not the same as email": "Not the same as email.",
+    "Please enter a password that meets the requirements": "Please enter a password that meets the requirements.",
+    "The passwords do not match Try Again": "The passwords do not match. Try Again.",
+    "You need to accept terms of service": "You need to accept terms of service",
+    "You need to accept privacy policy": "You need to accept privacy policy",
+    "Confirm password": "Confirm password",
+    "I agree to the": "I agree to the",
+    "Terms of Service": "Terms of Service",
+    "Privacy Policy": "Privacy Policy"
+  },
+
+  "UserDropdownMenuContent": {
+    "Account": "Account",
+    "Log Out": "Log Out"
+  },
+
+  "FileUploader": {
+    "Title": "Title",
+    "Description": "Description",
+    "Add Photos": "Add Photos",
+    "Add Videos": "Add Videos"
+  },
+
+  "RichTextEditor": {
+    "biography image": "biography image",
+    "Black": "Black",
+    "White": "White",
+    "Grey": "Grey",
+    "Red": "Red",
+    "Orange": "Orange",
+    "Yellow": "Yellow",
+    "Green": "Green",
+    "Blue": "Blue",
+    "Dark grey": "Dark grey",
+    "Light grey": "Light grey",
+    "Light red": "Light red",
+    "Light orange": "Light orange",
+    "Light green": "Light green",
+    "Light blue": "Light blue",
+    "Light purple": "Light purple",
+    "Example Biography": "Example Biography"
+  },
+
+  "AddRelationship": {
+    "Successfully disconnected relative": "Successfully disconnected relative.",
+    "Failed to disconnect relative": "Failed to disconnect relative.",
+    "Successfully connected relative": "Successfully connected relative.",
+    "Failed to connect relative": "Failed to connect relative.",
+    "Relatives": "Relatives",
+    "Add New Relative": "Add New Relative",
+    "Full Name": "Full Name",
+    "John Doe": "John Doe",
+    "ID if known": "ID (if known)",
+    "11155577": "11155577",
+    "Birth Date": "Birth Date",
+    "Death Date": "Death Date",
+    "Search": "Search",
+    "Add Relative": "Add Relative",
+    "Relationship Type": "Relationship Type",
+    "Connect": "Connect",
+    "ID": "ID",
+    "Birth Death Dates": "Birth & Death Dates",
+    "View": "View",
+    "Actions": "Actions",
+    "Disconnect": "Disconnect",
+    "Parent": "Parent",
+    "Child": "Child",
+    "Sibling": "Sibling",
+    "Spouse": "Spouse",
+    "Grandparent": "Grandparent",
+    "Grandchild": "Grandchild",
+    "AuntUncle": "Aunt/Uncle",
+    "NieceNephew": "Niece/Nephew",
+    "Cousin": "Cousin"
+  },
+  "ContactUs": {
+    "title": "Contact Us",
+    "subTitle": "Contact us if you need help or information",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "address": "Chisinau, A.Iancu street",
+    "underEmail": "A reply will be sent to this email, and it will also help us get to the bottom of the issue faster if you have already registered.",
+    "categories": [
+      { "item": "Category 1" },
+      { "item": "Category 2" },
+      { "item": "Category 3" },
+      { "item": "Category 4" },
+      { "item": "Category 5" }
+    ],
+    "describeQuestion": "Describe your question in more detail",
+    "WriteYourMessageHere": "Write your message here...",
+    "send": "Send",
+    "sendMessage": "By clicking on the “Send Message” button, you consent to the processing of personal data",
+
+    "nameRequired": "Name is required",
+    "phoneRequired": "Phone number is required",
+    "emailRequired": "Email is required",
+    "categoryRequired": "Category is required",
+    "messageRequired": "Message is required",
+
+    "phoneCorrect": "Phone number is required",
+    "emailCorrect": "Invalid email format",
+
+    "ValidationPhone": "Name is required",
+    "Cards with available functionality": "Cards with available functionality"
+  },
+  "TermsOfService": {
+    "title": "Terms of Service",
+    "data": [
+      {
+        "itemTitle": "General Provisions",
+        "itemsContent": {
+          "1": "Legal name of the company: \"Live Moment Group\" S.R.L.",
+          "2": "Field of activity: Digital memory preservation.",
+          "3": "Service description: The Moment service offers the creation of memorial pages, allowing the commemoration of loved ones through the upload of photos, videos, and text materials. For each created page, a unique QR code is automatically generated, which can be placed on memorials for quick access to the memorial page via mobile devices."
+        }
+      },
+      {
+        "itemTitle": "Rights and Obligations of Users",
+        "itemsContent": {
+          "1": "Rights of Users:",
+          "2": [
+            "Create and manage digital memorials dedicated to deceased individuals.",
+            "Upload various materials, such as photos, videos, and written content, to preserve memories."
+          ],
+          "3": "Obligations of Users:",
+          "4": [
+            "Not to post content that violates the law, discriminates on any grounds, contains violence, pornography, defamation, extremism, or any material that may be offensive to other users.",
+            "Ensure copyright ownership of uploaded materials and not publish third-party content without permission."
+          ]
+        }
+      },
+      {
+        "itemTitle": "Use of Personal Data",
+        "itemsContent": {
+          "1": "We are committed to protecting the personal data of users, complying with the laws of the Republic of Moldova and international standards.",
+          "2": "All personal data collected through the service will be used solely for providing the services and will not be shared with third parties without the user’s consent, except as required by law.",
+          "3": "We may use data to provide updates on the service and improve the user experience."
+        }
+      },
+      {
+        "itemTitle": "Responsibilities of the Parties",
+        "itemsContent": {
+          "1": "Responsibilities of Users:",
+          "2": [
+            "Assume full responsibility for the materials posted on the platform, ensuring they do not infringe copyrights, are not illegal or offensive.",
+            "Not to post content that could cause harm to other users, their devices, or disrupt the service’s functionality."
+          ],
+          "3": "Responsibilities of the Company:",
+          "4": [
+            "Provide a platform for creating digital memorials, without being responsible for the accuracy or legality of user-generated content.",
+            "Not liable for any damage to data or devices that may result from using the service."
+          ]
+        }
+      },
+      {
+        "itemTitle": "Payments",
+        "itemsContent": {
+          "1": "The platform offers different types of memory pages:",
+          "2": [
+            "Free page: limited functionality with basic content upload options.",
+            "Paid memory page: includes a one-year subscription and a plaque with a unique QR code. After this period, the user will need to pay an annual subscription to continue using the extended page and access additional features."
+          ],
+          "3": "All payments are made through secure payment systems, and payment is processed only after the user confirms the order."
+        }
+      },
+      {
+        "itemTitle": "Termination of Service Use",
+        "itemsContent": {
+          "1": "If you do not agree with the terms outlined in this agreement, you must cease using the Moment service and its offerings."
+        }
+      },
+      {
+        "itemTitle": "Account Blocking",
+        "itemsContent": {
+          "1": "The administration reserves the right to block user accounts without prior notice in the event of violation of the terms of use or the law.",
+          "2": "If a user breaks the law, the administration may provide relevant information to the competent authorities."
+        }
+      },
+      {
+        "itemTitle": "Modification of Terms",
+        "itemsContent": {
+          "1": "By creating an account, you confirm your acceptance of the \"Terms and Conditions.\"",
+          "2": "We reserve the right to modify these terms at any time without prior notice.",
+          "3": "We recommend periodically checking for updates to stay informed of the latest information."
+        }
+      },
+      {
+        "itemTitle": "Email Notifications",
+        "itemsContent": {
+          "1": "By agreeing to the terms of use, you confirm that the administration may send you emails or messages with information about the service, updates, and special offers."
+        }
+      }
+    ]
+  },
+  "PrivacyPolicy": {
+    "title": "Privacy Policy",
+    "data": [
+      {
+        "itemTitle": "General Provisions",
+        "itemsContent": {
+          "1": "This Privacy Policy applies to all information collected by 'Live Moment Group' S.R.L. (hereinafter referred to as 'the Company' or 'We') through the Moment service.",
+          "2": "The Company is committed to protecting the privacy of its users and ensuring the confidentiality of their personal data.",
+          "3": "By using the Moment service, users agree to the terms of this Privacy Policy."
+        }
+      },
+      {
+        "itemTitle": "Collected Information",
+        "itemsContent": {
+          "1": "Personal Data: The Company collects personal data that is voluntarily provided by users, such as name, email address, phone number, and payment information when using the service.",
+          "2": "Non-Personal Data: The Company may collect non-personal data related to the user’s activity on the website, such as IP address, browser type, and interaction with the website.",
+          "3": "Cookies: The service uses cookies to improve user experience, track user activity, and collect anonymous data about usage patterns."
+        }
+      },
+      {
+        "itemTitle": "Use of Information",
+        "itemsContent": {
+          "1": "The information collected will be used for the following purposes:",
+          "2": [
+            "To provide the services offered by the Moment platform.",
+            "To process payments and manage subscriptions.",
+            "To communicate with users regarding updates, special offers, and other service-related notifications.",
+            "To improve the functionality and security of the platform."
+          ],
+          "3": "The Company may send users marketing communications, but users can opt out at any time by following the instructions in the communications."
+        }
+      },
+      {
+        "itemTitle": "Data Security",
+        "itemsContent": {
+          "1": "The Company takes appropriate measures to protect the personal data of users from unauthorized access, use, or disclosure. However, no method of data transmission over the internet or method of electronic storage is completely secure, and the Company cannot guarantee the absolute security of data."
+        }
+      },
+      {
+        "itemTitle": "Third-Party Sharing",
+        "itemsContent": {
+          "1": "The Company does not share personal data with third parties except in the following cases:",
+          "2": [
+            "When required by law or to comply with legal obligations.",
+            "With third-party service providers who assist in the operation of the platform, such as payment processors and email service providers. These parties are required to protect the confidentiality of the data they access."
+          ]
+        }
+      },
+      {
+        "itemTitle": "User Rights",
+        "itemsContent": {
+          "1": "Users have the right to:",
+          "2": [
+            "Access their personal data stored by the Company.",
+            "Request corrections to inaccurate data.",
+            "Request the deletion of personal data (subject to legal requirements).",
+            "Withdraw consent for data processing at any time."
+          ],
+          "3": "To exercise these rights, users may contact the Company through the contact information provided on the Moment website."
+        }
+      },
+      {
+        "itemTitle": "Changes to Privacy Policy",
+        "itemsContent": {
+          "1": "The Company reserves the right to modify this Privacy Policy at any time. When changes are made, the updated policy will be posted on the website. Users are encouraged to review the policy periodically."
+        }
+      },
+      {
+        "itemTitle": "Contact Information",
+        "itemsContent": {
+          "1": "If you have any questions or concerns regarding this Privacy Policy or our data processing practices, you can contact us at:",
+          "2": ["Email: [your-email@example.com]", "Phone: [your-phone-number]"]
+        }
+      },
+      {
+        "itemTitle": "Retention of Data",
+        "itemsContent": {
+          "1": "The Company will retain personal data for as long as necessary to provide services and fulfill the purposes outlined in this Privacy Policy, or as required by applicable law.",
+          "2": "Once the data is no longer required, the Company will securely delete or anonymize the personal data."
+        }
+      }
+    ]
+  },
+  "Notifications": {
+    "Short info saved successfully": "Short info saved successfully",
+    "Failed to save short info": "Failed to save short info",
+    "Short info deleted successfully": "Short info deleted successfully",
+    "Failed to delete short info": "Failed to delete short info",
+    "Photo uploaded successfully": "Photo uploaded successfully",
+    "Failed to upload photo": "Failed to upload photo",
+    "Video uploaded successfully": "Video uploaded successfully",
+    "Failed to upload video": "Failed to upload video",
+    "Page created successfully": "Page created successfully",
+    "Failed to create page": "Failed to create page",
+    "Page updated successfully": "Page updated successfully",
+    "Failed to update page": "Failed to update page",
+    "Place updated successfully": "Place updated successfully",
+    "Failed to update place": "Failed to update place"
+  },
+  "HowItWorks": {
+    "title": "How It Works"
+  },
+  "ReportModal": {
+    "Report a page": "Report a page",
+    "Confirmation": "Confirmation",
+    "steps": {
+      "details": "Reason",
+      "confirmation": "Confirmation"
+    },
+    "reasons": {
+      "disrespectful": "Disrespectful content",
+      "falseInformation": "False or misleading information",
+      "inappropriate": "Inappropriate content for a memorial page",
+      "spam": "Spam or advertising",
+      "copyright": "Copyright violation",
+      "other": "Other"
+    },
+    "Select a reason of the report": "Select a reason for the report",
+    "Please provide a reason": "Please provide a reason",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "confirmationTitle": "Report confirmation",
+    "confirmationText": "Press “Finish” to submit your report. After confirmation, you will no longer be able to make changes.",
+    "selectReasonOfReport": "Please choose the reason you wish to report this memorial page."
+  },
+  "ReportedInfo": {
+    "loading": "Loading...",
+    "unknownReporter": "Unknown reporter",
+    "reporter": "Reporter",
+    "reportedOn": "Reported on"
+  },
+  "Reports": {
+    "error": "Error while loading reports!",
+    "noReports": "No reports available.",
+    "report": "Report",
+    "memoryPageId": "Memory Page ID",
+    "reason": "Reason",
+    "createdAt": "Created at",
+    "deactivate": "Deactivate Page",
+    "reject": "Reject",
+    "statuses": {
+      "all": "ALL",
+      "pending": "PENDING",
+      "resolved": "RESOLVED",
+      "rejected": "REJECTED"
+    },
+    "from": "From",
+    "to": "Until",
+    "clear": "Clear"
+  },
+  "MemoryInfo": {
+    "loading": "Loading...",
+    "error": "Error loading memory pages.",
+    "none": "No memory pages found.",
+    "noPages": "No pages found"
+  },
+  "AdminPanel": {
+    "manageUsers": "Manage Users",
+    "email": "Email",
+    "phone": "Phone",
+    "confirmed": "Confirmed",
+    "active": "Active",
+    "role": "Role",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "save": "Save",
+    "suspend": "Suspend",
+    "delete": "Delete",
+    "memoryPages": "Memory Pages",
+    "manageReports": "Manage Reports",
+    "reports": "Reports",
+    "roles": {
+      "user": "User",
+      "admin": "Admin"
+    },
+    "createdAt": "Created At",
+    "search": "Search by email or phone",
+    "email or phone": "Email or Phone",
+    "noUsersFound": "No users found.",
+    "activate": "Activate",
+    "prices": "Prices",
+    "managePrices": "Manage prices"
+  },
+  "DeactivatedModal": {
+    "title": "This page is deactivated",
+    "message": "This page is no longer active. If you need access, please contact the administrator.",
+    "closeButton": "Close"
+  },
+  "About": {
+    "title": "The Story Behind Moment",
+    "paragraph1": "Moment was born out of a deep and simple human need — to preserve the memory of those who will forever remain in our hearts. We believe that no important story should be forgotten. Every life is a unique journey filled with events, emotions, victories, and meaning. These moments deserve to live on — in the memory of loved ones, in the stories of friends, and in the hearts of future generations.",
+    "paragraph2": "We created Moment as a social and human-centered project where anyone can share a story about a loved one. It's a place where memory becomes accessible, alive, and warm. Our goal is not just to help people remember, but to encourage them to share their memories — because true remembrance is what we pass on to others.",
+    "paragraph3": "Over time, old photos fade, get lost, or simply disappear. We often face the sad truth that the family pictures we once saw as children are gone years later, leaving behind only fragments of memories that can no longer be restored.",
+    "paragraph4": "Today, the problem of memory loss hasn’t disappeared — it has simply taken a digital form. Photos, videos, voice recordings, meaningful letters, and memories are scattered across countless devices and platforms: phones, USB drives, disks, cloud storages, and chats. We don’t always manage to save them, and one day we risk losing something truly precious. Moment helps bring everything together in one place, so memories aren’t lost, erased, or forgotten.",
+    "paragraph5": "We all have stories we’re proud of. We believe these stories shouldn’t stay locked away in personal archives — they deserve to be shared.",
+    "paragraph6": "With Moment, you can preserve and pass on what truly matters. It might be one word, one photo, one story — but that single piece can become the link between generations."
+  },
+  "ConfirmActivateDeactivateMemoryPage": {
+    "title": {
+      "activate": "Confirm Activation",
+      "deactivate": "Confirm Deactivation"
+    },
+    "message": {
+      "activate": "Are you sure you want to reactivate this page?",
+      "deactivate": "Are you sure you want to deactivate this page?"
+    },
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ConfirmChangePlan": {
+    "title": "Confirm Change",
+    "message": "Are you sure you want to change the type of this page?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ConfirmDeleteMemoryPage": {
+    "title": "Confirm Deletion",
+    "message": "Are you sure you want to delete this memory page? This action is irreversible.",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "ConfirmDeleteUser": {
+    "title": "Confirm Deletion",
+    "message": "Are you sure you want to delete this user? This action is irreversible.",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "ConfirmSuspendActivateUser": {
+    "confirmActivate": "Confirm Activation",
+    "confirmSuspend": "Confirm Suspension",
+    "confirmActivateMessage": "Are you sure you want to reactivate this user?",
+    "confirmSuspendMessage": "Are you sure you want to suspend this user?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "SignStatus": {
+    "IN_PROGRESS": "IN PROGRESS",
+    "COMPLETED": "COMPLETED",
+    "NOT_STARTED": "NOT STARTED"
+  },
+  "PriceComponent": {
+    "price": "Price",
+    "currency": "Currency",
+    "save": "Save"
+  },
+  "UpdatePrices": {
+    "title": "Update Prices",
+    "loading": "Loading...",
+    "error": "Error loading data"
+  },
+  "SectionView": {
+    "lockedSectionDescription": "This section is available only on the ",
+    "buyButton": "Buy",
+    "extended page": "extended page"
+  }
+}
