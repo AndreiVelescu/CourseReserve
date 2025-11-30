@@ -1,27 +1,27 @@
 {
   "HomePage": {
-    "title": "Salut Lume!",
-    "about": "Mergi la pagina Despre",
-    "memory pages": "Pagini de amintiri",
-    "read pages": "Citiți pagini de povești interesante și creați pagini de amintiri pentru cei dragi. Este cel mai bun mod modern de a păstra vii amintirile despre ei",
-    "create page": "Creați pagina",
-    "stepsTitle": "Păstrați o amintire în doar 3 pași simpli",
+    "welcomeTitle": "Bine ați venit la CourseReserve",
+    "welcomeSubtitle": "O platformă modernă pentru rezervarea și gestionarea cursurilor online",
     "register": "Înregistrează-te",
-    "register text": "Creați un cont personal pe site pentru a începe să lucrați cu pagini memoriale. Înregistrarea va dura doar câteva minute și vă va oferi acces la toate caracteristicile serviciului.",
-    "page type": "Selectați tipul de pagină dorit",
-    "page type text": "Determinați dacă doriți să creați o pagină memorială scurtă (gratuită) sau una extinsă cu fotografii, biografie și alte materiale.",
-    "upload memories": "Descărcați amintiri",
-    "upload memories text": "Adăugați materiale importante: fotografii, texte, videoclipuri, povești. Aceste amintiri vor ajuta la păstrarea imaginii persoanei dragi și vor face pagina cu adevărat vie și semnificativă. Fiecare poveste merită să fie spusă.",
-    "slogan": "Legătura dintre generații prin memorie",
-    "subSlogan": "Credem că amintirea celor dragi este o punte între trecut, prezent și viitor. Serviciul nostru a fost creat pentru a păstra momentele importante, poveștile și emoțiile care ne formează moștenirea. Fiecare amintire este o parte prețioasă a vieții dvs. și ne străduim să vă ajutăm să o transmiteți generațiilor viitoare, pentru ca acestea să poată simți căldura și profunzimea poveștilor de familie.",
-    "exampleTitle": "Exemplu de pagină de memorie",
-    "anotherExample": "Afișați un alt exemplu",
-    "View": "Vezi"
+    "login": "Autentifică-te",
+    "seeCourses": "Vezi cursurile",
+    "whyTitle": "De ce CourseReserve?",
+    "feature1Title": "Cursuri diverse",
+    "feature1Desc": "Alegeți din zeci de cursuri în domenii precum programare, design, marketing și altele",
+    "feature2Title": "Rezervare simplă",
+    "feature2Desc": "Sistem intuitiv de rezervare cu doar câteva clicuri. Gestionați cu ușurință cursurile",
+    "feature3Title": "Instructori profesioniști",
+    "feature3Desc": "Învățați de la cei mai buni instructori cu experiență vastă în domeniile lor",
+
+    "ctaTitle": "Începeți astăzi!",
+    "ctaSubtitle": "Înscrieți-vă gratuit și descoperiți sute de cursuri care vă vor ajuta să vă dezvoltați cariera",
+    "ctaButton": "Creează cont gratuit"
   },
   "Navigation": {
-    "Home": "Acasa",
+    "Home": "Acasă",
     "Courses": "Cursuri",
-    "Reservations": "Rezervări"
+    "Reservations": "Rezervări",
+    "adminPanel": "Panou Administrator"
   },
   "Buttons": {
     "Close": "Închide",

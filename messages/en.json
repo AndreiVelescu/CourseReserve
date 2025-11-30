@@ -1,27 +1,27 @@
 {
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page",
-    "memory pages": "Memory pages",
-    "read pages": "Read pages of interesting stories and create memory pages for your loved ones. This is the best modern way to keep memories of them alive",
-    "create page": "Create page",
-    "stepsTitle": "Preserve a memory in just 3 easy steps",
-    "register": "Sign up",
-    "register text": "Create a personal account on the site to start working with memorial pages. Registration takes only a couple of minutes and opens access to all the features of the service.",
-    "page type": "Select the page type you want",
-    "page type text": "Determine whether you want to create a brief (free) memorial page or an expanded one with photos, a biography, and more.",
-    "upload memories": "Upload your memories",
-    "upload memories text": "Add important materials: photos, texts, videos, stories. These memories will help preserve the image of your loved one and make the page truly alive and meaningful. Every story deserves to be told.",
-    "slogan": "Connecting generations through memory",
-    "subSlogan": "We believe that memories of loved ones are a bridge between the past, present, and future. Our service was created to preserve the important moments, stories, and emotions that shape our legacy. Every memory is a valuable part of your life, and we strive to help you pass it on to future generations so that they can feel the warmth and depth of your family stories.",
-    "exampleTitle": "Example of a memory page",
-    "anotherExample": "Show another example",
-    "View": "View"
+    "welcomeTitle": "Welcome to CourseReserve",
+    "welcomeSubtitle": "A modern platform for booking and managing online courses",
+    "register": "Register",
+    "login": "Login",
+    "seeCourses": "See Courses",
+    "whyTitle": "Why CourseReserve?",
+    "feature1Title": "Diverse Courses",
+    "feature1Desc": "Choose from dozens of courses in fields like programming, design, marketing, and more",
+    "feature2Title": "Simple Booking",
+    "feature2Desc": "Intuitive booking system with just a few clicks. Easily manage your courses",
+    "feature3Title": "Professional Instructors",
+    "feature3Desc": "Learn from the best instructors with extensive experience in their fields",
+
+    "ctaTitle": "Get Started Today!",
+    "ctaSubtitle": "Sign up for free and discover hundreds of courses that will help you advance your career",
+    "ctaButton": "Create Free Account"
   },
   "Navigation": {
     "Home": "Home",
     "Courses": "Courses",
-    "Reservations": "Reservations"
+    "Reservations": "Reservations",
+    "adminPanel": "Admin Panel"
   },
   "Buttons": {
     "Close": "Close",

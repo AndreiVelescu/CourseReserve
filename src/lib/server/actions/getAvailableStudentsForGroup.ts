@@ -5,7 +5,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { applyRateLimit } from "@/lib/ratelimiter";
 import { headers } from "next/headers";
-import { requireCourseInstructor } from "@/lib/route-helper";
 
 function getClientIP() {
   const forwarded = headers().get("x-forwarded-for");
@@ -23,11 +22,23 @@ export async function getAvailableStudentsForGroup(
   try {
     await applyRateLimit(ip, "api");
 
-    await requireCourseInstructor(courseId);
-
     const session = await getServerSession(authOptions);
+
     if (!session?.user?.email) {
       throw new Error("Not logged in!");
+    }
+
+    // Verifică dacă utilizatorul este instructor sau admin
+    const currentUser = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { role: true },
+    });
+
+    if (
+      !currentUser ||
+      (currentUser.role !== "INSTRUCTOR" && currentUser.role !== "ADMIN")
+    ) {
+      throw new Error("Nu ai permisiunea de a accesa această resursă!");
     }
 
     // Step 1: Găsește toate rezervările pentru acest curs
@@ -47,7 +58,6 @@ export async function getAvailableStudentsForGroup(
       },
     });
 
-    // Step 2: Extrage toți utilizatorii cu rezervări (indiferent de rol)
     const users = reservations.map((r) => r.user);
 
     // Dacă nu avem groupId, returnăm toți utilizatorii
@@ -55,7 +65,7 @@ export async function getAvailableStudentsForGroup(
       return users;
     }
 
-    // Step 3: Găsește membrii grupului curent
+    // Step 2: Găsește membrii grupului curent
     const groupMembers = await prisma.groupMember.findMany({
       where: {
         groupId: groupId,
@@ -66,20 +76,9 @@ export async function getAvailableStudentsForGroup(
     });
 
     const memberIds = groupMembers.map((m) => m.userId);
-    console.log("Membri în grupul", groupId, ":", memberIds);
 
-    // Step 4: Filtrează utilizatorii care NU sunt în grup
+    // Step 3: Filtrează utilizatorii care NU sunt în grup
     const availableUsers = users.filter((user) => !memberIds.includes(user.id));
-
-    console.log(
-      "Utilizatori disponibili (după filtrare):",
-      availableUsers.length,
-    );
-    console.log(
-      "Disponibili:",
-      availableUsers.map((u) => ({ id: u.id, username: u.username })),
-    );
-    console.log("=== SERVER ACTION END ===\n");
 
     return availableUsers;
   } catch (error) {

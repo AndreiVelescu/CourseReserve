@@ -27,10 +27,21 @@ import {
   School as SchoolIcon,
   Person as PersonIcon,
 } from "@mui/icons-material";
+import { useQueryClient } from "@tanstack/react-query";
 import { useGetAllUsers } from "@/hooks/api/useGetAllUsers";
 import { useIsAdmin } from "@/hooks/api/useIsAdmin";
 import { useRouter } from "@/i18n/routing";
 import { useGetAllUserLogs } from "@/hooks/api/useGetUserLogsById";
+import { useSnackbar } from "@/context/SnackbarContext";
+
+// Hooks Admin
+import { useCreateUser } from "@/hooks/api/useCreateUser";
+import { useUpdateUser } from "@/hooks/api/useUpdateUser";
+import { useDeleteUser } from "@/hooks/api/useDeleteUser";
+import { useGetUserDetails } from "@/hooks/api/useGetUserDetails";
+import { useExportUsers } from "@/hooks/api/useExportUsers";
+
+// Components
 import { UserLogs } from "./components/UserLogs";
 import { UserTable, UserType } from "./components/UserTable";
 import {
@@ -38,10 +49,13 @@ import {
   CreateUserDialog,
   ViewUserDetailsDialog,
 } from "./components/AdminDialogs";
+import AdminLogsPage from "./components/AdminLogsPage";
 
 function AdminPage() {
   const isAdmin = useIsAdmin();
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const { showSnackbar } = useSnackbar();
 
   // State pentru filtre și căutare
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -57,10 +71,12 @@ function AdminPage() {
   const [editUserDialogOpen, setEditUserDialogOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState<any>(null);
 
-  // State pentru Creare (NOU)
+  // State pentru Creare
   const [createUserDialogOpen, setCreateUserDialogOpen] = useState(false);
+
+  // State pentru View Details
   const [viewUserDialogOpen, setViewUserDialogOpen] = useState(false);
-  const [userToView, setUserToView] = useState<any>(null);
+  const [userIdToView, setUserIdToView] = useState<number | null>(null);
 
   // API Hooks
   const { data, isLoading, error } = useGetAllUsers();
@@ -69,6 +85,65 @@ function AdminPage() {
     isLoading: isLoadingLogs,
     error: errorLogs,
   } = useGetAllUserLogs();
+
+  // ✅ Hooks Admin
+  const createUserMutation = useCreateUser({
+    onSuccess: () => {
+      showSnackbar({
+        message: "Utilizator creat cu succes!",
+        severity: "success",
+      });
+      setCreateUserDialogOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["useGetAllUsers"] });
+    },
+    onError: (error) => {
+      showSnackbar({
+        message: error.message || "Eroare la crearea utilizatorului",
+        severity: "error",
+      });
+    },
+  });
+
+  const updateUserMutation = useUpdateUser({
+    onSuccess: () => {
+      showSnackbar({
+        message: "Utilizator actualizat cu succes!",
+        severity: "success",
+      });
+      setEditUserDialogOpen(false);
+      setUserToEdit(null);
+      queryClient.invalidateQueries({ queryKey: ["useGetAllUsers"] });
+    },
+    onError: (error) => {
+      showSnackbar({
+        message: error.message || "Eroare la actualizarea utilizatorului",
+        severity: "error",
+      });
+    },
+  });
+
+  const deleteUserMutation = useDeleteUser({
+    onSuccess: () => {
+      showSnackbar({
+        message: "Utilizator șters cu succes!",
+        severity: "success",
+      });
+      queryClient.invalidateQueries({ queryKey: ["useGetAllUsers"] });
+    },
+    onError: (error) => {
+      showSnackbar({
+        message: error.message || "Eroare la ștergerea utilizatorului",
+        severity: "error",
+      });
+    },
+  });
+
+  const { data: userDetails, isLoading: isLoadingDetails } = useGetUserDetails(
+    userIdToView,
+    viewUserDialogOpen,
+  );
+
+  const exportUsersMutation = useExportUsers();
 
   // Redirecționare dacă nu e admin
   useEffect(() => {
@@ -89,7 +164,6 @@ function AdminPage() {
     });
   }, [data, searchTerm, roleFilter]);
 
-  // Logs filtrare
   const selectedUserLogs = React.useMemo(() => {
     if (!selectedUserId || !allUserLogs) return [];
     return allUserLogs.filter((log) => log.userId === selectedUserId);
@@ -108,65 +182,83 @@ function AdminPage() {
   };
 
   const handleViewDetails = (userId: number) => {
-    const userFound = data?.find((u) => u.id === userId);
-
-    if (userFound) {
-      setUserToView(userFound);
-      setViewUserDialogOpen(true);
-    }
+    setUserIdToView(userId);
+    setViewUserDialogOpen(true);
   };
 
-  // Handler deschidere dialog editare
   const handleEditUser = (user: UserType) => {
     setUserToEdit(user);
     setEditUserDialogOpen(true);
   };
 
-  // (NOU) Handler submit editare - aceasta lipsea
-  const handleEditUserSubmit = async (formData: {
+  const handleEditUserSubmit = (formData: {
     userId: number;
     username?: string;
     email?: string;
     role?: "STUDENT" | "INSTRUCTOR" | "ADMIN";
     isActive?: boolean;
   }) => {
-    console.log("Submitting edit for user:", formData);
-    try {
-      // Aici apelezi hook-ul sau funcția de API pentru update
-      // await updateUserMutation(formData);
-
-      setEditUserDialogOpen(false);
-      setUserToEdit(null);
-      // Opțional: reîncarcă datele (data.refetch() dacă folosești React Query)
-    } catch (err) {
-      console.error("Failed to update user", err);
-    }
+    updateUserMutation.mutate(formData);
   };
 
-  // (NOU) Handler submit creare user
-  const handleCreateUserSubmit = async (formData: {
+  // ✅ Handler submit creare user
+  const handleCreateUserSubmit = (formData: {
     username: string;
     email: string;
     password: string;
     role: "STUDENT" | "INSTRUCTOR" | "ADMIN";
   }) => {
-    console.log("Creating new user:", formData);
-    try {
-      // Aici apelezi API-ul de creare
-      // await createUserMutation(formData);
+    createUserMutation.mutate(formData);
+  };
 
-      setCreateUserDialogOpen(false);
-    } catch (err) {
-      console.error("Failed to create user", err);
+  // ✅ Handler ștergere
+  const handleDeleteUser = (userId: number) => {
+    const user = data?.find((u) => u.id === userId);
+    if (
+      window.confirm(
+        `Ești sigur că vrei să ștergi utilizatorul "${user?.username}"? Această acțiune este ireversibilă.`,
+      )
+    ) {
+      deleteUserMutation.mutate(userId);
     }
   };
 
-  // Handler ștergere
-  const handleDeleteUser = async (userId: number) => {
-    if (window.confirm("Ești sigur că vrei să ștergi acest utilizator?")) {
-      console.log("Delete user confirmed", userId);
-      // Aici apelezi API-ul de delete
-      // await deleteUserMutation(userId);
+  // ✅ Handler export
+  const handleExport = async (format: "csv" | "json") => {
+    try {
+      const result = await exportUsersMutation.mutateAsync(format);
+
+      if (format === "csv") {
+        // Download CSV
+        const blob = new Blob([result.data as string], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `users_${new Date().toISOString().split("T")[0]}.csv`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      } else {
+        // Download JSON
+        const blob = new Blob([JSON.stringify(result.data, null, 2)], {
+          type: "application/json",
+        });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `users_${new Date().toISOString().split("T")[0]}.json`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+
+      showSnackbar({
+        message: "Export realizat cu succes!",
+        severity: "success",
+      });
+    } catch (error) {
+      showSnackbar({
+        message: "Eroare la export",
+        severity: "error",
+      });
     }
   };
 
@@ -174,13 +266,13 @@ function AdminPage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case "ADMIN":
-        return "error";
+        return "error" as const;
       case "INSTRUCTOR":
-        return "primary";
+        return "primary" as const;
       case "STUDENT":
-        return "default";
+        return "default" as const;
       default:
-        return "default";
+        return "default" as const;
     }
   };
 
@@ -294,7 +386,12 @@ function AdminPage() {
           minHeight: "100vh",
         }}
       >
-        <CircularProgress size={60} />
+        <Stack alignItems="center" spacing={2}>
+          <CircularProgress size={60} />
+          <Typography variant="h6" color="text.secondary">
+            Se încarcă utilizatorii...
+          </Typography>
+        </Stack>
       </Box>
     );
   }
@@ -302,8 +399,22 @@ function AdminPage() {
   if (error) {
     return (
       <Box sx={{ p: 3, display: "flex", justifyContent: "center" }}>
-        <Typography color="error">Eroare la încărcare date.</Typography>
-        <Button onClick={() => window.location.reload()}>Reîncearcă</Button>
+        <Card sx={{ maxWidth: 500 }}>
+          <CardContent>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h5" color="error">
+                Eroare la încărcare
+              </Typography>
+              <Typography color="text.secondary">{error.message}</Typography>
+              <Button
+                variant="contained"
+                onClick={() => window.location.reload()}
+              >
+                Reîncearcă
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
     );
   }
@@ -343,13 +454,18 @@ function AdminPage() {
               </Box>
             </Stack>
             <Stack direction="row" spacing={2}>
-              <Button variant="outlined" startIcon={<DownloadIcon />}>
-                Export
+              <Button
+                variant="outlined"
+                startIcon={<DownloadIcon />}
+                onClick={() => handleExport("csv")}
+                disabled={exportUsersMutation.isPending}
+              >
+                {exportUsersMutation.isPending ? "Se exportă..." : "Export CSV"}
               </Button>
               <Button
                 variant="contained"
                 startIcon={<PersonAddIcon />}
-                onClick={() => setCreateUserDialogOpen(true)} // Am conectat butonul
+                onClick={() => setCreateUserDialogOpen(true)}
               >
                 Adaugă Utilizator
               </Button>
@@ -441,38 +557,40 @@ function AdminPage() {
             onDelete={handleDeleteUser}
           />
         </Card>
-
-        {/* Dialog Editare */}
-        {userToEdit && (
-          <EditUserDialog
-            open={editUserDialogOpen}
-            onClose={() => setEditUserDialogOpen(false)}
-            user={userToEdit}
-            onSubmit={handleEditUserSubmit}
-            isLoading={false}
-          />
-        )}
-
-        {/* Dialog Creare (NOU) */}
-        <CreateUserDialog
-          open={createUserDialogOpen}
-          onClose={() => setCreateUserDialogOpen(false)}
-          onSubmit={handleCreateUserSubmit}
-          isLoading={false}
-        />
-        {userToView && (
-          <ViewUserDetailsDialog
-            open={viewUserDialogOpen}
-            onClose={() => {
-              setViewUserDialogOpen(false);
-              setUserToView(null);
-            }}
-            userId={userToView.id}
-            userDetails={userToView}
-            isLoading={false}
-          />
-        )}
       </Box>
+      <AdminLogsPage />
+
+      {/* Dialog Editare */}
+      <EditUserDialog
+        open={editUserDialogOpen}
+        onClose={() => {
+          setEditUserDialogOpen(false);
+          setUserToEdit(null);
+        }}
+        user={userToEdit}
+        onSubmit={handleEditUserSubmit}
+        isLoading={updateUserMutation.isPending}
+      />
+
+      {/* Dialog Creare */}
+      <CreateUserDialog
+        open={createUserDialogOpen}
+        onClose={() => setCreateUserDialogOpen(false)}
+        onSubmit={handleCreateUserSubmit}
+        isLoading={createUserMutation.isPending}
+      />
+
+      {/* Dialog View Details */}
+      <ViewUserDetailsDialog
+        open={viewUserDialogOpen}
+        onClose={() => {
+          setViewUserDialogOpen(false);
+          setUserIdToView(null);
+        }}
+        userId={userIdToView}
+        userDetails={userDetails}
+        isLoading={isLoadingDetails}
+      />
 
       {/* Dialog Logs */}
       <UserLogs

@@ -1,11 +1,10 @@
-// hooks/api/useGetAvailableStudentsForGroup.ts
 import { useQuery } from "@tanstack/react-query";
 import { getAvailableStudentsForGroup } from "@/lib/server/actions/getAvailableStudentsForGroup";
 
 interface UseGetAvailableStudentsForGroupProps {
   variables: {
     courseId: number;
-    groupId?: number; // ✅ Adăugat groupId opțional
+    groupId?: number;
   };
   enabled?: boolean;
 }

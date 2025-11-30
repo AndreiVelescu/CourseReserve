@@ -55,7 +55,7 @@ import { useRouter } from "@/i18n/routing";
 
 export default function CourseGroupsPage() {
   const params = useParams();
-  const courseId = parseInt(params.id as string);
+  const courseId = parseInt(params.id as string); // ✅ Schimbat din courseId în id
   const queryClient = useQueryClient();
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
@@ -63,6 +63,11 @@ export default function CourseGroupsPage() {
   const [addMemberDialogOpen, setAddMemberDialogOpen] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const { showSnackbar } = useSnackbar();
+  const {
+    data: currentUser,
+    isLoading: isLoadingUser,
+    error: errorStudents,
+  } = useGetCurrentUser();
   const router = useRouter();
 
   const [newGroupData, setNewGroupData] = useState({
@@ -83,15 +88,12 @@ export default function CourseGroupsPage() {
     error,
     refetch,
   } = useGetGroupsByCourseId({ variables: courseId });
-
-  const { data: currentUser, isLoading: isLoadingUser } = useGetCurrentUser();
   const { data: availableStudents, isLoading: isLoadingStudents } =
     useGetAvailableStudentsForGroup({
       variables: {
         courseId: courseId,
-        groupId: selectedGroupId || undefined,
       },
-      enabled: addMemberDialogOpen,
+      enabled: true,
     });
 
   // ✅ DEBUG - verifică ce primește hook-ul
@@ -232,13 +234,13 @@ export default function CourseGroupsPage() {
   ) => {
     if (
       confirm(
-        `Sigur vrei să elimini pe ${username} din grup? Rezervarea la curs va fi restaurată.`,
+        `Sigur vrei să elimini pe ${username} din grup? Rezervarea la curs va fi restaurată automat.`,
       )
     ) {
       removeMemberMutation.mutate({
         groupId,
         userId,
-        restoreReservation: true,
+        restoreReservation: true, // ✅ Restaurează rezervarea
       });
     }
   };
@@ -274,6 +276,7 @@ export default function CourseGroupsPage() {
     );
   }
 
+  // ✅ Verificare autorizare - doar INSTRUCTOR și ADMIN
   if (
     !currentUser ||
     (currentUser.role !== "INSTRUCTOR" && currentUser.role !== "ADMIN")
@@ -750,20 +753,34 @@ export default function CourseGroupsPage() {
       >
         <DialogTitle>Adaugă Membru în Grup</DialogTitle>
         <DialogContent>
-          {availableStudents && availableStudents.length === 0 ? (
+          {isLoadingStudents ? (
+            <Box display="flex" justifyContent="center" py={4}>
+              <CircularProgress />
+            </Box>
+          ) : errorStudents ? (
+            <Alert severity="error">
+              Eroare la încărcarea studenților: {errorStudents.message}
+            </Alert>
+          ) : !availableStudents || availableStudents.length === 0 ? (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography color="text.secondary">
-                Nu există studenți disponibili pentru a fi adăugați în grup
+                Nu există utilizatori disponibili pentru a fi adăugați în grup
               </Typography>
             </Box>
           ) : (
             <List>
-              {availableStudents?.map((student) => (
+              {availableStudents.map((student) => (
                 <ListItem
                   key={student.id}
                   component="button"
                   onClick={() => handleAddMember(student.id)}
                   disabled={addMemberMutation.isPending}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": {
+                      bgcolor: "action.hover",
+                    },
+                  }}
                 >
                   <ListItemAvatar>
                     <Avatar>{getInitials(student.username)}</Avatar>
