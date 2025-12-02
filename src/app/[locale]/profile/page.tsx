@@ -44,6 +44,7 @@ import { useGetUserStats } from "@/hooks/api/useGetUserStats";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Accordion } from "@/components/Accordion";
 import { CreateCourseForm } from "./components/CreateCourseForm";
+import { useTranslations } from "next-intl";
 
 // ✅ Definim interfața pentru grupuri
 interface UserGroup {
@@ -96,6 +97,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function ProfilePage() {
+  const t = useTranslations("ProfilePage");
   const { isLogged } = useIsLoggedIn();
   const { data: currentUser } = useGetCurrentUser({ enabled: isLogged });
   const { data: reservations, isLoading: loadingReservations } =
@@ -119,7 +121,7 @@ export default function ProfilePage() {
   const deleteReservationMutation = useDeleteReservation({
     onSuccess: () => {
       showSnackbar({
-        message: "Rezervare ștearsă cu succes!",
+        message: t("reservationDeleted"),
         severity: "success",
       });
       queryClient.invalidateQueries({ queryKey: ["reservations"] });
@@ -127,7 +129,7 @@ export default function ProfilePage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la ștergerea rezervării",
+        message: error.message || t("deleteError"),
         severity: "error",
       });
     },
@@ -154,11 +156,11 @@ export default function ProfilePage() {
   const getRoleLabel = (role: string) => {
     switch (role) {
       case "STUDENT":
-        return "Student";
+        return t("roleStudent");
       case "INSTRUCTOR":
-        return "Instructor";
+        return t("roleInstructor");
       case "ADMIN":
-        return "Administrator";
+        return t("roleAdmin");
       default:
         return role;
     }
@@ -181,11 +183,7 @@ export default function ProfilePage() {
     reservationId: number,
     courseTitle: string,
   ) => {
-    if (
-      confirm(
-        `Sigur vrei să ștergi rezervarea pentru "${courseTitle}"? Această acțiune este ireversibilă.`,
-      )
-    ) {
+    if (confirm(t("confirmDelete", { courseTitle }))) {
       deleteReservationMutation.mutate(reservationId);
     }
   };
@@ -203,26 +201,6 @@ export default function ProfilePage() {
   };
 
   // Statistici cu date reale
-  const stats = [
-    {
-      title: "Rezervări Active",
-      value: userStats?.reservations || 0,
-      icon: <BookmarkIcon />,
-      color: "#667eea",
-    },
-    {
-      title: "Cursuri Viitoare",
-      value: userStats?.upcomingCourses || 0,
-      icon: <SchoolIcon />,
-      color: "#2ecc71",
-    },
-    {
-      title: "Grupuri",
-      value: userStats?.groups || 0,
-      icon: <GroupIcon />,
-      color: "#f39c12",
-    },
-  ];
 
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh", pb: 6 }}>
@@ -272,52 +250,7 @@ export default function ProfilePage() {
 
       <Box sx={{ maxWidth: 1200, mx: "auto", px: 3, pt: 6 }}>
         {/* STATISTICI */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
-          {stats.map((stat, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <Card
-                sx={{
-                  height: "100%",
-                  transition: "transform 0.2s",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: 4,
-                  },
-                }}
-              >
-                <CardContent>
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <Box>
-                      <Typography
-                        color="text.secondary"
-                        variant="body2"
-                        gutterBottom
-                      >
-                        {stat.title}
-                      </Typography>
-                      <Typography variant="h3" fontWeight="bold">
-                        {stat.value}
-                      </Typography>
-                    </Box>
-                    <Avatar
-                      sx={{
-                        bgcolor: stat.color,
-                        width: 56,
-                        height: 56,
-                      }}
-                    >
-                      {stat.icon}
-                    </Avatar>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        <Grid container spacing={3} sx={{ mb: 4 }}></Grid>
 
         {/* TABS */}
         <Paper sx={{ mb: 3 }}>
@@ -333,15 +266,19 @@ export default function ProfilePage() {
             <Tab
               icon={<BookmarkIcon />}
               iconPosition="start"
-              label="Rezervări"
+              label={t("tabReservations")}
             />
-            <Tab icon={<GroupIcon />} iconPosition="start" label="Grupuri" />
+            <Tab
+              icon={<GroupIcon />}
+              iconPosition="start"
+              label={t("tabGroups")}
+            />
             {(currentUser.role === "INSTRUCTOR" ||
               currentUser.role === "ADMIN") && (
               <Tab
                 icon={<SchoolIcon />}
                 iconPosition="start"
-                label="Gestionare Cursuri"
+                label={t("tabManageCourses")}
               />
             )}
           </Tabs>
@@ -352,7 +289,7 @@ export default function ProfilePage() {
           {/* TAB 1: REZERVĂRI */}
           <TabPanel value={currentTab} index={0}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
-              Rezervările tale
+              {t("myReservations")}
             </Typography>
             <Divider sx={{ mb: 3 }} />
 
@@ -366,16 +303,16 @@ export default function ProfilePage() {
                   sx={{ fontSize: 64, color: "text.secondary", mb: 2 }}
                 />
                 <Typography variant="h6" color="text.secondary" gutterBottom>
-                  Nu ai rezervări momentan
+                  {t("noReservations")}
                 </Typography>
                 <Typography color="text.secondary" sx={{ mb: 3 }}>
-                  Explorează cursurile disponibile și rezervă locul tău!
+                  {t("noReservationsDesc")}
                 </Typography>
                 <Button
                   variant="contained"
                   onClick={() => router.push("/courses")}
                 >
-                  Vezi cursurile
+                  {t("seeCourses")}
                 </Button>
               </Box>
             ) : (
@@ -414,7 +351,7 @@ export default function ProfilePage() {
                               />
                             </Box>
                             <Stack direction="row" spacing={1}>
-                              <Tooltip title="Vezi detalii">
+                              <Tooltip title={t("viewDetails")}>
                                 <IconButton
                                   size="small"
                                   onClick={() =>
@@ -426,7 +363,7 @@ export default function ProfilePage() {
                                   <VisibilityIcon fontSize="small" />
                                 </IconButton>
                               </Tooltip>
-                              <Tooltip title="Șterge rezervarea">
+                              <Tooltip title={t("deleteReservation")}>
                                 <IconButton
                                   size="small"
                                   color="error"
@@ -469,21 +406,22 @@ export default function ProfilePage() {
                                 sx={{ fontSize: 16, color: "text.secondary" }}
                               />
                               <Typography variant="caption">
-                                <strong>Start:</strong>{" "}
+                                <strong>{t("start")}:</strong>{" "}
                                 {new Date(
                                   reservation.course.startDate,
                                 ).toLocaleDateString("ro-RO")}
                               </Typography>
                             </Stack>
                             <Typography variant="caption">
-                              <strong>Durată:</strong>{" "}
-                              {reservation.course.durationMinutes} minute
+                              <strong>{t("duration")}:</strong>{" "}
+                              {reservation.course.durationMinutes}{" "}
+                              {t("minutes")}
                             </Typography>
                             <Typography
                               variant="caption"
                               color="text.secondary"
                             >
-                              <strong>Rezervat:</strong>{" "}
+                              <strong>{t("reserved")}:</strong>{" "}
                               {new Date(
                                 reservation.reservedAt,
                               ).toLocaleDateString("ro-RO")}
@@ -501,7 +439,7 @@ export default function ProfilePage() {
           {/* TAB 2: GRUPURI */}
           <TabPanel value={currentTab} index={1}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
-              Grupurile tale
+              {t("myGroups")}
             </Typography>
             <Divider sx={{ mb: 3 }} />
 
@@ -515,10 +453,10 @@ export default function ProfilePage() {
                   sx={{ fontSize: 64, color: "text.secondary", mb: 2 }}
                 />
                 <Typography variant="h6" color="text.secondary" gutterBottom>
-                  Nu ești membru în niciun grup
+                  {t("noGroups")}
                 </Typography>
                 <Typography color="text.secondary">
-                  Vei fi adăugat în grupuri de către instructori
+                  {t("noGroupsDesc")}
                 </Typography>
               </Box>
             ) : (
@@ -545,7 +483,7 @@ export default function ProfilePage() {
                                 </Typography>
                                 {group.isLeader && (
                                   <Chip
-                                    label="Leader"
+                                    label={t("leader")}
                                     size="small"
                                     color="warning"
                                     icon={<StarIcon />}
@@ -576,7 +514,7 @@ export default function ProfilePage() {
 
                           <Box>
                             <Typography variant="subtitle2" gutterBottom>
-                              Curs: {group.course.title}
+                              {t("course")}: {group.course.title}
                             </Typography>
                             <Stack direction="row" spacing={1} flexWrap="wrap">
                               <Chip
@@ -585,7 +523,7 @@ export default function ProfilePage() {
                                 variant="outlined"
                               />
                               <Chip
-                                label={`${group.memberCount}/${group.maxMembers || "∞"} membri`}
+                                label={`${group.memberCount}/${group.maxMembers || "∞"} ${t("members")}`}
                                 size="small"
                               />
                             </Stack>
@@ -595,7 +533,7 @@ export default function ProfilePage() {
 
                           <Box>
                             <Typography variant="subtitle2" gutterBottom>
-                              Membri ({group.memberCount}):
+                              {t("members")} ({group.memberCount}):
                             </Typography>
                             <List dense sx={{ py: 0 }}>
                               {group.members.slice(0, 3).map((member) => (
@@ -658,24 +596,26 @@ export default function ProfilePage() {
             currentUser.role === "ADMIN") && (
             <TabPanel value={currentTab} index={2}>
               <Typography variant="h5" fontWeight="bold" gutterBottom>
-                Gestionare Cursuri
+                {t("manageCourses")}
               </Typography>
               <Divider sx={{ mb: 3 }} />
 
               <Stack spacing={3}>
                 {/* Butoane rapide */}
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      size="large"
-                      onClick={() => router.push("/admin")}
-                      startIcon={<BadgeIcon />}
-                    >
-                      Panou Admin
-                    </Button>
-                  </Grid>
+                  {currentUser.role === "ADMIN" && (
+                    <Grid item xs={12} sm={6}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        size="large"
+                        onClick={() => router.push("/admin")}
+                        startIcon={<BadgeIcon />}
+                      >
+                        {t("adminPanel")}
+                      </Button>
+                    </Grid>
+                  )}
                   <Grid item xs={12} sm={6}>
                     <Button
                       variant="outlined"
@@ -684,7 +624,7 @@ export default function ProfilePage() {
                       onClick={() => router.push("/courses")}
                       startIcon={<SchoolIcon />}
                     >
-                      Vezi toate cursurile
+                      {t("viewAllCourses")}
                     </Button>
                   </Grid>
                 </Grid>
@@ -692,7 +632,7 @@ export default function ProfilePage() {
                 <Divider />
 
                 {/* Formular creare curs */}
-                <Accordion title="📝 Creează un curs nou">
+                <Accordion title={t("createNewCourse")}>
                   <CreateCourseForm />
                 </Accordion>
               </Stack>

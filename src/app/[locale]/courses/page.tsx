@@ -24,8 +24,10 @@ import {
 import { useIsLoggedIn } from "@/hooks/useIsLoggedIn";
 import { Button } from "@/components/Button";
 import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 function CoursesPage() {
+  const t = useTranslations("CoursesPage");
   const { isLogged } = useIsLoggedIn();
   const { data: courses, isLoading, error } = useGetCourses();
   const router = useRouter();
@@ -62,10 +64,10 @@ function CoursesPage() {
         sx={{ maxWidth: 800, mx: "auto", mt: 10, px: 2, textAlign: "center" }}
       >
         <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
-          Nu ești autentificat
+          {t("notAuthenticated")}
         </Typography>
         <Typography variant="body1" sx={{ mb: 4 }}>
-          Trebuie să te autentifici pentru a vedea cursurile disponibile.
+          {t("authRequired")}
         </Typography>
         <Box display="flex" justifyContent="center" gap={2}>
           <Button
@@ -74,7 +76,7 @@ function CoursesPage() {
             variant="contained"
             size="large"
           >
-            Autentifică-te
+            {t("loginButton")}
           </Button>
           <Button
             component={Link}
@@ -82,7 +84,7 @@ function CoursesPage() {
             variant="outlined"
             size="large"
           >
-            Înregistrează-te
+            {t("registerButton")}
           </Button>
         </Box>
       </Box>
@@ -108,7 +110,7 @@ function CoursesPage() {
     return (
       <Box sx={{ maxWidth: 800, mx: "auto", mt: 10, px: 2 }}>
         <Alert severity="error">
-          Eroare la încărcarea cursurilor: {error.message}
+          {t("loadError")}: {error.message}
         </Alert>
       </Box>
     );
@@ -118,10 +120,10 @@ function CoursesPage() {
   return (
     <Box sx={{ maxWidth: 1200, mx: "auto", mt: 6, px: 2 }}>
       <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
-        Cursuri Disponibile
+        {t("title")}
       </Typography>
       <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 4 }}>
-        Alege un curs și vezi detaliile acestuia.
+        {t("subtitle")}
       </Typography>
 
       {/* Card Filtre */}
@@ -131,18 +133,18 @@ function CoursesPage() {
             variant="h6"
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
-            <FilterIcon /> Filtrare Cursuri
+            <FilterIcon /> {t("filterTitle")}
           </Typography>
 
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
             {/* Căutare după denumire */}
             <TextField
               fullWidth
-              label="Caută după numele cursului"
+              label={t("searchLabel")}
               variant="outlined"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Introdu numele cursului..."
+              placeholder={t("searchPlaceholder")}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -155,7 +157,7 @@ function CoursesPage() {
             {/* Filtrare după categorie */}
             <TextField
               select
-              label="Categorie"
+              label={t("categoryLabel")}
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               sx={{ minWidth: { xs: "100%", sm: 250 } }}
@@ -172,11 +174,11 @@ function CoursesPage() {
           {(searchTerm || selectedCategory !== "toate") && (
             <Alert severity="info">
               {filteredCourses.length === 0
-                ? "Nu s-au găsit cursuri cu criteriile selectate"
+                ? t("noResults")
                 : `${filteredCourses.length} ${
                     filteredCourses.length === 1
-                      ? "curs găsit"
-                      : "cursuri găsite"
+                      ? t("courseSingular")
+                      : t("coursePlural")
                   }`}
             </Alert>
           )}
@@ -184,12 +186,9 @@ function CoursesPage() {
       </Card>
 
       {!courses || courses.length === 0 ? (
-        <Alert severity="info">Nu există cursuri disponibile momentan.</Alert>
+        <Alert severity="info">{t("noCourses")}</Alert>
       ) : filteredCourses.length === 0 ? (
-        <Alert severity="warning">
-          Nu există cursuri care să corespundă criteriilor de filtrare. Încearcă
-          să ajustezi filtrele.
-        </Alert>
+        <Alert severity="warning">{t("noFilteredResults")}</Alert>
       ) : (
         <Grid container spacing={4}>
           {filteredCourses.map((course) => (
@@ -260,10 +259,11 @@ function CoursesPage() {
                       display="block"
                       sx={{ mb: 0.5 }}
                     >
-                      <strong>Durată:</strong> {course.durationMinutes} minute
+                      <strong>{t("duration")}:</strong> {course.durationMinutes}{" "}
+                      {t("minutes")}
                     </Typography>
                     <Typography variant="caption" display="block">
-                      <strong>Start:</strong>{" "}
+                      <strong>{t("startDate")}:</strong>{" "}
                       {new Date(course.startDate).toLocaleDateString("ro-RO")}
                     </Typography>
                   </Box>
@@ -273,7 +273,7 @@ function CoursesPage() {
                     fullWidth
                     onClick={() => router.push(`/courses/${course.id}`)}
                   >
-                    Vezi detalii & Rezervă
+                    {t("detailsButton")}
                   </Button>
                 </CardContent>
               </Card>

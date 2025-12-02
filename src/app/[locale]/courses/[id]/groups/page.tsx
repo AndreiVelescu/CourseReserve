@@ -1,4 +1,3 @@
-// app/[locale]/courses/[id]/groups/page.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -41,6 +40,7 @@ import {
 } from "@mui/icons-material";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useGetGroupsByCourseId } from "@/hooks/api/useGetGroupsByCourseId";
 import { useCreateGroup } from "@/hooks/api/useCreateGroup";
@@ -54,8 +54,9 @@ import { useGetCurrentUser } from "@/hooks/api/useGetCurrentUser";
 import { useRouter } from "@/i18n/routing";
 
 export default function CourseGroupsPage() {
+  const t = useTranslations("CourseGroups");
   const params = useParams();
-  const courseId = parseInt(params.id as string); // ✅ Schimbat din courseId în id
+  const courseId = parseInt(params.id as string);
   const queryClient = useQueryClient();
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
@@ -96,24 +97,19 @@ export default function CourseGroupsPage() {
       enabled: true,
     });
 
-  // ✅ DEBUG - verifică ce primește hook-ul
-  console.log("=== HOOK DEBUG ===");
-  console.log("courseId:", courseId);
-  console.log("selectedGroupId:", selectedGroupId);
-  console.log("addMemberDialogOpen:", addMemberDialogOpen);
-  console.log("availableStudents:", availableStudents);
-  console.log("isLoadingStudents:", isLoadingStudents);
-
   const createGroupMutation = useCreateGroup({
     onSuccess: () => {
-      showSnackbar({ message: "Grup creat cu succes!", severity: "success" });
+      showSnackbar({
+        message: t("messages.groupCreated"),
+        severity: "success",
+      });
       setCreateDialogOpen(false);
       setNewGroupData({ name: "", description: "", maxMembers: 10 });
       queryClient.invalidateQueries({ queryKey: ["groups", "course"] });
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la crearea grupului",
+        message: error.message || t("messages.errorCreating"),
         severity: "error",
       });
     },
@@ -122,7 +118,7 @@ export default function CourseGroupsPage() {
   const updateGroupMutation = useUpdateGroup({
     onSuccess: () => {
       showSnackbar({
-        message: "Grup actualizat cu succes!",
+        message: t("messages.groupUpdated"),
         severity: "success",
       });
       setEditDialogOpen(false);
@@ -130,7 +126,7 @@ export default function CourseGroupsPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la actualizarea grupului",
+        message: error.message || t("messages.errorUpdating"),
         severity: "error",
       });
     },
@@ -138,12 +134,15 @@ export default function CourseGroupsPage() {
 
   const deleteGroupMutation = useDeleteGroup({
     onSuccess: () => {
-      showSnackbar({ message: "Grup șters cu succes!", severity: "success" });
+      showSnackbar({
+        message: t("messages.groupDeleted"),
+        severity: "success",
+      });
       queryClient.invalidateQueries({ queryKey: ["groups", "course"] });
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la ștergerea grupului",
+        message: error.message || t("messages.errorDeleting"),
         severity: "error",
       });
     },
@@ -152,7 +151,7 @@ export default function CourseGroupsPage() {
   const addMemberMutation = useAddMemberToGroup({
     onSuccess: () => {
       showSnackbar({
-        message: "Membru adăugat cu succes!",
+        message: t("messages.memberAdded"),
         severity: "success",
       });
       setAddMemberDialogOpen(false);
@@ -163,7 +162,7 @@ export default function CourseGroupsPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la adăugarea membrului",
+        message: error.message || t("messages.errorAddingMember"),
         severity: "error",
       });
     },
@@ -172,7 +171,7 @@ export default function CourseGroupsPage() {
   const removeMemberMutation = useRemoveMemberFromGroup({
     onSuccess: () => {
       showSnackbar({
-        message: "Membru eliminat cu succes!",
+        message: t("messages.memberRemoved"),
         severity: "success",
       });
       queryClient.invalidateQueries({ queryKey: ["groups", "course"] });
@@ -182,7 +181,7 @@ export default function CourseGroupsPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la eliminarea membrului",
+        message: error.message || t("messages.errorRemovingMember"),
         severity: "error",
       });
     },
@@ -214,7 +213,7 @@ export default function CourseGroupsPage() {
   };
 
   const handleDeleteGroup = (groupId: number, groupName: string) => {
-    if (confirm(`Sigur vrei să ștergi grupul "${groupName}"?`)) {
+    if (confirm(t("confirmations.deleteGroup", { name: groupName }))) {
       deleteGroupMutation.mutate(groupId);
     }
   };
@@ -232,15 +231,11 @@ export default function CourseGroupsPage() {
     userId: number,
     username: string,
   ) => {
-    if (
-      confirm(
-        `Sigur vrei să elimini pe ${username} din grup? Rezervarea la curs va fi restaurată automat.`,
-      )
-    ) {
+    if (confirm(t("confirmations.removeMember", { username }))) {
       removeMemberMutation.mutate({
         groupId,
         userId,
-        restoreReservation: true, // ✅ Restaurează rezervarea
+        restoreReservation: true,
       });
     }
   };
@@ -284,14 +279,13 @@ export default function CourseGroupsPage() {
     return (
       <Box sx={{ p: 3 }}>
         <Alert severity="error" sx={{ mb: 3 }}>
-          Nu ai permisiunea de a accesa această pagină. Doar instructorii și
-          administratorii pot gestiona grupuri.
+          {t("noPermission")}
         </Alert>
         <Button
           variant="contained"
           onClick={() => router.push(`/courses/${courseId}`)}
         >
-          Înapoi la curs
+          {t("backToCourse")}
         </Button>
       </Box>
     );
@@ -316,7 +310,7 @@ export default function CourseGroupsPage() {
     return (
       <Box sx={{ p: 3 }}>
         <Alert severity="error">
-          Eroare la încărcarea grupurilor: {error.message}
+          {t("errorLoading")} {error.message}
         </Alert>
       </Box>
     );
@@ -337,11 +331,9 @@ export default function CourseGroupsPage() {
           </Avatar>
           <Box>
             <Typography variant="h4" fontWeight="bold">
-              Gestionare Grupuri
+              {t("pageTitle")}
             </Typography>
-            <Typography color="text.secondary">
-              Organizează studenții în grupuri pentru acest curs
-            </Typography>
+            <Typography color="text.secondary">{t("pageSubtitle")}</Typography>
           </Box>
         </Stack>
         <Stack direction="row" spacing={2}>
@@ -350,14 +342,14 @@ export default function CourseGroupsPage() {
             startIcon={<RefreshIcon />}
             onClick={() => refetch()}
           >
-            Reîmprospătează
+            {t("buttons.refresh")}
           </Button>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => setCreateDialogOpen(true)}
           >
-            Creează Grup
+            {t("buttons.createGroup")}
           </Button>
         </Stack>
       </Stack>
@@ -374,7 +366,7 @@ export default function CourseGroupsPage() {
               >
                 <Box>
                   <Typography color="text.secondary" variant="body2">
-                    Total Grupuri
+                    {t("stats.totalGroups")}
                   </Typography>
                   <Typography variant="h3" fontWeight="bold">
                     {groups?.length || 0}
@@ -398,7 +390,7 @@ export default function CourseGroupsPage() {
               >
                 <Box>
                   <Typography color="text.secondary" variant="body2">
-                    Total Membri
+                    {t("stats.totalMembers")}
                   </Typography>
                   <Typography variant="h3" fontWeight="bold">
                     {groups?.reduce((sum, g) => sum + g.members.length, 0) || 0}
@@ -422,7 +414,7 @@ export default function CourseGroupsPage() {
               >
                 <Box>
                   <Typography color="text.secondary" variant="body2">
-                    Studenți Disponibili
+                    {t("stats.availableStudents")}
                   </Typography>
                   <Typography variant="h3" fontWeight="bold">
                     {availableStudents?.length || 0}
@@ -446,17 +438,17 @@ export default function CourseGroupsPage() {
                 sx={{ fontSize: 64, color: "text.secondary", mb: 2 }}
               />
               <Typography variant="h6" color="text.secondary" gutterBottom>
-                Nu există grupuri create
+                {t("emptyState.title")}
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 3 }}>
-                Creează primul grup pentru a organiza studenții
+                {t("emptyState.subtitle")}
               </Typography>
               <Button
                 variant="contained"
                 startIcon={<AddIcon />}
                 onClick={() => setCreateDialogOpen(true)}
               >
-                Creează Primul Grup
+                {t("buttons.createFirstGroup")}
               </Button>
             </Box>
           </CardContent>
@@ -485,7 +477,7 @@ export default function CourseGroupsPage() {
                         )}
                       </Box>
                       <Stack direction="row" spacing={0.5}>
-                        <Tooltip title="Editează">
+                        <Tooltip title={t("groupCard.edit")}>
                           <IconButton
                             size="small"
                             onClick={() => handleEditGroup(group)}
@@ -493,7 +485,7 @@ export default function CourseGroupsPage() {
                             <EditIcon fontSize="small" />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip title="Arhivează">
+                        <Tooltip title={t("groupCard.archive")}>
                           <IconButton
                             size="small"
                             onClick={() => handleArchiveGroup(group.id)}
@@ -501,7 +493,7 @@ export default function CourseGroupsPage() {
                             <ArchiveIcon fontSize="small" />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip title="Șterge">
+                        <Tooltip title={t("groupCard.delete")}>
                           <IconButton
                             size="small"
                             color="error"
@@ -520,7 +512,11 @@ export default function CourseGroupsPage() {
                     {/* Group Stats */}
                     <Stack direction="row" spacing={2}>
                       <Chip
-                        label={`${group.members.length}/${group.maxMembers || "∞"} membri`}
+                        label={
+                          group.maxMembers
+                            ? `${group.members.length}/${group.maxMembers} ${t("groupCard.members").toLowerCase()}`
+                            : `${group.members.length}/∞ ${t("groupCard.members").toLowerCase()}`
+                        }
                         size="small"
                         color={
                           group.members.length >= (group.maxMembers || Infinity)
@@ -529,7 +525,11 @@ export default function CourseGroupsPage() {
                         }
                       />
                       <Chip
-                        label={group.status}
+                        label={
+                          group.status === "ACTIVE"
+                            ? t("status.active")
+                            : t("status.archived")
+                        }
                         size="small"
                         color={
                           group.status === "ACTIVE" ? "success" : "default"
@@ -540,11 +540,11 @@ export default function CourseGroupsPage() {
                     {/* Members List */}
                     <Box>
                       <Typography variant="subtitle2" gutterBottom>
-                        Membri:
+                        {t("groupCard.members")}
                       </Typography>
                       {group.members.length === 0 ? (
                         <Typography variant="body2" color="text.secondary">
-                          Niciun membru încă
+                          {t("groupCard.noMembers")}
                         </Typography>
                       ) : (
                         <List dense sx={{ py: 0 }}>
@@ -580,7 +580,7 @@ export default function CourseGroupsPage() {
                                 secondary={member.user.email}
                               />
                               <ListItemSecondaryAction>
-                                <Tooltip title="Elimină">
+                                <Tooltip title={t("groupCard.remove")}>
                                   <IconButton
                                     size="small"
                                     edge="end"
@@ -614,7 +614,7 @@ export default function CourseGroupsPage() {
                         group.members.length >= (group.maxMembers || Infinity)
                       }
                     >
-                      Adaugă Membru
+                      {t("buttons.addMember")}
                     </Button>
                   </Stack>
                 </CardContent>
@@ -631,11 +631,11 @@ export default function CourseGroupsPage() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Creează Grup Nou</DialogTitle>
+        <DialogTitle>{t("dialogs.createTitle")}</DialogTitle>
         <DialogContent>
           <Stack spacing={3} sx={{ mt: 2 }}>
             <TextField
-              label="Nume Grup"
+              label={t("dialogs.groupName")}
               value={newGroupData.name}
               onChange={(e) =>
                 setNewGroupData({ ...newGroupData, name: e.target.value })
@@ -644,7 +644,7 @@ export default function CourseGroupsPage() {
               required
             />
             <TextField
-              label="Descriere"
+              label={t("dialogs.description")}
               value={newGroupData.description}
               onChange={(e) =>
                 setNewGroupData({
@@ -657,7 +657,7 @@ export default function CourseGroupsPage() {
               rows={3}
             />
             <TextField
-              label="Număr maxim de membri"
+              label={t("dialogs.maxMembers")}
               type="number"
               value={newGroupData.maxMembers}
               onChange={(e) =>
@@ -672,13 +672,17 @@ export default function CourseGroupsPage() {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setCreateDialogOpen(false)}>Anulează</Button>
+          <Button onClick={() => setCreateDialogOpen(false)}>
+            {t("buttons.cancel")}
+          </Button>
           <Button
             variant="contained"
             onClick={handleCreateGroup}
             disabled={!newGroupData.name || createGroupMutation.isPending}
           >
-            {createGroupMutation.isPending ? "Se creează..." : "Creează"}
+            {createGroupMutation.isPending
+              ? t("buttons.creating")
+              : t("buttons.create")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -690,11 +694,11 @@ export default function CourseGroupsPage() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Editează Grup</DialogTitle>
+        <DialogTitle>{t("dialogs.editTitle")}</DialogTitle>
         <DialogContent>
           <Stack spacing={3} sx={{ mt: 2 }}>
             <TextField
-              label="Nume Grup"
+              label={t("dialogs.groupName")}
               value={editGroupData.name}
               onChange={(e) =>
                 setEditGroupData({ ...editGroupData, name: e.target.value })
@@ -703,7 +707,7 @@ export default function CourseGroupsPage() {
               required
             />
             <TextField
-              label="Descriere"
+              label={t("dialogs.description")}
               value={editGroupData.description}
               onChange={(e) =>
                 setEditGroupData({
@@ -716,7 +720,7 @@ export default function CourseGroupsPage() {
               rows={3}
             />
             <TextField
-              label="Număr maxim de membri"
+              label={t("dialogs.maxMembers")}
               type="number"
               value={editGroupData.maxMembers}
               onChange={(e) =>
@@ -731,15 +735,17 @@ export default function CourseGroupsPage() {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditDialogOpen(false)}>Anulează</Button>
+          <Button onClick={() => setEditDialogOpen(false)}>
+            {t("buttons.cancel")}
+          </Button>
           <Button
             variant="contained"
             onClick={handleUpdateGroup}
             disabled={!editGroupData.name || updateGroupMutation.isPending}
           >
             {updateGroupMutation.isPending
-              ? "Se actualizează..."
-              : "Actualizează"}
+              ? t("buttons.updating")
+              : t("buttons.update")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -751,7 +757,7 @@ export default function CourseGroupsPage() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Adaugă Membru în Grup</DialogTitle>
+        <DialogTitle>{t("dialogs.addMemberTitle")}</DialogTitle>
         <DialogContent>
           {isLoadingStudents ? (
             <Box display="flex" justifyContent="center" py={4}>
@@ -759,12 +765,12 @@ export default function CourseGroupsPage() {
             </Box>
           ) : errorStudents ? (
             <Alert severity="error">
-              Eroare la încărcarea studenților: {errorStudents.message}
+              {t("dialogs.errorLoadingStudents")} {errorStudents.message}
             </Alert>
           ) : !availableStudents || availableStudents.length === 0 ? (
             <Box sx={{ textAlign: "center", py: 4 }}>
               <Typography color="text.secondary">
-                Nu există utilizatori disponibili pentru a fi adăugați în grup
+                {t("dialogs.noAvailableStudents")}
               </Typography>
             </Box>
           ) : (
@@ -795,7 +801,9 @@ export default function CourseGroupsPage() {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setAddMemberDialogOpen(false)}>Închide</Button>
+          <Button onClick={() => setAddMemberDialogOpen(false)}>
+            {t("buttons.close")}
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

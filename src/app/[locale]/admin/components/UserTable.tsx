@@ -18,6 +18,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export type UserType = {
   id: number;
@@ -73,28 +74,28 @@ export const UserTable: React.FC<UserTableProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const t = useTranslations("UserTable");
+
   return (
     <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Utilizator</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Rol</TableCell>
-            <TableCell>Data înregistrării</TableCell>
-            <TableCell>Rezervări</TableCell>
-            <TableCell>Cursuri</TableCell>
-            <TableCell>Activitate</TableCell>
-            <TableCell align="right">Acțiuni</TableCell>
+            <TableCell>{t("headers.user")}</TableCell>
+            <TableCell>{t("headers.email")}</TableCell>
+            <TableCell>{t("headers.role")}</TableCell>
+            <TableCell>{t("headers.registrationDate")}</TableCell>
+            <TableCell>{t("headers.reservations")}</TableCell>
+            <TableCell>{t("headers.courses")}</TableCell>
+            <TableCell>{t("headers.activity")}</TableCell>
+            <TableCell align="right">{t("headers.actions")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {filteredUsers.length === 0 ? (
             <TableRow>
               <TableCell colSpan={8} align="center" sx={{ py: 8 }}>
-                <Typography color="text.secondary">
-                  Nu au fost găsiți utilizatori
-                </Typography>
+                <Typography color="text.secondary">{t("noUsers")}</Typography>
               </TableCell>
             </TableRow>
           ) : (
@@ -151,7 +152,7 @@ export const UserTable: React.FC<UserTableProps> = ({
                     />
                   </TableCell>
                   <TableCell>
-                    <Tooltip title="Vezi istoric activitate">
+                    <Tooltip title={t("tooltips.viewHistory")}>
                       <IconButton
                         size="small"
                         onClick={() => handleOpenLogs(user.id)}
@@ -169,15 +170,21 @@ export const UserTable: React.FC<UserTableProps> = ({
                       spacing={1}
                       justifyContent="flex-end"
                     >
-                      <IconButton onClick={() => onViewDetails(user.id)}>
-                        <VisibilityIcon />
-                      </IconButton>
-                      <IconButton onClick={() => onEdit(user)}>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton onClick={() => onDelete(user.id)}>
-                        <DeleteIcon />
-                      </IconButton>
+                      <Tooltip title={t("tooltips.viewDetails")}>
+                        <IconButton onClick={() => onViewDetails(user.id)}>
+                          <VisibilityIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title={t("tooltips.edit")}>
+                        <IconButton onClick={() => onEdit(user)}>
+                          <EditIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title={t("tooltips.delete")}>
+                        <IconButton onClick={() => onDelete(user.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
                     </Stack>
                   </TableCell>
                 </TableRow>

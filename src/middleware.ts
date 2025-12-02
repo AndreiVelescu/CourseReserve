@@ -1,9 +1,17 @@
-// middleware.ts
 import { withAuth } from "next-auth/middleware";
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { UserRole } from "@prisma/client";
 import { routing } from "./i18n/routing";
+
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+const redis = Redis.fromEnv();
+const limiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(50, "1 m"), // max 50 requests / ip / minut
+});
 
 const getPreferredLocale = (req: NextRequest) => {
   const cookieLocale = req.cookies.get("NEXT_LOCALE");
@@ -30,7 +38,6 @@ const logHttp = async (data: any, origin: string) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    console.log("HTTP log sent successfully");
   } catch (err) {
     console.error("Failed to send HTTP log:", err);
   }
@@ -44,6 +51,38 @@ export default withAuth(
     const redirectUrl = (path: string) => new URL(`${path}${search}`, req.url);
     const ip = getClientIP(req);
     const userAgent = req.headers.get("user-agent") || "";
+
+    const { success } = await limiter.limit(ip);
+    if (!success) {
+      await logHttp(
+        {
+          statusCode: 429,
+          method: req.method,
+          url: pathname,
+          ipAddress: ip,
+          message: "Too many requests",
+          userAgent,
+        },
+        req.nextUrl.origin,
+      );
+      return new NextResponse("Too Many Requests", { status: 429 });
+    }
+
+    const contentLength = req.headers.get("content-length");
+    if (contentLength && parseInt(contentLength) > 1024 * 1024) {
+      await logHttp(
+        {
+          statusCode: 413,
+          method: req.method,
+          url: pathname,
+          ipAddress: ip,
+          message: "Payload too large",
+          userAgent,
+        },
+        req.nextUrl.origin,
+      );
+      return new NextResponse("Payload too large", { status: 413 });
+    }
 
     if (pathname.includes("admin") && sessionToken?.role !== UserRole.ADMIN) {
       await logHttp(
@@ -60,7 +99,6 @@ export default withAuth(
       return NextResponse.redirect(redirectUrl(`/${locale}/`));
     }
 
-    // Profile restriction
     if (pathname === `/${locale}/profile` && !sessionToken) {
       await logHttp(
         {
@@ -108,11 +146,8 @@ export default withAuth(
           },
           req.nextUrl.origin,
         );
-
-        // Extrage courseId din pathname pentru redirect
         const courseIdMatch = pathname.match(/\/courses\/(\d+)\//);
         const courseId = courseIdMatch ? courseIdMatch[1] : "";
-
         return NextResponse.redirect(
           redirectUrl(`/${locale}/courses${courseId ? `/${courseId}` : ""}`),
         );

@@ -24,7 +24,7 @@ import { useSnackbar } from "@/context/SnackbarContext";
 export default function CoursePage() {
   const { isLogged } = useIsLoggedIn();
   const params = useParams();
-  const id = params.id as string; // ✅ Folosim id
+  const id = params.id as string;
   const router = useRouter();
   const { showSnackbar } = useSnackbar();
   const { data: currentUser } = useGetCurrentUser();

@@ -1,4 +1,3 @@
-// app/[locale]/admin/components/AdminDialogs.tsx
 import React, { useState } from "react";
 import {
   Dialog,
@@ -24,10 +23,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslations } from "next-intl";
 
-// ==========================================
-// CREATE USER DIALOG
-// ==========================================
 interface CreateUserDialogProps {
   open: boolean;
   onClose: () => void;
@@ -46,6 +43,8 @@ export function CreateUserDialog({
   onSubmit,
   isLoading,
 }: CreateUserDialogProps) {
+  const t = useTranslations("AdminDialogs");
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -55,7 +54,7 @@ export function CreateUserDialog({
 
   const handleSubmit = () => {
     if (!formData.username || !formData.email || !formData.password) {
-      alert("Completează toate câmpurile obligatorii");
+      alert(t("fillAllFields"));
       return;
     }
     onSubmit(formData);
@@ -79,7 +78,7 @@ export function CreateUserDialog({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6">Adaugă Utilizator Nou</Typography>
+          <Typography variant="h6">{t("createUserTitle")}</Typography>
           <IconButton onClick={handleClose} size="small">
             <CloseIcon />
           </IconButton>
@@ -89,7 +88,7 @@ export function CreateUserDialog({
       <DialogContent>
         <Stack spacing={3} sx={{ mt: 2 }}>
           <TextField
-            label="Username"
+            label={t("username")}
             value={formData.username}
             onChange={(e) =>
               setFormData({ ...formData, username: e.target.value })
@@ -98,7 +97,7 @@ export function CreateUserDialog({
             required
           />
           <TextField
-            label="Email"
+            label={t("email")}
             type="email"
             value={formData.email}
             onChange={(e) =>
@@ -108,7 +107,7 @@ export function CreateUserDialog({
             required
           />
           <TextField
-            label="Parolă"
+            label={t("password")}
             type="password"
             value={formData.password}
             onChange={(e) =>
@@ -116,10 +115,10 @@ export function CreateUserDialog({
             }
             fullWidth
             required
-            helperText="Minim 6 caractere"
+            helperText={t("passwordHelper")}
           />
           <FormControl fullWidth>
-            <InputLabel>Rol</InputLabel>
+            <InputLabel>{t("role")}</InputLabel>
             <Select
               value={formData.role}
               onChange={(e) =>
@@ -128,21 +127,21 @@ export function CreateUserDialog({
                   role: e.target.value as "STUDENT" | "INSTRUCTOR" | "ADMIN",
                 })
               }
-              label="Rol"
+              label={t("role")}
             >
-              <MenuItem value="STUDENT">Student</MenuItem>
-              <MenuItem value="INSTRUCTOR">Instructor</MenuItem>
-              <MenuItem value="ADMIN">Admin</MenuItem>
+              <MenuItem value="STUDENT">{t("student")}</MenuItem>
+              <MenuItem value="INSTRUCTOR">{t("instructor")}</MenuItem>
+              <MenuItem value="ADMIN">{t("admin")}</MenuItem>
             </Select>
           </FormControl>
         </Stack>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} disabled={isLoading}>
-          Anulează
+          {t("cancel")}
         </Button>
         <Button variant="contained" onClick={handleSubmit} disabled={isLoading}>
-          {isLoading ? "Se creează..." : "Creează"}
+          {isLoading ? t("creating") : t("create")}
         </Button>
       </DialogActions>
     </Dialog>
@@ -179,6 +178,8 @@ export function EditUserDialog({
   onSubmit,
   isLoading,
 }: EditUserDialogProps) {
+  const t = useTranslations("AdminDialogs");
+
   const [formData, setFormData] = useState({
     username: user?.username || "",
     email: user?.email || "",
@@ -213,7 +214,7 @@ export function EditUserDialog({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6">Editează Utilizator</Typography>
+          <Typography variant="h6">{t("editUserTitle")}</Typography>
           <IconButton onClick={onClose} size="small">
             <CloseIcon />
           </IconButton>
@@ -223,7 +224,7 @@ export function EditUserDialog({
       <DialogContent>
         <Stack spacing={3} sx={{ mt: 2 }}>
           <TextField
-            label="Username"
+            label={t("username")}
             value={formData.username}
             onChange={(e) =>
               setFormData({ ...formData, username: e.target.value })
@@ -231,7 +232,7 @@ export function EditUserDialog({
             fullWidth
           />
           <TextField
-            label="Email"
+            label={t("email")}
             type="email"
             value={formData.email}
             onChange={(e) =>
@@ -240,7 +241,7 @@ export function EditUserDialog({
             fullWidth
           />
           <FormControl fullWidth>
-            <InputLabel>Rol</InputLabel>
+            <InputLabel>{t("role")}</InputLabel>
             <Select
               value={formData.role}
               onChange={(e) =>
@@ -249,15 +250,15 @@ export function EditUserDialog({
                   role: e.target.value as "STUDENT" | "INSTRUCTOR" | "ADMIN",
                 })
               }
-              label="Rol"
+              label={t("role")}
             >
-              <MenuItem value="STUDENT">Student</MenuItem>
-              <MenuItem value="INSTRUCTOR">Instructor</MenuItem>
-              <MenuItem value="ADMIN">Admin</MenuItem>
+              <MenuItem value="STUDENT">{t("student")}</MenuItem>
+              <MenuItem value="INSTRUCTOR">{t("instructor")}</MenuItem>
+              <MenuItem value="ADMIN">{t("admin")}</MenuItem>
             </Select>
           </FormControl>
           <FormControl fullWidth>
-            <InputLabel>Status</InputLabel>
+            <InputLabel>{t("status")}</InputLabel>
             <Select
               value={formData.isActive ? "active" : "inactive"}
               onChange={(e) =>
@@ -266,20 +267,20 @@ export function EditUserDialog({
                   isActive: e.target.value === "active",
                 })
               }
-              label="Status"
+              label={t("status")}
             >
-              <MenuItem value="active">Activ</MenuItem>
-              <MenuItem value="inactive">Inactiv</MenuItem>
+              <MenuItem value="active">{t("active")}</MenuItem>
+              <MenuItem value="inactive">{t("inactive")}</MenuItem>
             </Select>
           </FormControl>
         </Stack>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={isLoading}>
-          Anulează
+          {t("cancel")}
         </Button>
         <Button variant="contained" onClick={handleSubmit} disabled={isLoading}>
-          {isLoading ? "Se salvează..." : "Salvează"}
+          {isLoading ? t("saving") : t("save")}
         </Button>
       </DialogActions>
     </Dialog>
@@ -304,6 +305,8 @@ export function ViewUserDetailsDialog({
   userDetails,
   isLoading,
 }: ViewUserDetailsDialogProps) {
+  const t = useTranslations("AdminDialogs");
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
@@ -312,7 +315,7 @@ export function ViewUserDetailsDialog({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6">Detalii Utilizator</Typography>
+          <Typography variant="h6">{t("viewUserTitle")}</Typography>
           <IconButton onClick={onClose} size="small">
             <CloseIcon />
           </IconButton>
@@ -325,7 +328,7 @@ export function ViewUserDetailsDialog({
             <CircularProgress />
           </Box>
         ) : !userDetails ? (
-          <Alert severity="error">Nu s-au putut încărca detaliile</Alert>
+          <Alert severity="error">{t("errorLoadingDetails")}</Alert>
         ) : (
           <Stack spacing={3} sx={{ mt: 2 }}>
             {/* Info de bază */}
@@ -335,22 +338,21 @@ export function ViewUserDetailsDialog({
                 color="text.secondary"
                 gutterBottom
               >
-                Informații Generale
+                {t("generalInfo")}
               </Typography>
               <Stack spacing={1}>
                 <Typography>
-                  <strong>Username:</strong> {userDetails.username}
+                  <strong>{t("username")}:</strong> {userDetails.username}
                 </Typography>
                 <Typography>
-                  <strong>Email:</strong> {userDetails.email}
+                  <strong>{t("email")}:</strong> {userDetails.email}
                 </Typography>
                 <Typography>
-                  <strong>Rol:</strong>{" "}
+                  <strong>{t("role")}:</strong>{" "}
                   <Chip label={userDetails.role} size="small" />
                 </Typography>
-
                 <Typography>
-                  <strong>Data înregistrării:</strong>{" "}
+                  <strong>{t("registrationDate")}:</strong>{" "}
                   {new Date(userDetails.createdAt).toLocaleDateString("ro-RO")}
                 </Typography>
               </Stack>
@@ -365,21 +367,23 @@ export function ViewUserDetailsDialog({
                 color="text.secondary"
                 gutterBottom
               >
-                Rezervări ({userDetails.reservations?.length || 0})
+                {t("reservations")} ({userDetails.reservations?.length || 0})
               </Typography>
               {userDetails.reservations?.length > 0 ? (
                 <List dense>
                   {userDetails.reservations.map((r: any) => (
                     <ListItem key={r.id}>
                       <ListItemText
-                        primary={r.courseName || "Curs șters"}
-                        secondary={`${r.courseName || "Curs șters"} - Rezervat: ${new Date(r.reservedAt).toLocaleDateString("ro-RO")}`}
+                        primary={r.courseName || t("deletedCourse")}
+                        secondary={`${r.courseName || t("deletedCourse")} - ${t("reservedAt")}: ${new Date(r.reservedAt).toLocaleDateString("ro-RO")}`}
                       />
                     </ListItem>
                   ))}
                 </List>
               ) : (
-                <Typography color="text.secondary">Nicio rezervare</Typography>
+                <Typography color="text.secondary">
+                  {t("noReservations")}
+                </Typography>
               )}
             </Box>
 
@@ -393,7 +397,7 @@ export function ViewUserDetailsDialog({
                     color="text.secondary"
                     gutterBottom
                   >
-                    Cursuri ca Instructor (
+                    {t("instructorCourses")} (
                     {userDetails.instructorCourses.length})
                   </Typography>
                   <List dense>
@@ -401,7 +405,7 @@ export function ViewUserDetailsDialog({
                       <ListItem key={c.id}>
                         <ListItemText
                           primary={c.title}
-                          secondary={`${c.category} - Start: ${new Date(c.startDate).toLocaleDateString("ro-RO")}`}
+                          secondary={`${c.category} - ${t("startDate")}: ${new Date(c.startDate).toLocaleDateString("ro-RO")}`}
                         />
                       </ListItem>
                     ))}
@@ -420,7 +424,8 @@ export function ViewUserDetailsDialog({
                     color="text.secondary"
                     gutterBottom
                   >
-                    Membri în Grupuri ({userDetails.groupMemberships.length})
+                    {t("groupMemberships")} (
+                    {userDetails.groupMemberships.length})
                   </Typography>
                   <List dense>
                     {userDetails.groupMemberships.map((gm: any) => (
@@ -435,14 +440,14 @@ export function ViewUserDetailsDialog({
                               <span>{gm.groupName}</span>
                               {gm.isLeader && (
                                 <Chip
-                                  label="Leader"
+                                  label={t("leader")}
                                   size="small"
                                   color="warning"
                                 />
                               )}
                             </Stack>
                           }
-                          secondary={`Curs ID: ${gm.courseId}`}
+                          secondary={`${t("courseId")}: ${gm.courseId}`}
                         />
                       </ListItem>
                     ))}
@@ -454,7 +459,7 @@ export function ViewUserDetailsDialog({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Închide</Button>
+        <Button onClick={onClose}>{t("close")}</Button>
       </DialogActions>
     </Dialog>
   );

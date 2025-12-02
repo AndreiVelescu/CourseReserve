@@ -23,8 +23,10 @@ import { Delete as DeleteIcon } from "@mui/icons-material";
 import { Button } from "@/components/Button";
 import { useRouter } from "@/i18n/routing";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ReservationsPage() {
+  const t = useTranslations("ReservationsPage");
   const { isLogged } = useIsLoggedIn();
   const { data: reservations, isLoading, error } = useGetAllReservations();
   const router = useRouter();
@@ -40,7 +42,7 @@ export default function ReservationsPage() {
   const deleteReservationMutation = useDeleteReservation({
     onSuccess: () => {
       showSnackbar({
-        message: "Rezervare ștearsă cu succes!",
+        message: t("reservationDeleted"),
         severity: "success",
       });
 
@@ -48,7 +50,7 @@ export default function ReservationsPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la ștergerea rezervării",
+        message: error.message || t("deleteError"),
         severity: "error",
       });
     },
@@ -58,11 +60,7 @@ export default function ReservationsPage() {
     reservationId: number,
     courseTitle: string,
   ) => {
-    if (
-      confirm(
-        `Sigur vrei să ștergi rezervarea pentru cursul "${courseTitle}"? Această acțiune este ireversibilă.`,
-      )
-    ) {
+    if (confirm(t("confirmDelete", { courseTitle }))) {
       deleteReservationMutation.mutate(reservationId);
     }
   };
@@ -84,7 +82,7 @@ export default function ReservationsPage() {
     return (
       <Box sx={{ maxWidth: 800, mx: "auto", mt: 8, px: 2 }}>
         <Alert severity="error">
-          Eroare la încărcarea rezervărilor: {error.message}
+          {t("loadError")}: {error.message}
         </Alert>
       </Box>
     );
@@ -96,10 +94,10 @@ export default function ReservationsPage() {
         sx={{ maxWidth: 800, mx: "auto", mt: 8, px: 2, textAlign: "center" }}
       >
         <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-          Nu ești autentificat
+          {t("notAuthenticated")}
         </Typography>
         <Typography variant="body1" sx={{ mb: 3 }}>
-          Autentifică-te pentru a vedea rezervările tale.
+          {t("notAuthenticatedDesc")}
         </Typography>
 
         <Box display="flex" gap={2} justifyContent="center">
@@ -108,14 +106,14 @@ export default function ReservationsPage() {
             variant="contained"
             size="large"
           >
-            Autentifică-te
+            {t("loginButton")}
           </Button>
           <Button
             onClick={() => router.push("/register")}
             variant="outlined"
             size="large"
           >
-            Înregistrează-te
+            {t("registerButton")}
           </Button>
         </Box>
       </Box>
@@ -131,10 +129,10 @@ export default function ReservationsPage() {
         mb={3}
       >
         <Typography variant="h4" sx={{ fontWeight: 700 }}>
-          Rezervările tale
+          {t("pageTitle")}
         </Typography>
         <Button variant="outlined" onClick={() => router.push("/courses")}>
-          Explorează cursuri
+          {t("exploreCourses")}
         </Button>
       </Stack>
 
@@ -142,13 +140,13 @@ export default function ReservationsPage() {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 6 }}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              Nu ai rezervări momentan
+              {t("noReservations")}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              Explorează cursurile disponibile și rezervă locul tău!
+              {t("noReservationsDesc")}
             </Typography>
             <Button variant="contained" onClick={() => router.push("/courses")}>
-              Vezi cursurile
+              {t("seeCourses")}
             </Button>
           </CardContent>
         </Card>
@@ -186,7 +184,7 @@ export default function ReservationsPage() {
                         color="primary"
                         size="small"
                       />
-                      <Tooltip title="Șterge rezervarea">
+                      <Tooltip title={t("deleteReservation")}>
                         <IconButton
                           size="small"
                           color="error"
@@ -219,17 +217,17 @@ export default function ReservationsPage() {
 
                   <Stack spacing={0.5} mb={2}>
                     <Typography variant="caption">
-                      <strong>Durată:</strong> {res.course.durationMinutes}{" "}
-                      minute
+                      <strong>{t("duration")}:</strong>{" "}
+                      {res.course.durationMinutes} {t("minutes")}
                     </Typography>
                     <Typography variant="caption">
-                      <strong>Start:</strong>{" "}
+                      <strong>{t("start")}:</strong>{" "}
                       {new Date(res.course.startDate).toLocaleDateString(
                         "ro-RO",
                       )}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
-                      <strong>Rezervat:</strong>{" "}
+                      <strong>{t("reserved")}:</strong>{" "}
                       {new Date(res.reservedAt).toLocaleDateString("ro-RO")}
                     </Typography>
                   </Stack>
@@ -240,7 +238,7 @@ export default function ReservationsPage() {
                       size="small"
                       onClick={() => router.push(`/reservations/${res.id}`)}
                     >
-                      Vezi detalii
+                      {t("viewDetails")}
                     </Button>
                   </Box>
                 </CardContent>

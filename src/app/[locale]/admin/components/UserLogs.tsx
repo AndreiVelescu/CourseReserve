@@ -22,6 +22,7 @@ import {
   UserTypeWithoutPassForAdmin,
 } from "@/lib/server/actions/types";
 import { UserActionLog } from "@prisma/client";
+import { useTranslations } from "next-intl";
 
 type UserLogsProps = {
   logsDialogOpen: boolean;
@@ -46,6 +47,8 @@ export const UserLogs: React.FC<UserLogsProps> = ({
   getActionTypeColor,
   formatDateTime,
 }) => {
+  const t = useTranslations("UserLogs");
+
   return (
     <Dialog
       open={logsDialogOpen}
@@ -65,7 +68,7 @@ export const UserLogs: React.FC<UserLogsProps> = ({
             </Avatar>
             <Box>
               <Typography variant="h6">
-                Istoric Activitate - {selectedUser?.username}
+                {t("dialogTitle")} {selectedUser?.username}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 {selectedUser?.email}
@@ -85,11 +88,11 @@ export const UserLogs: React.FC<UserLogsProps> = ({
           </Box>
         ) : errorLogs ? (
           <Typography color="error" textAlign="center" py={4}>
-            Eroare la încărcarea log-urilor
+            {t("errorLoading")}
           </Typography>
         ) : selectedUserLogs.length === 0 ? (
           <Typography color="text.secondary" textAlign="center" py={4}>
-            Nu există activitate înregistrată pentru acest utilizator
+            {t("noActivity")}
           </Typography>
         ) : (
           <List>
@@ -122,7 +125,7 @@ export const UserLogs: React.FC<UserLogsProps> = ({
                   </Typography>
                   {log.ipAddress && (
                     <Typography variant="caption" color="text.secondary">
-                      IP: {log.ipAddress}
+                      {t("ip")} {log.ipAddress}
                     </Typography>
                   )}
                 </ListItem>
@@ -133,7 +136,7 @@ export const UserLogs: React.FC<UserLogsProps> = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCloseLogs}>Închide</Button>
+        <Button onClick={handleCloseLogs}>{t("close")}</Button>
       </DialogActions>
     </Dialog>
   );

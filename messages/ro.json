@@ -23,6 +23,357 @@
     "Reservations": "Rezervări",
     "adminPanel": "Panou Administrator"
   },
+  "CoursesPage": {
+    "title": "Cursuri Disponibile",
+    "subtitle": "Alege un curs și vezi detaliile acestuia.",
+    "notAuthenticated": "Nu ești autentificat",
+    "authRequired": "Trebuie să te autentifici pentru a vedea cursurile disponibile.",
+    "loginButton": "Autentifică-te",
+    "registerButton": "Înregistrează-te",
+    "filterTitle": "Filtrare Cursuri",
+    "searchPlaceholder": "Introdu numele cursului...",
+    "searchLabel": "Caută după numele cursului",
+    "categoryLabel": "Categorie",
+    "noResults": "Nu s-au găsit cursuri cu criteriile selectate",
+    "courseSingular": "curs găsit",
+    "coursePlural": "cursuri găsite",
+    "noCourses": "Nu există cursuri disponibile momentan.",
+    "noFilteredResults": "Nu există cursuri care să corespundă criteriilor de filtrare.",
+    "duration": "Durată",
+    "minutes": "minute",
+    "startDate": "Start",
+    "detailsButton": "Vezi detalii",
+    "loadError": "Eroare la încărcarea cursurilor"
+  },
+  "ProfilePage": {
+    "roleStudent": "Student",
+    "roleInstructor": "Instructor",
+    "roleAdmin": "Administrator",
+    "tabReservations": "Rezervări",
+    "tabGroups": "Grupuri",
+    "tabManageCourses": "Gestionare Cursuri",
+    "myReservations": "Rezervările tale",
+    "noReservations": "Nu ai rezervări momentan",
+    "noReservationsDesc": "Explorează cursurile disponibile și rezervă locul tău!",
+    "seeCourses": "Vezi cursurile",
+    "viewDetails": "Vezi detalii",
+    "deleteReservation": "Șterge rezervarea",
+    "confirmDelete": "Sigur vrei să ștergi rezervarea pentru \"{courseTitle}\"? Această acțiune este ireversibilă.",
+    "reservationDeleted": "Rezervare ștearsă cu succes!",
+    "deleteError": "Eroare la ștergerea rezervării",
+    "start": "Start",
+    "duration": "Durată",
+    "minutes": "minute",
+    "reserved": "Rezervat",
+    "myGroups": "Grupurile tale",
+    "noGroups": "Nu ești membru în niciun grup",
+    "noGroupsDesc": "Vei fi adăugat în grupuri de către instructori",
+    "leader": "Leader",
+    "course": "Curs",
+    "members": "membri",
+    "manageCourses": "Gestionare Cursuri",
+    "adminPanel": "Panou Admin",
+    "viewAllCourses": "Vezi toate cursurile",
+    "createNewCourse": "📝 Creează un curs nou"
+  },
+  "CreateCourseForm": {
+    "title": "Titlu curs",
+    "description": "Descriere",
+    "descriptionPlaceholder": "Descriere...",
+    "category": "Categorie",
+    "categoryProgramming": "Programare",
+    "categoryDesign": "Design",
+    "categoryMarketing": "Marketing",
+    "categoryLanguages": "Limbi străine",
+    "categoryOther": "Altele",
+    "duration": "Durată (minute)",
+    "startDate": "Data începerii",
+    "submitButton": "Creează curs",
+    "successMessage": "Curs creat cu succes!"
+  },
+  "ReservationsPage": {
+    "pageTitle": "Rezervările tale",
+    "exploreCourses": "Explorează cursuri",
+    "noReservations": "Nu ai rezervări momentan",
+    "noReservationsDesc": "Explorează cursurile disponibile și rezervă locul tău!",
+    "seeCourses": "Vezi cursurile",
+    "deleteReservation": "Șterge rezervarea",
+    "confirmDelete": "Sigur vrei să ștergi rezervarea pentru cursul \"{courseTitle}\"? Această acțiune este ireversibilă.",
+    "reservationDeleted": "Rezervare ștearsă cu succes!",
+    "deleteError": "Eroare la ștergerea rezervării",
+    "loadError": "Eroare la încărcarea rezervărilor",
+    "notAuthenticated": "Nu ești autentificat",
+    "notAuthenticatedDesc": "Autentifică-te pentru a vedea rezervările tale.",
+    "loginButton": "Autentifică-te",
+    "registerButton": "Înregistrează-te",
+    "duration": "Durată",
+    "minutes": "minute",
+    "start": "Start",
+    "reserved": "Rezervat",
+    "viewDetails": "Vezi detalii"
+  },
+  "SettingsPage": {
+    "pageTitle": "Setări cont",
+    "notAuthenticated": "Trebuie să fii autentificat pentru setări",
+    "usernameSection": "Username",
+    "currentUsername": "Curent",
+    "newUsername": "Noul username",
+    "saveUsername": "Salvează username",
+    "usernameUpdated": "Username actualizat cu succes!",
+    "usernameError": "Eroare la actualizare username",
+    "passwordSection": "Parolă",
+    "oldPassword": "Vechea parolă",
+    "newPassword": "Noua parolă",
+    "confirmPassword": "Confirmă parola",
+    "savePassword": "Salvează parola",
+    "passwordUpdated": "Parola actualizată cu succes!",
+    "passwordError": "Eroare la actualizare parola",
+    "validation": {
+      "usernameMinLength": "Username trebuie să aibă minim 3 caractere",
+      "usernameNoSpaces": "Username nu poate conține spații",
+      "usernameRequired": "Trebuie să introduci username",
+      "oldPasswordRequired": "Trebuie să introduci parola veche",
+      "passwordMinLength": "Parola trebuie să aibă minim 6 caractere",
+      "passwordDifferent": "Noua parolă trebuie să fie diferită de cea veche",
+      "passwordRequired": "Trebuie să introduci parola",
+      "passwordsNotMatch": "Parolele nu coincid",
+      "confirmPasswordRequired": "Trebuie să confirmi parola"
+    }
+  },
+  "AdminDialogs": {
+    "createUserTitle": "Adaugă Utilizator Nou",
+    "editUserTitle": "Editează Utilizator",
+    "viewUserTitle": "Detalii Utilizator",
+    "username": "Username",
+    "email": "Email",
+    "password": "Parolă",
+    "passwordHelper": "Minim 6 caractere",
+    "role": "Rol",
+    "status": "Status",
+    "active": "Activ",
+    "inactive": "Inactiv",
+    "student": "Student",
+    "instructor": "Instructor",
+    "admin": "Admin",
+    "cancel": "Anulează",
+    "create": "Creează",
+    "save": "Salvează",
+    "close": "Închide",
+    "creating": "Se creează...",
+    "saving": "Se salvează...",
+    "fillAllFields": "Completează toate câmpurile obligatorii",
+    "generalInfo": "Informații Generale",
+    "registrationDate": "Data înregistrării",
+    "reservations": "Rezervări",
+    "noReservations": "Nicio rezervare",
+    "instructorCourses": "Cursuri ca Instructor",
+    "groupMemberships": "Membri în Grupuri",
+    "leader": "Leader",
+    "courseId": "Curs ID",
+    "deletedCourse": "Curs șters",
+    "reservedAt": "Rezervat",
+    "category": "Categorie",
+    "startDate": "Start",
+    "loadingDetails": "Se încarcă detaliile...",
+    "errorLoadingDetails": "Nu s-au putut încărca detaliile"
+  },
+  "AdminLogs": {
+    "pageTitle": "Logs & Erori",
+    "pageSubtitle": "Monitorizează erorile aplicației",
+    "refresh": "Reîmprospătează",
+    "deleteOldLogs": "Șterge Log-uri Vechi",
+    "confirmDelete": "Sigur vrei să ștergi log-urile mai vechi de 30 de zile?",
+    "logsDeleted": "Log-uri vechi șterse cu succes!",
+    "logsRefreshed": "Log-uri reîmprospătate!",
+    "errorDeleting": "Eroare la ștergerea log-urilor",
+
+    "stats": {
+      "appErrors24h": "Erori App (24h)",
+      "httpErrors24h": "Erori HTTP (24h)",
+      "totalAppErrors": "Total Erori App",
+      "totalHttpErrors": "Total Erori HTTP"
+    },
+
+    "tabs": {
+      "appErrors": "Erori Aplicație",
+      "httpErrors": "Erori HTTP"
+    },
+
+    "table": {
+      "errorType": "Tip Eroare",
+      "message": "Mesaj",
+      "url": "URL",
+      "date": "Data",
+      "actions": "Acțiuni",
+      "status": "Status",
+      "method": "Method",
+      "ip": "IP",
+      "viewDetails": "Vezi detalii"
+    },
+
+    "alerts": {
+      "noAppErrors": "Nicio eroare aplicație înregistrată!",
+      "noHttpErrors": "Nicio eroare HTTP înregistrată!"
+    },
+
+    "dialog": {
+      "title": "Detalii Eroare",
+      "errorType": "Tip Eroare:",
+      "message": "Mesaj:",
+      "stackTrace": "Stack Trace:",
+      "url": "URL:",
+      "date": "Data:",
+      "close": "Închide",
+      "na": "N/A"
+    }
+  },
+  "UserLogs": {
+    "dialogTitle": "Istoric Activitate -",
+    "loading": "Se încarcă...",
+    "errorLoading": "Eroare la încărcarea log-urilor",
+    "noActivity": "Nu există activitate înregistrată pentru acest utilizator",
+    "ip": "IP:",
+    "close": "Închide"
+  },
+  "UserTable": {
+    "headers": {
+      "user": "Utilizator",
+      "email": "Email",
+      "role": "Rol",
+      "registrationDate": "Data înregistrării",
+      "reservations": "Rezervări",
+      "courses": "Cursuri",
+      "activity": "Activitate",
+      "actions": "Acțiuni"
+    },
+    "noUsers": "Nu au fost găsiți utilizatori",
+    "tooltips": {
+      "viewHistory": "Vezi istoric activitate",
+      "viewDetails": "Vezi detalii",
+      "edit": "Editează",
+      "delete": "Șterge"
+    }
+  },
+  "AdminPage": {
+    "pageTitle": "Gestionare Utilizatori",
+    "pageSubtitle": "Administrează și monitorizează toți utilizatorii sistemului",
+    "redirecting": "Redirecționare...",
+    "loading": "Se încarcă utilizatorii...",
+    "errorTitle": "Eroare la încărcare",
+    "retry": "Reîncearcă",
+
+    "buttons": {
+      "exportCsv": "Export CSV",
+      "exporting": "Se exportă...",
+      "addUser": "Adaugă Utilizator"
+    },
+
+    "stats": {
+      "totalUsers": "Total Utilizatori",
+      "admins": "Administratori",
+      "instructors": "Instructori",
+      "students": "Studenți"
+    },
+
+    "filters": {
+      "searchPlaceholder": "Caută după nume sau email...",
+      "role": "Rol",
+      "all": "Toți",
+      "admin": "Admin",
+      "instructor": "Instructor",
+      "student": "Student"
+    },
+
+    "confirmDelete": "Ești sigur că vrei să ștergi utilizatorul \"{username}\"? Această acțiune este ireversibilă.",
+
+    "messages": {
+      "userCreated": "Utilizator creat cu succes!",
+      "userUpdated": "Utilizator actualizat cu succes!",
+      "userDeleted": "Utilizator șters cu succes!",
+      "exportSuccess": "Export realizat cu succes!",
+      "errorCreating": "Eroare la crearea utilizatorului",
+      "errorUpdating": "Eroare la actualizarea utilizatorului",
+      "errorDeleting": "Eroare la ștergerea utilizatorului",
+      "errorExport": "Eroare la export"
+    }
+  },
+  "CourseGroups": {
+    "pageTitle": "Gestionare Grupuri",
+    "pageSubtitle": "Organizează studenții în grupuri pentru acest curs",
+    "loading": "Se încarcă...",
+    "errorLoading": "Eroare la încărcarea grupurilor:",
+    "noPermission": "Nu ai permisiunea de a accesa această pagină. Doar instructorii și administratorii pot gestiona grupuri.",
+    "backToCourse": "Înapoi la curs",
+
+    "buttons": {
+      "refresh": "Reîmprospătează",
+      "createGroup": "Creează Grup",
+      "addMember": "Adaugă Membru",
+      "cancel": "Anulează",
+      "close": "Închide",
+      "create": "Creează",
+      "creating": "Se creează...",
+      "update": "Actualizează",
+      "updating": "Se actualizează...",
+      "createFirstGroup": "Creează Primul Grup"
+    },
+
+    "stats": {
+      "totalGroups": "Total Grupuri",
+      "totalMembers": "Total Membri",
+      "availableStudents": "Studenți Disponibili"
+    },
+
+    "groupCard": {
+      "members": "Membri:",
+      "noMembers": "Niciun membru încă",
+      "membersCount": "{count}/{max} membri",
+      "membersCountUnlimited": "{count}/∞ membri",
+      "edit": "Editează",
+      "archive": "Arhivează",
+      "delete": "Șterge",
+      "remove": "Elimină"
+    },
+
+    "emptyState": {
+      "title": "Nu există grupuri create",
+      "subtitle": "Creează primul grup pentru a organiza studenții"
+    },
+
+    "dialogs": {
+      "createTitle": "Creează Grup Nou",
+      "editTitle": "Editează Grup",
+      "addMemberTitle": "Adaugă Membru în Grup",
+      "groupName": "Nume Grup",
+      "description": "Descriere",
+      "maxMembers": "Număr maxim de membri",
+      "noAvailableStudents": "Nu există utilizatori disponibili pentru a fi adăugați în grup",
+      "errorLoadingStudents": "Eroare la încărcarea studenților:"
+    },
+
+    "confirmations": {
+      "deleteGroup": "Sigur vrei să ștergi grupul \"{name}\"?",
+      "removeMember": "Sigur vrei să elimini pe {username} din grup? Rezervarea la curs va fi restaurată automat."
+    },
+
+    "messages": {
+      "groupCreated": "Grup creat cu succes!",
+      "groupUpdated": "Grup actualizat cu succes!",
+      "groupDeleted": "Grup șters cu succes!",
+      "memberAdded": "Membru adăugat cu succes!",
+      "memberRemoved": "Membru eliminat cu succes!",
+      "errorCreating": "Eroare la crearea grupului",
+      "errorUpdating": "Eroare la actualizarea grupului",
+      "errorDeleting": "Eroare la ștergerea grupului",
+      "errorAddingMember": "Eroare la adăugarea membrului",
+      "errorRemovingMember": "Eroare la eliminarea membrului"
+    },
+
+    "status": {
+      "active": "ACTIVE",
+      "archived": "ARCHIVED"
+    }
+  },
   "Buttons": {
     "Close": "Închide",
     "Close and Login": "Închide și autentifică-te",

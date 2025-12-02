@@ -1,4 +1,3 @@
-// app/[locale]/admin/logs/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -40,6 +39,7 @@ import {
 } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "@/context/SnackbarContext";
+import { useTranslations } from "next-intl";
 
 import { useGetAppErrorLogs } from "@/hooks/api/useGetAppErrorLogs";
 import { useGetHttpErrorLogs } from "@/hooks/api/useGetHttpErrorLogs";
@@ -62,6 +62,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function AdminLogsPage() {
+  const t = useTranslations("AdminLogs");
   const [currentTab, setCurrentTab] = useState(0);
   const [selectedError, setSelectedError] = useState<any>(null);
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
@@ -83,7 +84,7 @@ export default function AdminLogsPage() {
   const clearLogsMutation = useClearOldLogs({
     onSuccess: () => {
       showSnackbar({
-        message: "Log-uri vechi șterse cu succes!",
+        message: t("logsDeleted"),
         severity: "success",
       });
       refetchAppErrors();
@@ -91,7 +92,7 @@ export default function AdminLogsPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la ștergerea log-urilor",
+        message: error.message || t("errorDeleting"),
         severity: "error",
       });
     },
@@ -105,11 +106,11 @@ export default function AdminLogsPage() {
   const handleRefresh = () => {
     refetchAppErrors();
     refetchHttpErrors();
-    showSnackbar({ message: "Log-uri reîmprospătate!", severity: "success" });
+    showSnackbar({ message: t("logsRefreshed"), severity: "success" });
   };
 
   const handleClearOldLogs = () => {
-    if (confirm("Sigur vrei să ștergi log-urile mai vechi de 30 de zile?")) {
+    if (confirm(t("confirmDelete"))) {
       clearLogsMutation.mutate(30);
     }
   };
@@ -127,25 +128,25 @@ export default function AdminLogsPage() {
   // Statistici
   const statsCards = [
     {
-      title: "Erori App (24h)",
+      title: t("stats.appErrors24h"),
       value: stats?.appErrors.last24Hours || 0,
       icon: <BugIcon />,
       color: "#d32f2f",
     },
     {
-      title: "Erori HTTP (24h)",
+      title: t("stats.httpErrors24h"),
       value: stats?.httpErrors.last24Hours || 0,
       icon: <ErrorIcon />,
       color: "#f57c00",
     },
     {
-      title: "Total Erori App",
+      title: t("stats.totalAppErrors"),
       value: stats?.appErrors.total || 0,
       icon: <BugIcon />,
       color: "#1976d2",
     },
     {
-      title: "Total Erori HTTP",
+      title: t("stats.totalHttpErrors"),
       value: stats?.httpErrors.total || 0,
       icon: <ErrorIcon />,
       color: "#388e3c",
@@ -180,11 +181,9 @@ export default function AdminLogsPage() {
           </Avatar>
           <Box>
             <Typography variant="h4" fontWeight="bold">
-              Logs & Erori
+              {t("pageTitle")}
             </Typography>
-            <Typography color="text.secondary">
-              Monitorizează erorile aplicației
-            </Typography>
+            <Typography color="text.secondary">{t("pageSubtitle")}</Typography>
           </Box>
         </Stack>
         <Stack direction="row" spacing={2}>
@@ -193,7 +192,7 @@ export default function AdminLogsPage() {
             startIcon={<RefreshIcon />}
             onClick={handleRefresh}
           >
-            Reîmprospătează
+            {t("refresh")}
           </Button>
           <Button
             variant="outlined"
@@ -202,7 +201,7 @@ export default function AdminLogsPage() {
             onClick={handleClearOldLogs}
             disabled={clearLogsMutation.isPending}
           >
-            Șterge Log-uri Vechi
+            {t("deleteOldLogs")}
           </Button>
         </Stack>
       </Stack>
@@ -244,11 +243,15 @@ export default function AdminLogsPage() {
       <Paper sx={{ mb: 3 }}>
         <Tabs value={currentTab} onChange={(e, val) => setCurrentTab(val)}>
           <Tab
-            label="Erori Aplicație"
+            label={t("tabs.appErrors")}
             icon={<BugIcon />}
             iconPosition="start"
           />
-          <Tab label="Erori HTTP" icon={<ErrorIcon />} iconPosition="start" />
+          <Tab
+            label={t("tabs.httpErrors")}
+            icon={<ErrorIcon />}
+            iconPosition="start"
+          />
         </Tabs>
       </Paper>
 
@@ -262,19 +265,17 @@ export default function AdminLogsPage() {
                 <CircularProgress />
               </Box>
             ) : !appErrors || appErrors.length === 0 ? (
-              <Alert severity="success">
-                Nicio eroare aplicație înregistrată!
-              </Alert>
+              <Alert severity="success">{t("alerts.noAppErrors")}</Alert>
             ) : (
               <TableContainer>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Tip Eroare</TableCell>
-                      <TableCell>Mesaj</TableCell>
-                      <TableCell>URL</TableCell>
-                      <TableCell>Data</TableCell>
-                      <TableCell>Acțiuni</TableCell>
+                      <TableCell>{t("table.errorType")}</TableCell>
+                      <TableCell>{t("table.message")}</TableCell>
+                      <TableCell>{t("table.url")}</TableCell>
+                      <TableCell>{t("table.date")}</TableCell>
+                      <TableCell>{t("table.actions")}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -298,7 +299,7 @@ export default function AdminLogsPage() {
                         </TableCell>
                         <TableCell>
                           <Typography variant="caption" color="text.secondary">
-                            {error.url || "N/A"}
+                            {error.url || t("dialog.na")}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -307,7 +308,7 @@ export default function AdminLogsPage() {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Tooltip title="Vezi detalii">
+                          <Tooltip title={t("table.viewDetails")}>
                             <IconButton
                               size="small"
                               onClick={() => handleViewDetails(error)}
@@ -331,18 +332,18 @@ export default function AdminLogsPage() {
                 <CircularProgress />
               </Box>
             ) : !httpErrors || httpErrors.length === 0 ? (
-              <Alert severity="success">Nicio eroare HTTP înregistrată!</Alert>
+              <Alert severity="success">{t("alerts.noHttpErrors")}</Alert>
             ) : (
               <TableContainer>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Status</TableCell>
-                      <TableCell>Method</TableCell>
-                      <TableCell>URL</TableCell>
-                      <TableCell>IP</TableCell>
-                      <TableCell>Mesaj</TableCell>
-                      <TableCell>Data</TableCell>
+                      <TableCell>{t("table.status")}</TableCell>
+                      <TableCell>{t("table.method")}</TableCell>
+                      <TableCell>{t("table.url")}</TableCell>
+                      <TableCell>{t("table.ip")}</TableCell>
+                      <TableCell>{t("table.message")}</TableCell>
+                      <TableCell>{t("table.date")}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -373,7 +374,7 @@ export default function AdminLogsPage() {
                         </TableCell>
                         <TableCell>
                           <Typography variant="caption" color="text.secondary">
-                            {error.ipAddress || "N/A"}
+                            {error.ipAddress || t("dialog.na")}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -382,7 +383,7 @@ export default function AdminLogsPage() {
                             noWrap
                             sx={{ maxWidth: 200 }}
                           >
-                            {error.message || "N/A"}
+                            {error.message || t("dialog.na")}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -407,26 +408,26 @@ export default function AdminLogsPage() {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Detalii Eroare</DialogTitle>
+        <DialogTitle>{t("dialog.title")}</DialogTitle>
         <DialogContent>
           {selectedError && (
             <Stack spacing={2}>
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
-                  Tip Eroare:
+                  {t("dialog.errorType")}
                 </Typography>
                 <Typography>{selectedError.errorType}</Typography>
               </Box>
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
-                  Mesaj:
+                  {t("dialog.message")}
                 </Typography>
                 <Typography>{selectedError.message}</Typography>
               </Box>
               {selectedError.stackTrace && (
                 <Box>
                   <Typography variant="subtitle2" color="text.secondary">
-                    Stack Trace:
+                    {t("dialog.stackTrace")}
                   </Typography>
                   <Paper
                     sx={{
@@ -448,13 +449,13 @@ export default function AdminLogsPage() {
               )}
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
-                  URL:
+                  {t("dialog.url")}
                 </Typography>
-                <Typography>{selectedError.url || "N/A"}</Typography>
+                <Typography>{selectedError.url || t("dialog.na")}</Typography>
               </Box>
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
-                  Data:
+                  {t("dialog.date")}
                 </Typography>
                 <Typography>{formatDate(selectedError.createdAt)}</Typography>
               </Box>
@@ -462,7 +463,9 @@ export default function AdminLogsPage() {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDetailsDialogOpen(false)}>Închide</Button>
+          <Button onClick={() => setDetailsDialogOpen(false)}>
+            {t("dialog.close")}
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

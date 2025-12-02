@@ -3,7 +3,8 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl"]
+  // binaryTargets = ["native", "linux-musl"]
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -131,6 +132,7 @@ model UserActionLog {
   id            Int       @id @default(autoincrement())
   userId        Int?      @map("user_id")
   actionType    String    @map("action_type") // "LOGIN", "RESERVE_COURSE", "CREATE_GROUP", "JOIN_GROUP"
+  roleId        String?   @map("role_id") // Pentru conformitate cu cerințele - stochează rolul la momentul acțiunii
   actionDetails String?   @db.Text @map("action_details")
   ipAddress     String?   @map("ip_address")
   userAgent     String?   @db.Text @map("user_agent")

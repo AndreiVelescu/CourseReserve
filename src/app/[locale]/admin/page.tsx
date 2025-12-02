@@ -33,6 +33,7 @@ import { useIsAdmin } from "@/hooks/api/useIsAdmin";
 import { useRouter } from "@/i18n/routing";
 import { useGetAllUserLogs } from "@/hooks/api/useGetUserLogsById";
 import { useSnackbar } from "@/context/SnackbarContext";
+import { useTranslations } from "next-intl";
 
 // Hooks Admin
 import { useCreateUser } from "@/hooks/api/useCreateUser";
@@ -52,6 +53,7 @@ import {
 import AdminLogsPage from "./components/AdminLogsPage";
 
 function AdminPage() {
+  const t = useTranslations("AdminPage");
   const isAdmin = useIsAdmin();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -90,7 +92,7 @@ function AdminPage() {
   const createUserMutation = useCreateUser({
     onSuccess: () => {
       showSnackbar({
-        message: "Utilizator creat cu succes!",
+        message: t("messages.userCreated"),
         severity: "success",
       });
       setCreateUserDialogOpen(false);
@@ -98,7 +100,7 @@ function AdminPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la crearea utilizatorului",
+        message: error.message || t("messages.errorCreating"),
         severity: "error",
       });
     },
@@ -107,7 +109,7 @@ function AdminPage() {
   const updateUserMutation = useUpdateUser({
     onSuccess: () => {
       showSnackbar({
-        message: "Utilizator actualizat cu succes!",
+        message: t("messages.userUpdated"),
         severity: "success",
       });
       setEditUserDialogOpen(false);
@@ -116,7 +118,7 @@ function AdminPage() {
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la actualizarea utilizatorului",
+        message: error.message || t("messages.errorUpdating"),
         severity: "error",
       });
     },
@@ -125,14 +127,14 @@ function AdminPage() {
   const deleteUserMutation = useDeleteUser({
     onSuccess: () => {
       showSnackbar({
-        message: "Utilizator șters cu succes!",
+        message: t("messages.userDeleted"),
         severity: "success",
       });
       queryClient.invalidateQueries({ queryKey: ["useGetAllUsers"] });
     },
     onError: (error) => {
       showSnackbar({
-        message: error.message || "Eroare la ștergerea utilizatorului",
+        message: error.message || t("messages.errorDeleting"),
         severity: "error",
       });
     },
@@ -215,9 +217,7 @@ function AdminPage() {
   const handleDeleteUser = (userId: number) => {
     const user = data?.find((u) => u.id === userId);
     if (
-      window.confirm(
-        `Ești sigur că vrei să ștergi utilizatorul "${user?.username}"? Această acțiune este ireversibilă.`,
-      )
+      window.confirm(t("confirmDelete", { username: user?.username || "" }))
     ) {
       deleteUserMutation.mutate(userId);
     }
@@ -251,12 +251,12 @@ function AdminPage() {
       }
 
       showSnackbar({
-        message: "Export realizat cu succes!",
+        message: t("messages.exportSuccess"),
         severity: "success",
       });
     } catch (error) {
       showSnackbar({
-        message: "Eroare la export",
+        message: t("messages.errorExport"),
         severity: "error",
       });
     }
@@ -334,31 +334,31 @@ function AdminPage() {
     if (!data) return [];
     return [
       {
-        title: "Total Utilizatori",
+        title: t("stats.totalUsers"),
         value: data.length,
         icon: <PeopleIcon />,
         color: "#1976d2",
       },
       {
-        title: "Administratori",
+        title: t("stats.admins"),
         value: data.filter((u) => u.role === "ADMIN").length,
         icon: <AdminIcon />,
         color: "#d32f2f",
       },
       {
-        title: "Instructori",
+        title: t("stats.instructors"),
         value: data.filter((u) => u.role === "INSTRUCTOR").length,
         icon: <SchoolIcon />,
         color: "#2e7d32",
       },
       {
-        title: "Studenți",
+        title: t("stats.students"),
         value: data.filter((u) => u.role === "STUDENT").length,
         icon: <PersonIcon />,
         color: "#ed6c02",
       },
     ];
-  }, [data]);
+  }, [data, t]);
 
   // Loading / Error UI
   if (!isAdmin) {
@@ -371,7 +371,7 @@ function AdminPage() {
           minHeight: "100vh",
         }}
       >
-        <Typography>Redirecționare...</Typography>
+        <Typography>{t("redirecting")}</Typography>
       </Box>
     );
   }
@@ -389,7 +389,7 @@ function AdminPage() {
         <Stack alignItems="center" spacing={2}>
           <CircularProgress size={60} />
           <Typography variant="h6" color="text.secondary">
-            Se încarcă utilizatorii...
+            {t("loading")}
           </Typography>
         </Stack>
       </Box>
@@ -403,14 +403,14 @@ function AdminPage() {
           <CardContent>
             <Stack spacing={2} alignItems="center">
               <Typography variant="h5" color="error">
-                Eroare la încărcare
+                {t("errorTitle")}
               </Typography>
               <Typography color="text.secondary">{error.message}</Typography>
               <Button
                 variant="contained"
                 onClick={() => window.location.reload()}
               >
-                Reîncearcă
+                {t("retry")}
               </Button>
             </Stack>
           </CardContent>
@@ -446,10 +446,10 @@ function AdminPage() {
               </Avatar>
               <Box>
                 <Typography variant="h4" fontWeight="bold">
-                  Gestionare Utilizatori
+                  {t("pageTitle")}
                 </Typography>
                 <Typography color="text.secondary">
-                  Administrează și monitorizează toți utilizatorii sistemului
+                  {t("pageSubtitle")}
                 </Typography>
               </Box>
             </Stack>
@@ -460,14 +460,16 @@ function AdminPage() {
                 onClick={() => handleExport("csv")}
                 disabled={exportUsersMutation.isPending}
               >
-                {exportUsersMutation.isPending ? "Se exportă..." : "Export CSV"}
+                {exportUsersMutation.isPending
+                  ? t("buttons.exporting")
+                  : t("buttons.exportCsv")}
               </Button>
               <Button
                 variant="contained"
                 startIcon={<PersonAddIcon />}
                 onClick={() => setCreateUserDialogOpen(true)}
               >
-                Adaugă Utilizator
+                {t("buttons.addUser")}
               </Button>
             </Stack>
           </Stack>
@@ -514,7 +516,7 @@ function AdminPage() {
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
               <TextField
                 fullWidth
-                placeholder="Caută după nume sau email..."
+                placeholder={t("filters.searchPlaceholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 InputProps={{
@@ -526,16 +528,18 @@ function AdminPage() {
                 }}
               />
               <FormControl sx={{ minWidth: 200 }}>
-                <InputLabel>Rol</InputLabel>
+                <InputLabel>{t("filters.role")}</InputLabel>
                 <Select
                   value={roleFilter}
                   onChange={(e) => setRoleFilter(e.target.value)}
-                  label="Rol"
+                  label={t("filters.role")}
                 >
-                  <MenuItem value="ALL">Toți</MenuItem>
-                  <MenuItem value="ADMIN">Admin</MenuItem>
-                  <MenuItem value="INSTRUCTOR">Instructor</MenuItem>
-                  <MenuItem value="STUDENT">Student</MenuItem>
+                  <MenuItem value="ALL">{t("filters.all")}</MenuItem>
+                  <MenuItem value="ADMIN">{t("filters.admin")}</MenuItem>
+                  <MenuItem value="INSTRUCTOR">
+                    {t("filters.instructor")}
+                  </MenuItem>
+                  <MenuItem value="STUDENT">{t("filters.student")}</MenuItem>
                 </Select>
               </FormControl>
             </Stack>

@@ -20,8 +20,10 @@ import { Alert } from "@/components/Alert";
 import { set } from "lodash";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export function CreateCourseForm() {
+  const t = useTranslations("CreateCourseForm");
   const router = useRouter();
   const { isLogged } = useIsLoggedIn();
   const { data: currentUser } = useGetCurrentUser({ enabled: isLogged });
@@ -65,7 +67,7 @@ export function CreateCourseForm() {
         onSuccess: () => {
           setLoading(false);
           showSnackbar({
-            message: "Curs creat cu succes!",
+            message: t("successMessage"),
             severity: "success",
           });
           setForm({
@@ -89,7 +91,7 @@ export function CreateCourseForm() {
         <TextField
           id="title"
           name="title"
-          label="Titlu curs"
+          label={t("title")}
           variant="outlined"
           value={form.title}
           onChange={handleInputChange}
@@ -97,11 +99,11 @@ export function CreateCourseForm() {
         />
 
         <Box>
-          <Typography variant="caption">Descriere</Typography>
+          <Typography variant="caption">{t("description")}</Typography>
           <TextareaAutosize
             name="description"
             minRows={4}
-            placeholder="Descriere..."
+            placeholder={t("descriptionPlaceholder")}
             style={{
               width: "100%",
               padding: 12,
@@ -120,17 +122,23 @@ export function CreateCourseForm() {
           onChange={handleSelectChange}
           fullWidth
         >
-          <MenuItem value={Category.PROGRAMMING}>Programare</MenuItem>
-          <MenuItem value={Category.DESIGN}>Design</MenuItem>
-          <MenuItem value={Category.MARKETING}>Marketing</MenuItem>
-          <MenuItem value={Category.LANGUAGES}>Limbi străine</MenuItem>
-          <MenuItem value={Category.OTHER}>Altele</MenuItem>
+          <MenuItem value={Category.PROGRAMMING}>
+            {t("categoryProgramming")}
+          </MenuItem>
+          <MenuItem value={Category.DESIGN}>{t("categoryDesign")}</MenuItem>
+          <MenuItem value={Category.MARKETING}>
+            {t("categoryMarketing")}
+          </MenuItem>
+          <MenuItem value={Category.LANGUAGES}>
+            {t("categoryLanguages")}
+          </MenuItem>
+          <MenuItem value={Category.OTHER}>{t("categoryOther")}</MenuItem>
         </Select>
 
         <TextField
           name="durationMinutes"
           type="number"
-          label="Durată (minute)"
+          label={t("duration")}
           value={form.durationMinutes}
           inputProps={{ min: 40 }}
           onChange={handleInputChange}
@@ -140,7 +148,7 @@ export function CreateCourseForm() {
         <TextField
           name="startDate"
           type="date"
-          label="Data începerii"
+          label={t("startDate")}
           InputLabelProps={{ shrink: true }}
           value={form.startDate}
           onChange={handleInputChange}
@@ -148,7 +156,7 @@ export function CreateCourseForm() {
         />
 
         <Button type="submit" variant="contained" disabled={loading}>
-          Creează curs
+          {t("submitButton")}
         </Button>
       </Box>
     </form>

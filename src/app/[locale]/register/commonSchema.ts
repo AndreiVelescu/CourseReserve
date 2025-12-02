@@ -22,8 +22,4 @@ export const singupSchema = yup.object().shape({
     .bool()
     .required("You need to accept terms of service")
     .oneOf([true], "You need to accept terms of service"),
-  privacyPolicy: yup
-    .bool()
-    .required("You need to accept privacy policy")
-    .oneOf([true], "You need to accept privacy policy"),
 });

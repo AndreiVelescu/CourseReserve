@@ -23,6 +23,359 @@
     "Reservations": "Reservations",
     "adminPanel": "Admin Panel"
   },
+  "CoursesPage": {
+    "title": "Available Courses",
+    "subtitle": "Choose a course and see its details.",
+    "notAuthenticated": "You are not authenticated",
+    "authRequired": "You need to authenticate to see available courses.",
+    "loginButton": "Login",
+    "registerButton": "Register",
+    "filterTitle": "Filter Courses",
+    "searchPlaceholder": "Enter course name...",
+    "searchLabel": "Search by course name",
+    "categoryLabel": "Category",
+    "noResults": "No courses found with selected criteria",
+    "courseSingular": "course found",
+    "coursePlural": "courses found",
+    "noCourses": "No courses available at the moment.",
+    "noFilteredResults": "No courses match the filter criteria.",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "startDate": "Start",
+    "detailsButton": "View Details",
+    "loadError": "Error loading courses"
+  },
+  "ProfilePage": {
+    "roleStudent": "Student",
+    "roleInstructor": "Instructor",
+    "roleAdmin": "Administrator",
+    "tabReservations": "Reservations",
+    "tabGroups": "Groups",
+    "tabManageCourses": "Manage Courses",
+    "myReservations": "Your Reservations",
+    "noReservations": "You have no reservations",
+    "noReservationsDesc": "Explore available courses and book your spot!",
+    "seeCourses": "View Courses",
+    "viewDetails": "View Details",
+    "deleteReservation": "Delete Reservation",
+    "confirmDelete": "Are you sure you want to delete the reservation for \"{courseTitle}\"? This action is irreversible.",
+    "reservationDeleted": "Reservation deleted successfully!",
+    "deleteError": "Error deleting reservation",
+    "start": "Start",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "reserved": "Reserved",
+    "myGroups": "Your Groups",
+    "noGroups": "You are not a member of any group",
+    "noGroupsDesc": "You will be added to groups by instructors",
+    "leader": "Leader",
+    "course": "Course",
+    "members": "members",
+    "manageCourses": "Manage Courses",
+    "adminPanel": "Admin Panel",
+    "viewAllCourses": "View All Courses",
+    "createNewCourse": "📝 Create a New Course"
+  },
+  "CreateCourseForm": {
+    "title": "Course Title",
+    "description": "Description",
+    "descriptionPlaceholder": "Description...",
+    "category": "Category",
+    "categoryProgramming": "Programming",
+    "categoryDesign": "Design",
+    "categoryMarketing": "Marketing",
+    "categoryLanguages": "Languages",
+    "categoryOther": "Other",
+    "duration": "Duration (minutes)",
+    "startDate": "Start Date",
+    "submitButton": "Create Course",
+    "successMessage": "Course created successfully!"
+  },
+  "ReservationsPage": {
+    "pageTitle": "Your Reservations",
+    "exploreCourses": "Explore Courses",
+    "noReservations": "You have no reservations",
+    "noReservationsDesc": "Explore available courses and book your spot!",
+    "seeCourses": "View Courses",
+    "deleteReservation": "Delete Reservation",
+    "confirmDelete": "Are you sure you want to delete the reservation for \"{courseTitle}\"? This action is irreversible.",
+    "reservationDeleted": "Reservation deleted successfully!",
+    "deleteError": "Error deleting reservation",
+    "loadError": "Error loading reservations",
+    "notAuthenticated": "You are not authenticated",
+    "notAuthenticatedDesc": "Login to see your reservations.",
+    "loginButton": "Login",
+    "registerButton": "Register",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "start": "Start",
+    "reserved": "Reserved",
+    "viewDetails": "View Details"
+  },
+  "SettingsPage": {
+    "pageTitle": "Account Settings",
+    "notAuthenticated": "You must be authenticated to access settings",
+    "usernameSection": "Username",
+    "currentUsername": "Current",
+    "newUsername": "New username",
+    "saveUsername": "Save username",
+    "usernameUpdated": "Username updated successfully!",
+    "usernameError": "Error updating username",
+    "passwordSection": "Password",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "savePassword": "Save password",
+    "passwordUpdated": "Password updated successfully!",
+    "passwordError": "Error updating password",
+    "validation": {
+      "usernameMinLength": "Username must be at least 3 characters",
+      "usernameNoSpaces": "Username cannot contain spaces",
+      "usernameRequired": "You must enter a username",
+      "oldPasswordRequired": "You must enter the old password",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "passwordDifferent": "New password must be different from the old one",
+      "passwordRequired": "You must enter a password",
+      "passwordsNotMatch": "Passwords do not match",
+      "confirmPasswordRequired": "You must confirm the password"
+    }
+  },
+  "AdminDialogs": {
+    "createUserTitle": "Add New User",
+    "editUserTitle": "Edit User",
+    "viewUserTitle": "User Details",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "passwordHelper": "Minimum 6 characters",
+    "role": "Role",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "student": "Student",
+    "instructor": "Instructor",
+    "admin": "Admin",
+    "cancel": "Cancel",
+    "create": "Create",
+    "save": "Save",
+    "close": "Close",
+    "creating": "Creating...",
+    "saving": "Saving...",
+    "fillAllFields": "Fill in all required fields",
+    "generalInfo": "General Information",
+    "registrationDate": "Registration Date",
+    "reservations": "Reservations",
+    "noReservations": "No Reservations",
+    "instructorCourses": "Courses as Instructor",
+    "groupMemberships": "Group Memberships",
+    "leader": "Leader",
+    "courseId": "Course ID",
+    "deletedCourse": "Deleted Course",
+    "reservedAt": "Reserved At",
+    "category": "Category",
+    "startDate": "Start",
+    "loadingDetails": "Loading details...",
+    "errorLoadingDetails": "Failed to load details"
+  },
+  "AdminLogs": {
+    "pageTitle": "Logs & Errors",
+    "pageSubtitle": "Monitor application errors",
+    "refresh": "Refresh",
+    "deleteOldLogs": "Delete Old Logs",
+    "confirmDelete": "Are you sure you want to delete logs older than 30 days?",
+    "logsDeleted": "Old logs successfully deleted!",
+    "logsRefreshed": "Logs successfully refreshed!",
+    "errorDeleting": "Error deleting logs",
+
+    "stats": {
+      "appErrors24h": "App Errors (24h)",
+      "httpErrors24h": "HTTP Errors (24h)",
+      "totalAppErrors": "Total App Errors",
+      "totalHttpErrors": "Total HTTP Errors"
+    },
+
+    "tabs": {
+      "appErrors": "App Errors",
+      "httpErrors": "HTTP Errors"
+    },
+
+    "table": {
+      "errorType": "Error Type",
+      "message": "Message",
+      "url": "URL",
+      "date": "Date",
+      "actions": "Actions",
+      "status": "Status",
+      "method": "Method",
+      "ip": "IP",
+      "viewDetails": "View Details"
+    },
+
+    "alerts": {
+      "noAppErrors": "No app errors recorded!",
+      "noHttpErrors": "No HTTP errors recorded!"
+    },
+
+    "dialog": {
+      "title": "Error Details",
+      "errorType": "Error Type:",
+      "message": "Message:",
+      "stackTrace": "Stack Trace:",
+      "url": "URL:",
+      "date": "Date:",
+      "close": "Close",
+      "na": "N/A"
+    }
+  },
+  "UserLogs": {
+    "dialogTitle": "Activity History -",
+    "loading": "Loading...",
+    "errorLoading": "Error loading logs",
+    "noActivity": "No activity recorded for this user",
+    "ip": "IP:",
+    "close": "Close"
+  },
+  "UserTable": {
+    "headers": {
+      "user": "User",
+      "email": "Email",
+      "role": "Role",
+      "registrationDate": "Registration Date",
+      "reservations": "Reservations",
+      "courses": "Courses",
+      "activity": "Activity",
+      "actions": "Actions"
+    },
+    "noUsers": "No users found",
+    "tooltips": {
+      "viewHistory": "View activity history",
+      "viewDetails": "View details",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "AdminPage": {
+    "pageTitle": "User Management",
+    "pageSubtitle": "Manage and monitor all system users",
+    "redirecting": "Redirecting...",
+    "loading": "Loading users...",
+    "errorTitle": "Loading Error",
+    "retry": "Retry",
+
+    "buttons": {
+      "exportCsv": "Export CSV",
+      "exporting": "Exporting...",
+      "addUser": "Add User"
+    },
+
+    "stats": {
+      "totalUsers": "Total Users",
+      "admins": "Administrators",
+      "instructors": "Instructors",
+      "students": "Students"
+    },
+
+    "filters": {
+      "searchPlaceholder": "Search by name or email...",
+      "role": "Role",
+      "all": "All",
+      "admin": "Admin",
+      "instructor": "Instructor",
+      "student": "Student"
+    },
+
+    "confirmDelete": "Are you sure you want to delete user \"{username}\"? This action is irreversible.",
+
+    "messages": {
+      "userCreated": "User created successfully!",
+      "userUpdated": "User updated successfully!",
+      "userDeleted": "User deleted successfully!",
+      "exportSuccess": "Export completed successfully!",
+      "errorCreating": "Error creating user",
+      "errorUpdating": "Error updating user",
+      "errorDeleting": "Error deleting user",
+      "errorExport": "Error exporting"
+    }
+  },
+
+  "CourseGroups": {
+    "pageTitle": "Group Management",
+    "pageSubtitle": "Organize students into groups for this course",
+    "loading": "Loading...",
+    "errorLoading": "Error loading groups:",
+    "noPermission": "You don't have permission to access this page. Only instructors and administrators can manage groups.",
+    "backToCourse": "Back to course",
+
+    "buttons": {
+      "refresh": "Refresh",
+      "createGroup": "Create Group",
+      "addMember": "Add Member",
+      "cancel": "Cancel",
+      "close": "Close",
+      "create": "Create",
+      "creating": "Creating...",
+      "update": "Update",
+      "updating": "Updating...",
+      "createFirstGroup": "Create First Group"
+    },
+
+    "stats": {
+      "totalGroups": "Total Groups",
+      "totalMembers": "Total Members",
+      "availableStudents": "Available Students"
+    },
+
+    "groupCard": {
+      "members": "Members:",
+      "noMembers": "No members yet",
+      "membersCount": "{count}/{max} members",
+      "membersCountUnlimited": "{count}/∞ members",
+      "edit": "Edit",
+      "archive": "Archive",
+      "delete": "Delete",
+      "remove": "Remove"
+    },
+
+    "emptyState": {
+      "title": "No groups created",
+      "subtitle": "Create the first group to organize students"
+    },
+
+    "dialogs": {
+      "createTitle": "Create New Group",
+      "editTitle": "Edit Group",
+      "addMemberTitle": "Add Member to Group",
+      "groupName": "Group Name",
+      "description": "Description",
+      "maxMembers": "Maximum number of members",
+      "noAvailableStudents": "No users available to be added to the group",
+      "errorLoadingStudents": "Error loading students:"
+    },
+
+    "confirmations": {
+      "deleteGroup": "Are you sure you want to delete group \"{name}\"?",
+      "removeMember": "Are you sure you want to remove {username} from the group? The course reservation will be automatically restored."
+    },
+
+    "messages": {
+      "groupCreated": "Group created successfully!",
+      "groupUpdated": "Group updated successfully!",
+      "groupDeleted": "Group deleted successfully!",
+      "memberAdded": "Member added successfully!",
+      "memberRemoved": "Member removed successfully!",
+      "errorCreating": "Error creating group",
+      "errorUpdating": "Error updating group",
+      "errorDeleting": "Error deleting group",
+      "errorAddingMember": "Error adding member",
+      "errorRemovingMember": "Error removing member"
+    },
+
+    "status": {
+      "active": "ACTIVE",
+      "archived": "ARCHIVED"
+    }
+  },
+
   "Buttons": {
     "Close": "Close",
     "Close and Login": "Close and Login",

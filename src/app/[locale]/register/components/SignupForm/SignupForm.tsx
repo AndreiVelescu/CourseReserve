@@ -137,56 +137,6 @@ export const SignupForm = () => {
           )}
         />
       </Stack>
-      <Controller
-        name="termsOfService"
-        control={control}
-        render={({ field: { value, onChange }, fieldState: { error } }) => (
-          <Checkbox
-            required
-            label={
-              <>
-                {translateContent("I agree to the")}{" "}
-                <Link href="/terms-of-service" target="_blank" rel="noreferrer">
-                  <b>{translateContent("Terms of Service")}</b>
-                </Link>
-              </>
-            }
-            withLabel
-            checked={value}
-            onChange={onChange}
-            error={Boolean(error)}
-            helperText={
-              translateContent(error?.message ? error?.message : "") || ""
-            }
-            color="primary"
-          />
-        )}
-      />
-      <Controller
-        name="privacyPolicy"
-        control={control}
-        render={({ field: { value, onChange }, fieldState: { error } }) => (
-          <Checkbox
-            required
-            label={
-              <>
-                {translateContent("I agree to the")}{" "}
-                <Link href="/privacy-policy" target="_blank" rel="noreferrer">
-                  <b>{translateContent("Privacy Policy")}</b>
-                </Link>
-              </>
-            }
-            withLabel
-            checked={value}
-            onChange={onChange}
-            error={Boolean(error)}
-            helperText={
-              translateContent(error?.message ? error?.message : "") || ""
-            }
-            color="primary"
-          />
-        )}
-      />
     </>
   );
 };

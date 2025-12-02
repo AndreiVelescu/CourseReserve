@@ -20,9 +20,10 @@ import {
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
-import { passwordSchema, usernameSchema } from "./settingsSchema";
+import { getUsernameSchema, getPasswordSchema } from "./settingsSchema";
+import { useTranslations } from "next-intl";
 
 type UsernameForm = { username: string };
 type PasswordForm = {
@@ -32,6 +33,7 @@ type PasswordForm = {
 };
 
 export default function SettingsPage() {
+  const t = useTranslations("SettingsPage");
   const { isLogged } = useIsLoggedIn();
   const { data: currentUser } = useGetCurrentUser();
   const updateUsernameMutation = useUpdateUsername();
@@ -40,6 +42,9 @@ export default function SettingsPage() {
 
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const usernameSchema = useMemo(() => getUsernameSchema(t), [t]);
+  const passwordSchema = useMemo(() => getPasswordSchema(t), [t]);
 
   const {
     control: usernameControl,
@@ -62,9 +67,7 @@ export default function SettingsPage() {
   if (!isLogged) {
     return (
       <Box sx={{ mt: 12, textAlign: "center" }}>
-        <Typography variant="h5">
-          Trebuie să fii autentificat pentru setări
-        </Typography>
+        <Typography variant="h5">{t("notAuthenticated")}</Typography>
       </Box>
     );
   }
@@ -74,11 +77,11 @@ export default function SettingsPage() {
     try {
       await updateUsernameMutation.mutateAsync(data.username);
       queryClient.invalidateQueries({ queryKey: ["getCurrentUser"] });
-      setSuccessMsg("Username actualizat cu succes!");
+      setSuccessMsg(t("usernameUpdated"));
       setErrorMsg("");
       resetUsernameForm();
     } catch (err: any) {
-      setErrorMsg(err.message || "Eroare la actualizare username");
+      setErrorMsg(err.message || t("usernameError"));
       setSuccessMsg("");
     }
   };
@@ -90,11 +93,11 @@ export default function SettingsPage() {
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       });
-      setSuccessMsg("Parola actualizată cu succes!");
+      setSuccessMsg(t("passwordUpdated"));
       setErrorMsg("");
       resetPasswordForm();
     } catch (err: any) {
-      setErrorMsg(err.message || "Eroare la actualizare parola");
+      setErrorMsg(err.message || t("passwordError"));
       setSuccessMsg("");
     }
   };
@@ -105,7 +108,7 @@ export default function SettingsPage() {
         variant="h4"
         sx={{ fontWeight: 700, mb: 4, textAlign: "center" }}
       >
-        Setări cont
+        {t("pageTitle")}
       </Typography>
 
       {successMsg && (
@@ -123,10 +126,10 @@ export default function SettingsPage() {
       <Card sx={{ mb: 4, borderRadius: 3, boxShadow: 3 }}>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
-            Username
+            {t("usernameSection")}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Curent: <strong>{currentUser?.username}</strong>
+            {t("currentUsername")}: <strong>{currentUser?.username}</strong>
           </Typography>
           <Stack
             spacing={2}
@@ -139,7 +142,7 @@ export default function SettingsPage() {
               render={({ field, fieldState }) => (
                 <TextField
                   {...field}
-                  label="Noul username"
+                  label={t("newUsername")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
                   fullWidth
@@ -151,7 +154,7 @@ export default function SettingsPage() {
               variant="contained"
               sx={{ py: 1.5, fontWeight: 600 }}
             >
-              Salvează username
+              {t("saveUsername")}
             </Button>
           </Stack>
         </CardContent>
@@ -163,7 +166,7 @@ export default function SettingsPage() {
       <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-            Parolă
+            {t("passwordSection")}
           </Typography>
           <Stack
             spacing={2}
@@ -177,7 +180,7 @@ export default function SettingsPage() {
                 <TextField
                   {...field}
                   type="password"
-                  label="Vechea parolă"
+                  label={t("oldPassword")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
                   fullWidth
@@ -191,7 +194,7 @@ export default function SettingsPage() {
                 <TextField
                   {...field}
                   type="password"
-                  label="Noua parolă"
+                  label={t("newPassword")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
                   fullWidth
@@ -205,7 +208,7 @@ export default function SettingsPage() {
                 <TextField
                   {...field}
                   type="password"
-                  label="Confirmă parola"
+                  label={t("confirmPassword")}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
                   fullWidth
@@ -218,7 +221,7 @@ export default function SettingsPage() {
               color="secondary"
               sx={{ py: 1.5, fontWeight: 600 }}
             >
-              Salvează parola
+              {t("savePassword")}
             </Button>
           </Stack>
         </CardContent>

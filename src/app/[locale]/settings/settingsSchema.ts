@@ -2,26 +2,28 @@ import * as yup from "yup";
 import { passwordValidation } from "@/utils/validation";
 
 // Schema completă pentru Settings
-export const usernameSchema = yup.object({
-  username: yup
-    .string()
-    .min(3, "Username trebuie să aibă minim 3 caractere")
-    .matches(/^\S*$/, "Username nu poate conține spații")
-    .required("Trebuie să introduci username"),
-});
+export const getUsernameSchema = (t: (key: string) => string) =>
+  yup.object({
+    username: yup
+      .string()
+      .min(3, t("validation.usernameMinLength"))
+      .matches(/^\S*$/, t("validation.usernameNoSpaces"))
+      .required(t("validation.usernameRequired")),
+  });
 
-export const passwordSchema = yup.object({
-  oldPassword: yup.string().required("Trebuie să introduci parola veche"),
-  newPassword: yup
-    .string()
-    .min(6, "Parola trebuie să aibă minim 6 caractere")
-    .notOneOf(
-      [yup.ref("oldPassword")],
-      "Noua parolă trebuie să fie diferită de cea veche",
-    )
-    .required("Trebuie să introduci parola"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("newPassword")], "Parolele nu coincid")
-    .required("Trebuie să confirmi parola"),
-});
+export const getPasswordSchema = (t: (key: string) => string) =>
+  yup.object({
+    oldPassword: yup.string().required(t("validation.oldPasswordRequired")),
+    newPassword: yup
+      .string()
+      .min(6, t("validation.passwordMinLength"))
+      .notOneOf(
+        [yup.ref("oldPassword")],
+        t("validation.passwordDifferent"),
+      )
+      .required(t("validation.passwordRequired")),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword")], t("validation.passwordsNotMatch"))
+      .required(t("validation.confirmPasswordRequired")),
+  });

@@ -34,8 +34,6 @@ export default function SignUpPage() {
       password: "",
       phone: "",
       confirmPassword: "",
-      termsOfService: false,
-      privacyPolicy: false,
     },
     resolver: yupResolver<SignUpSchema>(singupSchema),
     mode: "onSubmit",
